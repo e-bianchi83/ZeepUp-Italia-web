@@ -1,8 +1,9 @@
 {
-  "name": "zeepup-homepage-v04",
+  "name": "zeepup-homepage",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "start": "node server.js"
   }
 }

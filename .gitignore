@@ -1,0 +1,16 @@
+# Local editor state
+.vscode/
+
+# Design QA and handoff archives
+qa-*.png
+design-qa.md
+*.zip
+
+# Superseded root-level working assets
+/hero-phone-transparent-v*.png
+/segui-profile-crop*.png
+/ravioli-scegli-card.png
+/leaflet.min.css
+/leaflet.min.js
+/shops-map-data.js
+/assets/choose-tortellini.jpeg
