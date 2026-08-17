@@ -1,5 +1,6 @@
 # Local editor state
 .vscode/
+debug.log
 
 # Design QA and handoff archives
 qa-*.png

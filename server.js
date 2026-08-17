@@ -12,12 +12,20 @@ const types = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.svg': 'image/svg+xml'
+};
+
+const routes = {
+  '/': 'index.html',
+  '/business': 'business-italia.html',
+  '/business-italia': 'business-italia.html',
+  '/business.html': 'business-italia.html'
 };
 
 http.createServer((request, response) => {
   const requestPath = decodeURIComponent(request.url.split('?')[0]);
-  const relativePath = requestPath === '/' ? 'index.html' : requestPath.replace(/^\/+/, '');
+  const relativePath = routes[requestPath] || requestPath.replace(/^\/+/, '');
   const filePath = path.resolve(root, relativePath);
 
   if (!filePath.startsWith(root)) {

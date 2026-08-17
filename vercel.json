@@ -10,7 +10,15 @@
     },
     {
       "source": "/business",
-      "destination": "/business.html"
+      "destination": "/business-italia.html"
+    },
+    {
+      "source": "/business-italia",
+      "destination": "/business-italia.html"
+    },
+    {
+      "source": "/business.html",
+      "destination": "/business-italia.html"
     }
   ]
 }
