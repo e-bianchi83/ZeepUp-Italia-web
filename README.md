@@ -14,6 +14,7 @@ Then open `http://localhost:4173`.
 
 - `index.html` — consumer homepage
 - `business-italia.html` — Italian business and HomeChef page
+- `faq-italia.html` — Italian FAQ and support page
 - `assets/css/site.css` — homepage styles and responsive rules
 - `assets/js/site.js` — carousel and interactive map behaviour
 - `assets/data/shops-map-data.js` — restaurant marker data
@@ -27,5 +28,6 @@ Then open `http://localhost:4173`.
 - `/` — consumer homepage
 - `/business` — stable business-page URL
 - `/business-italia` — Italian business-page alias
+- `/faq-italia` — Italian FAQ page
 
 The map uses OpenStreetMap/CARTO tiles and therefore requires an internet connection for its basemap.

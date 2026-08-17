@@ -20,7 +20,8 @@ const routes = {
   '/': 'index.html',
   '/business': 'business-italia.html',
   '/business-italia': 'business-italia.html',
-  '/business.html': 'business-italia.html'
+  '/business.html': 'business-italia.html',
+  '/faq-italia': 'faq-italia.html'
 };
 
 http.createServer((request, response) => {

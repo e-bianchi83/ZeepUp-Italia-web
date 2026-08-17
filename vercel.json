@@ -19,6 +19,10 @@
     {
       "source": "/business.html",
       "destination": "/business-italia.html"
+    },
+    {
+      "source": "/faq-italia",
+      "destination": "/faq-italia.html"
     }
   ]
 }
