@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Green Z · ZeepUp × Slow Food Italia</title>
+<style>
+:root{
+  --pink:#ff0066;
+  --butter:#fff493;
+  --ink:#111111;
+  --white:#ffffff;
+  --soft:#f7f6f1;
+  --green:#2f6847;
+  --green-dark:#183f2d;
+  --green-soft:#dfeadd;
+  --soil:#d9cbb9;
+  --line:#d9d9d2;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.wrap{width:min(1220px,calc(100% - 48px));margin:0 auto}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+.pink-dot{display:inline-block;width:.19em;height:.19em;border-radius:50%;background:var(--pink);margin-left:.08em}
+.cta{min-height:50px;padding:0 22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+.cta.pink{background:var(--pink);color:#fff}
+.cta.green{background:var(--green);color:#fff}
+.cta.white{background:#fff;color:#111;border:1px solid #111}
+
+/* header */
+.site-top{height:104px;position:relative}
+.top-pill{position:absolute;top:22px;right:0;display:flex;align-items:center;gap:12px;background:#050505;padding:12px 14px 12px 20px;border-radius:5px;box-shadow:0 7px 20px rgba(0,0,0,.17);z-index:20}
+.top-logo{color:#fff;font-size:34px;line-height:1;font-weight:950;letter-spacing:-.065em;padding:0 6px 2px 0}
+.top-logo .dot{color:var(--pink)}
+.top-divider{width:1px;height:34px;background:rgba(255,255,255,.24)}
+.top-btn{min-height:44px;padding:0 16px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;white-space:nowrap}
+.top-btn.yellow{background:var(--butter);color:#111}
+.top-btn.pink{background:var(--pink);color:#fff}
+
+/* hero */
+.hero{padding:40px 0 82px;display:grid;grid-template-columns:.94fr 1.06fr;gap:72px;align-items:center}
+.hero h1{font-size:clamp(58px,7vw,94px);line-height:.91;letter-spacing:-.066em;margin:15px 0 24px;max-width:760px}
+.hero p{font-size:19px;line-height:1.55;color:#373737;max-width:650px;margin:0 0 28px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.hero-note{font-size:11px;line-height:1.55;color:#666;margin-top:15px;max-width:600px}
+
+.hero-visual{position:relative;min-height:610px}
+.hero-photo{position:absolute;inset:0 40px 50px 0;border:1px solid #111;overflow:hidden;background:var(--green-soft)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.green-panel{position:absolute;right:0;bottom:0;width:68%;background:var(--green);color:#fff;border:1px solid #111;padding:28px;box-shadow:12px 12px 0 #111}
+.green-panel small{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#cfe4d5;font-weight:900}
+.green-panel strong{display:block;font-size:30px;line-height:1.04;letter-spacing:-.04em;margin:10px 0 12px}
+.green-panel p{font-size:13px;line-height:1.5;color:#e8f0eb;margin:0}
+.z-chip{
+  position:absolute;left:-18px;top:28px;width:92px;height:92px;border-radius:50%;
+  background:#fff;border:1px solid #111;display:grid;place-items:center;
+  box-shadow:7px 7px 0 var(--butter);padding:5px;overflow:hidden
+}
+.z-chip img{width:100%;height:100%;object-fit:contain;border-radius:50%}
+
+/* green signal */
+.signal{background:var(--green-dark);color:#fff;padding:20px 0}
+.signal-row{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}
+.signal-title{font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:#c9decf}
+.signal-chips{display:flex;gap:8px;flex-wrap:wrap}
+.signal-chip{border:1px solid rgba(255,255,255,.3);padding:10px 12px;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.signal-chip.active{background:#fff;color:var(--green-dark);border-color:#fff}
+
+/* intro */
+.intro-section{padding:96px 0;background:#fff}
+.intro-grid{display:grid;grid-template-columns:.76fr 1.24fr;gap:72px;align-items:end}
+.intro-grid h2{font-size:clamp(44px,5.1vw,70px);line-height:.96;letter-spacing:-.058em;margin:10px 0 0}
+.intro-grid p{font-size:18px;line-height:1.6;color:#444;max-width:720px;margin:0}
+
+/* earth stories */
+.earth{padding:0 0 100px;background:#fff}
+.earth-grid{display:grid;grid-template-columns:1.12fr .88fr;grid-template-rows:340px 340px;gap:18px}
+.earth-card{position:relative;border:1px solid #111;overflow:hidden;background:#ddd}
+.earth-card img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.earth-card:hover img{transform:scale(1.02)}
+.earth-card.big{grid-row:1 / span 2}
+.caption{position:absolute;left:18px;bottom:18px;max-width:390px;background:#fff;border:1px solid #111;padding:18px 20px;box-shadow:8px 8px 0 var(--green)}
+.caption small{font-size:9px;font-weight:900;letter-spacing:.07em;color:var(--green);text-transform:uppercase}
+.caption strong{display:block;font-size:24px;line-height:1.05;letter-spacing:-.035em;margin:7px 0}
+.caption span{font-size:12px;line-height:1.45;color:#555}
+
+/* method */
+.method{background:var(--green-soft);padding:100px 0}
+.method-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:70px;align-items:start}
+.method h2{font-size:clamp(46px,5.3vw,72px);line-height:.95;letter-spacing:-.06em;margin:10px 0 22px}
+.method-copy p{font-size:17px;line-height:1.6;color:#39443d;max-width:650px}
+.method-note{margin-top:28px;background:#fff;border:1px solid #111;padding:22px;box-shadow:8px 8px 0 var(--green)}
+.method-note strong{display:block;font-size:20px;letter-spacing:-.03em;margin-bottom:8px}
+.method-note span{font-size:12px;line-height:1.5;color:#555}
+.criteria{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.criterion{background:#fff;border:1px solid #111;padding:24px;min-height:210px}
+.criterion .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;font-size:11px;font-weight:900}
+.criterion h3{font-size:25px;line-height:1.05;letter-spacing:-.04em;margin:18px 0 10px}
+.criterion p{font-size:13px;line-height:1.5;color:#555;margin:0}
+.criterion:nth-child(2),.criterion:nth-child(3){background:var(--soft)}
+
+/* green Z band */
+.greenz{padding:96px 0;background:var(--green-dark);color:#fff}
+.greenz-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:end;margin-bottom:42px}
+.greenz .eyebrow{color:#bcd4c3}
+.greenz h2{font-size:clamp(46px,5.4vw,74px);line-height:.95;letter-spacing:-.06em;margin:10px 0 0}
+.greenz-head p{font-size:16px;line-height:1.58;color:#d7e3da;max-width:690px;margin:0}
+.badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.badge-card{background:#fff;color:#111;border:1px solid #111;padding:28px;display:grid;grid-template-columns:165px 1fr;gap:26px;align-items:center;min-height:280px}
+.badge-card.featured{box-shadow:12px 12px 0 var(--butter)}
+.badge-img{height:160px;display:flex;align-items:center;justify-content:center;background:#f4f4f1;border-radius:50%}
+.badge-img img{max-height:150px;object-fit:contain}
+.badge-card small{font-size:9px;font-weight:900;letter-spacing:.07em;color:var(--green);text-transform:uppercase}
+.badge-card h3{font-size:32px;line-height:1;letter-spacing:-.045em;margin:9px 0 11px}
+.badge-card p{font-size:13px;line-height:1.52;color:#555;margin:0}
+.badge-disclaimer{margin-top:22px;font-size:11px;line-height:1.55;color:#bcd0c2;max-width:930px}
+
+/* from soil to city */
+.city{padding:98px 0;background:var(--soft)}
+.city-grid{display:grid;grid-template-columns:1fr 1fr;gap:62px;align-items:center}
+.city-photo{height:560px;border:1px solid #111;position:relative}
+.city-photo img{width:100%;height:100%;object-fit:cover}
+.city-stamp{position:absolute;right:-18px;top:28px;background:var(--butter);border:1px solid #111;padding:16px 18px;font-size:12px;font-weight:900;box-shadow:7px 7px 0 #111;transform:rotate(2deg)}
+.city-copy h2{font-size:clamp(46px,5.4vw,74px);line-height:.95;letter-spacing:-.06em;margin:10px 0 20px}
+.city-copy p{font-size:17px;line-height:1.6;color:#484848;max-width:640px}
+.city-list{margin-top:26px;border-top:1px solid #111}
+.city-item{display:grid;grid-template-columns:48px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid #ccc}
+.city-item b{color:var(--green);font-size:12px}
+.city-item strong{display:block;font-size:17px;margin-bottom:5px}
+.city-item span{font-size:13px;line-height:1.45;color:#555}
+
+/* final */
+.final{background:var(--pink);color:#fff;padding:86px 0}
+.final-inner{display:grid;grid-template-columns:1.12fr .88fr;gap:42px;align-items:end}
+.final h2{font-size:clamp(48px,5.8vw,78px);line-height:.94;letter-spacing:-.06em;margin:0}
+.final p{font-size:17px;line-height:1.55;margin:0 0 20px;max-width:560px}
+.final-actions{display:flex;gap:10px;flex-wrap:wrap}
+footer{padding:34px 0;background:#111;color:#fff}
+.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:12px;color:#aaa}
+
+@media(max-width:980px){
+  .hero,.intro-grid,.method-grid,.greenz-head,.city-grid,.final-inner{grid-template-columns:1fr}
+  .hero{gap:44px}
+  .earth-grid{grid-template-columns:1fr;grid-template-rows:500px 340px 340px}
+  .earth-card.big{grid-row:auto}
+  .badge-grid{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  .wrap{width:min(100% - 28px,1220px)}
+  .site-top{height:148px}
+  .top-pill{left:0;right:0;top:16px;justify-content:center;flex-wrap:wrap;padding:10px}
+  .top-logo{font-size:27px}
+  .top-divider{display:none}
+  .top-btn{font-size:10px;min-height:38px;padding:0 10px}
+  .hero h1{font-size:52px}
+  .hero p{font-size:17px}
+  .hero-visual{min-height:520px}
+  .hero-photo{inset:0 15px 95px 0}
+  .green-panel{right:0;width:90%;padding:20px;box-shadow:8px 8px 0 #111}
+  .z-chip{left:-7px;width:70px;height:70px;padding:4px}
+  .criteria{grid-template-columns:1fr}
+  .badge-card{grid-template-columns:1fr;text-align:center}
+  .badge-img{margin:auto;width:150px}
+  .city-photo{height:420px}
+  .footer-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap site-top">
+  <div class="top-pill">
+    <div class="top-logo">zeep<span class="dot">•</span>up</div>
+    <span class="top-divider"></span>
+    <a class="top-btn yellow" href="https://www.zeepup.com/zeepup-business">APRI LA TUA CUCINA</a>
+    <a class="top-btn pink" href="https://www.zeepup.com/scarica-app">SCARICA L'APP →</a>
+  </div>
+</header>
+
+<main>
+
+<section class="wrap hero">
+  <div>
+    <div class="eyebrow">Green Z · ZeepUp × Slow Food Italia</div>
+    <h1>La qualità parte molto prima del piatto<span class="pink-dot"></span></h1>
+    <p>Parte dalla terra, dagli ingredienti, da chi li produce e dalle scelte che vengono fatte prima ancora di arrivare in cucina. Per questo ZeepUp utilizza una <strong>metodologia di valutazione sviluppata con Slow Food Italia</strong>.</p>
+    <div class="hero-actions">
+      <a class="cta green" href="#metodo">SCOPRI IL GREEN Z →</a>
+      <a class="cta white" href="#badge">COME FUNZIONA IL RATING</a>
+    </div>
+    <div class="hero-note">Il verde entra qui come colore tematico del Green Z. Pink resta il colore ZeepUp dell'azione.</div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-photo">
+      <img src="https://static.wixstatic.com/media/406c1f_ec85e099083a45f48d726e35df1c0339~mv2.jpg/v1/fill/w_1100,h_900,al_c,q_85,enc_avif,quality_auto/406c1f_ec85e099083a45f48d726e35df1c0339~mv2.jpg" alt="Agricoltore al lavoro in un campo di verdure">
+    </div>
+    <div class="z-chip"><img src="https://static.wixstatic.com/media/552abb_d353e7996843402c91f2e34cf751ea21~mv2.png/v1/fill/w_630%2Ch_630%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/Gold%20Z%20new.png" alt="Gold Z ZeepUp"></div>
+    <div class="green-panel">
+      <small>DALLA TERRA ALLA SCELTA</small>
+      <strong>Ingredienti. Filiera. Territorio. Trasparenza.</strong>
+      <p>Segnali concreti per aiutare a leggere meglio ciò che c'è dietro un locale o una proposta.</p>
+    </div>
+  </div>
+</section>
+
+<section class="signal">
+  <div class="wrap signal-row">
+    <div class="signal-title">Green Z guarda anche a</div>
+    <div class="signal-chips">
+      <span class="signal-chip active">INGREDIENTI</span>
+      <span class="signal-chip">PROVENIENZA</span>
+      <span class="signal-chip">FILIERA</span>
+      <span class="signal-chip">TERRITORIO</span>
+      <span class="signal-chip">SOSTENIBILITÀ</span>
+      <span class="signal-chip">AUTENTICITÀ</span>
+    </div>
+  </div>
+</section>
+
+<section class="intro-section">
+  <div class="wrap intro-grid">
+    <div>
+      <div class="eyebrow">Dal campo al piatto</div>
+      <h2>La sostenibilità diventa concreta quando puoi vederla.</h2>
+    </div>
+    <p>In questa versione la pagina si allontana volutamente dal linguaggio più illustrato delle altre pagine ZeepUp. Qui il protagonista è il rapporto tra <strong>terra, produttore, materia prima e cucina</strong>: una direzione più naturale e documentaria, ma sempre dentro il sistema grafico ZeepUp.</p>
+  </div>
+</section>
+
+<section class="earth">
+  <div class="wrap earth-grid">
+    <article class="earth-card big">
+      <img src="https://www.saporium.com/wp-content/themes/yootheme/cache/6d/Borgo-Santo-Pietro-Saporium-Soil-to-Plate-1-6d9e69c3.jpeg" alt="Verdure appena raccolte in un orto">
+      <div class="caption">
+        <small>01 · PROVENIENZA</small>
+        <strong>Sapere da dove parte quello che mangi.</strong>
+        <span>Origine, territorio e rapporto con i produttori rendono la filiera più leggibile.</span>
+      </div>
+    </article>
+
+    <article class="earth-card">
+      <img src="https://lavialibera.it/documenti/schede/foto_pomodoro_c_da_ginestra_libera_terra_mediterraneo.jpg" alt="Raccolta manuale di pomodori">
+      <div class="caption">
+        <small>02 · PERSONE</small>
+        <strong>Dietro un ingrediente c'è qualcuno.</strong>
+        <span>Il lavoro dei produttori è parte della qualità, non un dettaglio invisibile.</span>
+      </div>
+    </article>
+
+    <article class="earth-card">
+      <img src="https://hap.photography/wp-content/uploads/2017/08/paloma-organik7.jpg" alt="Raccolto di verdure su un tavolo in campagna">
+      <div class="caption">
+        <small>03 · STAGIONE</small>
+        <strong>La materia prima segue il suo tempo.</strong>
+        <span>Stagionalità e uso consapevole delle risorse diventano criteri da osservare.</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="method" id="metodo">
+  <div class="wrap method-grid">
+    <div class="method-copy">
+      <div class="eyebrow">Il metodo</div>
+      <h2>Non una foglia verde messa sul menu.</h2>
+      <p>Il Green Z è pensato per guardare più in profondità. La valutazione può tenere conto di qualità degli ingredienti, provenienza e filiera, territorialità, sostenibilità, autenticità e trasparenza.</p>
+
+      <div class="method-note">
+        <strong>Il metodo è sviluppato con Slow Food Italia. Il rating è ZeepUp.</strong>
+        <span>Green Z resta uno strumento informativo e di selezione della piattaforma: non è, salvo diversa indicazione espressa, una certificazione legale, sanitaria o ambientale.</span>
+      </div>
+    </div>
+
+    <div class="criteria">
+      <article class="criterion">
+        <div class="n">01</div>
+        <h3>Ingredienti</h3>
+        <p>Qualità e caratteristiche delle materie prime utilizzate.</p>
+      </article>
+      <article class="criterion">
+        <div class="n">02</div>
+        <h3>Provenienza & filiera</h3>
+        <p>Da dove arrivano gli ingredienti e quanto è leggibile il rapporto con chi li produce.</p>
+      </article>
+      <article class="criterion">
+        <div class="n">03</div>
+        <h3>Territorio</h3>
+        <p>Relazione con cultura gastronomica, produttori e specificità locali.</p>
+      </article>
+      <article class="criterion">
+        <div class="n">04</div>
+        <h3>Trasparenza</h3>
+        <p>Quanto ciò che viene raccontato è concreto, verificabile e coerente con la proposta.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="greenz" id="badge">
+  <div class="wrap">
+    <div class="greenz-head">
+      <div>
+        <div class="eyebrow">Green Z Rating</div>
+        <h2>Un segnale verde dentro ZeepUp.</h2>
+      </div>
+      <p>Il verde identifica visivamente quest'area di ZeepUp dedicata a qualità, filiera e sostenibilità. I livelli del rating restano riconoscibili attraverso i badge ZeepUp già utilizzati.</p>
+    </div>
+
+    <div class="badge-grid">
+      <article class="badge-card">
+        <div class="badge-img"><img src="https://static.wixstatic.com/media/552abb_90103413b55c4abf9a597085a891653a~mv2.png/v1/fill/w_619%2Ch_619%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/Silver%20Z%20%28PNG%29.png" alt="Badge Zeta Argento ZeepUp"></div>
+        <div>
+          <small>GREEN Z · LIVELLO 01</small>
+          <h3>Zeta Argento</h3>
+          <p>Per realtà che soddisfano i criteri fondamentali previsti dal sistema di valutazione ZeepUp.</p>
+        </div>
+      </article>
+
+      <article class="badge-card featured">
+        <div class="badge-img"><img src="https://static.wixstatic.com/media/552abb_d353e7996843402c91f2e34cf751ea21~mv2.png/v1/fill/w_630%2Ch_630%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/Gold%20Z%20new.png" alt="Badge Zeta Oro ZeepUp"></div>
+        <div>
+          <small>GREEN Z · LIVELLO 02</small>
+          <h3>Zeta Oro</h3>
+          <p>Il livello più alto del rating, pensato per mettere in evidenza un impegno più ampio e coerente sui criteri considerati.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="badge-disclaimer">I badge sono indicatori del sistema ZeepUp. La collaborazione con Slow Food Italia riguarda la metodologia di valutazione; il singolo badge non va presentato automaticamente come certificazione Slow Food del locale.</div>
+  </div>
+</section>
+
+<section class="city">
+  <div class="wrap city-grid">
+    <div class="city-photo">
+      <img src="https://static.wixstatic.com/media/406c1f_ec85e099083a45f48d726e35df1c0339~mv2.jpg/v1/fill/w_1100,h_900,al_c,q_85,enc_avif,quality_auto/406c1f_ec85e099083a45f48d726e35df1c0339~mv2.jpg" alt="Agricoltore e raccolto">
+      <div class="city-stamp">#SLOWBITESFASTCITY ↗</div>
+    </div>
+
+    <div class="city-copy">
+      <div class="eyebrow">Slow Bites in Fast Cities</div>
+      <h2>Portare la terra dentro una scelta urbana.</h2>
+      <p>ZeepUp vive nelle città. Il Green Z serve proprio a creare un ponte: rendere visibili, anche in un contesto veloce, alcune informazioni che aiutano a scegliere con più consapevolezza.</p>
+
+      <div class="city-list">
+        <div class="city-item">
+          <b>01</b>
+          <div><strong>Scopri realtà locali.</strong><span>Metti in evidenza chi lavora con attenzione alla propria proposta e al territorio.</span></div>
+        </div>
+        <div class="city-item">
+          <b>02</b>
+          <div><strong>Guarda oltre il risultato.</strong><span>Ingredienti, filiera e processi diventano parte della scoperta.</span></div>
+        </div>
+        <div class="city-item">
+          <b>03</b>
+          <div><strong>Scegli con più informazioni.</strong><span>Un segnale semplice che aggiunge contesto senza trasformare la scelta in una lezione.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap final-inner">
+    <h2>Scopri cosa c'è dietro a ciò che scegli.</h2>
+    <div>
+      <p>Apri ZeepUp e cerca il Green Z tra le realtà messe in evidenza dalla piattaforma.</p>
+      <div class="final-actions">
+        <a class="cta white" href="https://www.zeepup.com/scarica-app">SCARICA L'APP →</a>
+        <a class="cta green" href="https://www.zeepup.com/">TORNA A ZEEPUP</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>ZeepUp S.R.L. Startup Innovativa · Milano</div>
+    <div>Metodo di valutazione sviluppato con Slow Food Italia.</div>
+  </div>
+</footer>
+
+</body>
+</html>

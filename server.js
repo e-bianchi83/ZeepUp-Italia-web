@@ -12,6 +12,7 @@ const types = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
   '.webp': 'image/webp',
   '.svg': 'image/svg+xml'
 };
@@ -21,7 +22,11 @@ const routes = {
   '/business': 'business-italia.html',
   '/business-italia': 'business-italia.html',
   '/business.html': 'business-italia.html',
-  '/faq-italia': 'faq-italia.html'
+  '/faq-italia': 'faq-italia.html',
+  '/vendor-documentation': 'vendor-Documentation.html',
+  '/scarica-app': 'scarica-app.html',
+  '/slowfood': 'slowfood.html',
+  '/referral-italia': 'referral-italia.html'
 };
 
 http.createServer((request, response) => {

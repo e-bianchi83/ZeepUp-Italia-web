@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentazione Vendor | ZeepUp</title>
+<style>
+:root{
+  --pink:#ff0066;
+  --butter:#fff493;
+  --ink:#111111;
+  --white:#ffffff;
+  --soft:#f7f7f4;
+  --line:#dedede;
+  --muted:#666;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#fff;color:var(--ink);
+  font-family:Inter,"Helvetica Neue",Arial,sans-serif;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1220px,calc(100% - 48px));margin:0 auto}
+.eyebrow{
+  color:var(--pink);font-size:12px;font-weight:900;
+  letter-spacing:.08em;text-transform:uppercase
+}
+.pink-dot{
+  display:inline-block;width:.20em;height:.20em;border-radius:50%;
+  background:var(--pink);margin-left:.08em;transform:translateY(.01em)
+}
+
+/* HEADER */
+.site-top{height:104px;position:relative}
+.top-pill{
+  position:absolute;top:22px;right:0;display:flex;align-items:center;gap:12px;
+  background:#050505;padding:12px 14px 12px 20px;border-radius:5px;
+  box-shadow:0 7px 20px rgba(0,0,0,.18);z-index:20
+}
+.top-logo{
+  color:#fff;font-size:34px;line-height:1;font-weight:950;
+  letter-spacing:-.065em;padding:0 6px 2px 0
+}
+.top-logo .dot{color:var(--pink)}
+.top-divider{width:1px;height:34px;background:rgba(255,255,255,.24)}
+.top-btn{
+  min-height:44px;padding:0 16px;border-radius:4px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;white-space:nowrap
+}
+.top-btn.yellow{background:var(--butter);color:#111;border:1px solid var(--butter)}
+.top-btn.pink{background:var(--pink);color:#fff;border:1px solid var(--pink)}
+
+/* HERO */
+.hero{
+  padding:44px 0 72px;
+  display:grid;grid-template-columns:1.03fr .97fr;gap:70px;align-items:center
+}
+.hero h1{
+  font-size:clamp(58px,7vw,92px);line-height:.92;
+  letter-spacing:-.065em;margin:14px 0 22px;max-width:780px
+}
+.hero p{
+  font-size:19px;line-height:1.5;color:#333;max-width:660px;margin:0 0 28px
+}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cta{
+  min-height:50px;padding:0 22px;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:900
+}
+.cta.primary{background:var(--pink);color:#fff}
+.cta.yellow{background:var(--butter);color:#111;border:1px solid #111}
+.cta.dark{background:#111;color:#fff}
+.hero-note{font-size:12px;color:#666;margin-top:14px}
+
+/* HERO GRAPHIC */
+.doc-board{
+  background:var(--butter);padding:30px;min-height:500px;
+  position:relative;border:0
+}
+.doc-card{
+  background:#fff;border:1px solid #111;padding:26px;
+  box-shadow:12px 12px 0 #111;position:relative
+}
+.doc-card + .doc-card{margin-top:20px}
+.doc-tag{
+  font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;
+  color:#666;margin-bottom:10px
+}
+.doc-card h3{
+  font-size:30px;line-height:1.04;letter-spacing:-.045em;margin:0 0 16px
+}
+.checks{display:grid;gap:10px}
+.check{
+  display:flex;gap:10px;align-items:center;font-size:13px;font-weight:700
+}
+.check i{
+  width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  background:var(--pink);color:#fff;font-style:normal;font-size:10px
+}
+.floating{
+  position:absolute;right:18px;bottom:18px;background:#111;color:#fff;
+  padding:12px 14px;font-size:11px;font-weight:900
+}
+
+/* QUICK PATH */
+.quick{background:#111;color:#fff;padding:22px 0}
+.quick-row{
+  display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap
+}
+.quick-title{font-size:12px;color:var(--butter);font-weight:900;text-transform:uppercase;letter-spacing:.07em}
+.quick-links{display:flex;gap:8px;flex-wrap:wrap}
+.quick-link{
+  color:#fff;border:1px solid #444;padding:10px 12px;font-size:11px;font-weight:850
+}
+.quick-link:hover{border-color:var(--pink);color:var(--pink)}
+
+/* MAIN DOC */
+.docs{padding:86px 0;background:#fff}
+.docs-layout{
+  display:grid;grid-template-columns:280px 1fr;gap:58px;align-items:start
+}
+.sidebar{
+  position:sticky;top:24px;border:1px solid #111;background:#fff;
+  box-shadow:8px 8px 0 var(--butter)
+}
+.sidebar-head{
+  padding:18px;border-bottom:1px solid #111;font-size:12px;font-weight:900;
+  text-transform:uppercase;letter-spacing:.06em
+}
+.side-link{
+  display:block;padding:14px 18px;border-bottom:1px solid #ddd;
+  font-size:13px;font-weight:750
+}
+.side-link:last-child{border-bottom:0}
+.side-link:hover{background:var(--soft);color:var(--pink)}
+
+.content-section{
+  padding:0 0 76px;margin-bottom:76px;border-bottom:1px solid #ddd
+}
+.content-section:last-child{border-bottom:0;margin-bottom:0}
+.section-top{
+  display:flex;gap:16px;align-items:flex-start;margin-bottom:24px
+}
+.section-num{
+  width:42px;height:42px;border-radius:50%;background:var(--pink);color:#fff;
+  display:grid;place-items:center;font-size:12px;font-weight:900;flex:0 0 42px
+}
+.content-section:nth-of-type(even) .section-num{
+  background:var(--butter);color:#111;border:1px solid #111
+}
+.content-section h2{
+  font-size:clamp(38px,4vw,56px);line-height:.98;letter-spacing:-.055em;
+  margin:0 0 12px
+}
+.intro{font-size:17px;line-height:1.58;color:#444;max-width:760px}
+
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.info-card{
+  border:1px solid #111;padding:26px;background:#fff;min-height:190px
+}
+.info-card.yellow{background:var(--butter)}
+.info-card.black{background:#111;color:#fff}
+.info-card .label{
+  font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--pink)
+}
+.info-card.black .label{color:var(--butter)}
+.info-card h3{
+  font-size:24px;line-height:1.05;letter-spacing:-.035em;margin:10px 0
+}
+.info-card p{font-size:14px;line-height:1.55;color:#555;margin:0}
+.info-card.black p{color:#ddd}
+
+.list-box{
+  border:1px solid #111;margin-top:24px;background:#fff
+}
+.list-row{
+  display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid #ddd
+}
+.list-row:last-child{border-bottom:0}
+.list-key{
+  padding:16px 18px;background:var(--soft);font-size:11px;font-weight:900;
+  text-transform:uppercase;letter-spacing:.05em
+}
+.list-value{padding:16px 18px;font-size:14px;line-height:1.5;color:#444}
+
+/* accordion */
+.accordion{margin-top:28px;border-top:1px solid #111}
+.acc-item{border-bottom:1px solid #111}
+.acc-btn{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  gap:20px;background:#fff;border:0;padding:20px 0;text-align:left;cursor:pointer;
+  font-size:17px;font-weight:850
+}
+.acc-btn .plus{
+  width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:var(--pink);color:#fff;flex:0 0 30px
+}
+.acc-panel{
+  display:none;padding:0 44px 22px 0;color:#555;font-size:14px;line-height:1.6
+}
+.acc-item.open .acc-panel{display:block}
+.acc-item.open .plus{background:#111}
+
+
+/* SOCIAL / ZEEPS */
+.social-intro{
+  display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;align-items:stretch;margin-top:30px
+}
+.social-copy{
+  background:#111;color:#fff;padding:34px;border:1px solid #111;
+  display:flex;flex-direction:column;justify-content:space-between
+}
+.social-copy .social-kicker{
+  color:var(--butter);font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase
+}
+.social-copy h3{
+  font-size:34px;line-height:1.02;letter-spacing:-.045em;margin:12px 0 16px
+}
+.social-copy p{font-size:14px;line-height:1.58;color:#ddd;margin:0 0 22px}
+.social-rules{display:grid;gap:10px;margin-top:18px}
+.social-rule{
+  display:flex;gap:12px;align-items:flex-start;border-top:1px solid #444;padding-top:12px
+}
+.social-rule b{color:var(--butter);font-size:11px;min-width:74px}
+.social-rule span{font-size:13px;line-height:1.45;color:#ddd}
+.social-demo{
+  background:var(--butter);border:1px solid #111;padding:28px;position:relative;min-height:430px
+}
+.zeep-card{
+  background:#fff;border:1px solid #111;padding:20px;box-shadow:10px 10px 0 #111;max-width:84%
+}
+.zeep-user{font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#666}
+.zeep-title{
+  font-size:30px;line-height:1.04;letter-spacing:-.045em;font-weight:900;margin:12px 0 10px
+}
+.zeep-body{font-size:13px;line-height:1.5;color:#555}
+.zeep-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+.zeep-chip{
+  padding:7px 9px;border:1px solid #111;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.04em
+}
+.zeep-card.second{
+  margin:22px 0 0 auto;max-width:72%;box-shadow:8px 8px 0 var(--pink)
+}
+.social-arrow{
+  position:absolute;right:20px;bottom:18px;color:var(--pink);
+  font-weight:900;font-size:13px;font-style:italic;transform:rotate(-3deg)
+}
+.social-steps{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#111;border:1px solid #111;margin-top:18px
+}
+.social-step{background:#fff;padding:20px;min-height:155px}
+.social-step strong{display:block;font-size:12px;color:var(--pink);margin-bottom:9px}
+.social-step h4{font-size:20px;letter-spacing:-.03em;margin:0 0 8px}
+.social-step p{font-size:12px;line-height:1.5;color:#555;margin:0}
+.manual-cta{
+  display:inline-flex;align-items:center;justify-content:center;min-height:50px;
+  padding:0 22px;border-radius:999px;border:1px solid #111;background:#fff;color:#111;
+  font-size:12px;font-weight:900
+}
+@media(max-width:950px){
+  .social-intro{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  .social-steps{grid-template-columns:1fr}
+  .zeep-card,.zeep-card.second{max-width:100%}
+}
+
+/* SUPPORT */
+.support{
+  background:var(--soft);padding:88px 0
+}
+.support-grid{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center
+}
+.support h2{
+  font-size:clamp(42px,5vw,66px);line-height:.97;letter-spacing:-.055em;
+  margin:10px 0 20px
+}
+.support p{font-size:17px;line-height:1.55;color:#444;max-width:650px}
+.support-card{
+  background:#111;color:#fff;padding:32px;border:1px solid #111;
+  box-shadow:12px 12px 0 var(--butter)
+}
+.support-card .small{
+  color:var(--butter);font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase
+}
+.support-card h3{
+  font-size:32px;line-height:1.05;letter-spacing:-.045em;margin:12px 0 18px
+}
+.support-card p{color:#ddd;font-size:14px}
+.support-card .cta{margin-top:8px}
+
+/* FINAL */
+.final{padding:80px 0;background:var(--pink);color:#fff}
+.final-inner{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:end
+}
+.final h2{
+  font-size:clamp(44px,5.7vw,76px);line-height:.94;letter-spacing:-.06em;margin:0
+}
+.final p{font-size:17px;line-height:1.55;margin:0 0 20px}
+.final-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{padding:34px 0;background:#111;color:#fff}
+.footer-row{
+  display:flex;justify-content:space-between;gap:20px;align-items:center;
+  font-size:12px;color:#aaa
+}
+
+@media(max-width:950px){
+  .hero,.docs-layout,.support-grid,.final-inner{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .cards{grid-template-columns:1fr}
+  .hero{gap:42px;padding-top:20px}
+}
+@media(max-width:650px){
+  .wrap{width:min(100% - 28px,1220px)}
+  .site-top{height:148px}
+  .top-pill{left:0;right:0;top:16px;justify-content:center;flex-wrap:wrap;padding:10px}
+  .top-logo{font-size:27px}
+  .top-divider{display:none}
+  .top-btn{font-size:10px;min-height:38px;padding:0 10px}
+  .hero h1{font-size:52px}
+  .hero p{font-size:17px}
+  .doc-board{padding:18px;min-height:auto}
+  .doc-card{box-shadow:8px 8px 0 #111}
+  .quick-row{align-items:flex-start;flex-direction:column}
+  .list-row{grid-template-columns:1fr}
+  .list-key{border-bottom:1px solid #ddd}
+  .footer-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap site-top">
+  <div class="top-pill">
+    <div class="top-logo">zeep<span class="dot">•</span>up</div>
+    <span class="top-divider"></span>
+    <a class="top-btn yellow" href="https://www.zeepup.com/business">ZEEPUP BUSINESS</a>
+    <a class="top-btn pink" href="https://it.zeepup.com/registrazione-store">ACCEDI / REGISTRATI →</a>
+  </div>
+</header>
+
+<main>
+
+<section class="wrap hero">
+  <div>
+    <div class="eyebrow">Vendor Documentation</div>
+    <h1>Tutto quello che ti serve per iniziare<span class="pink-dot"></span></h1>
+    <p>Una guida semplice per configurare il tuo profilo, pubblicare ciò che prepari, impostare disponibilità e prezzi e gestire le prenotazioni su ZeepUp.</p>
+    <div class="hero-actions">
+      <a class="cta primary" href="#inizia">INIZIA DA QUI →</a>
+      <a class="cta yellow" href="#supporto">HO BISOGNO DI AIUTO</a>
+      <a class="manual-cta" href="#" onclick="event.preventDefault();alert('Collega qui il PDF del Manuale Vendor ZeepUp.');">MANUALE COMPLETO PDF ↓</a>
+    </div>
+    <div class="hero-note">Documentazione pensata per attività food, Chef e HomeChef.</div>
+  </div>
+
+  <div class="doc-board">
+    <div class="doc-card">
+      <div class="doc-tag">QUICK START</div>
+      <h3>Da zero a pubblicato.</h3>
+      <div class="checks">
+        <div class="check"><i>✓</i><span>Crea il profilo della tua cucina o attività</span></div>
+        <div class="check"><i>✓</i><span>Aggiungi foto, descrizione e dati di contatto</span></div>
+        <div class="check"><i>✓</i><span>Imposta disponibilità, orari e prezzi</span></div>
+        <div class="check"><i>✓</i><span>Rendi visibile la tua proposta su ZeepUp</span></div>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-tag">RICORDA</div>
+      <h3>Il tuo profilo è la tua vetrina.</h3>
+      <div style="font-size:14px;line-height:1.55;color:#555">
+        Più è chiaro chi sei, cosa prepari e quando sei disponibile, più è semplice per le persone capire se sei la scelta giusta per loro.
+      </div>
+    </div>
+
+    <div class="floating">PROFILO → DISPONIBILITÀ → PRENOTAZIONI</div>
+  </div>
+</section>
+
+<section class="quick">
+  <div class="wrap quick-row">
+    <div class="quick-title">Vai direttamente a</div>
+    <nav class="quick-links">
+      <a class="quick-link" href="#inizia">PRIMA DI INIZIARE</a>
+      <a class="quick-link" href="#profilo">PROFILO</a>
+      <a class="quick-link" href="#social">SOCIAL & ZEEPS</a>
+      <a class="quick-link" href="#offerta">OFFERTA</a>
+      <a class="quick-link" href="#disponibilita">DISPONIBILITÀ</a>
+      <a class="quick-link" href="#prenotazioni">PRENOTAZIONI</a>
+      <a class="quick-link" href="#pagamenti">PAGAMENTI</a>
+      <a class="quick-link" href="#privacy">DATI & PRIVACY</a>
+    </nav>
+  </div>
+</section>
+
+<section class="docs">
+  <div class="wrap docs-layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-head">Documentazione</div>
+      <a class="side-link" href="#inizia">01 · Prima di iniziare</a>
+      <a class="side-link" href="#profilo">02 · Crea il profilo</a>
+      <a class="side-link" href="#social">03 · Social & Zeeps</a>
+      <a class="side-link" href="#offerta">04 · Pubblica ciò che offri</a>
+      <a class="side-link" href="#disponibilita">05 · Disponibilità e prezzi</a>
+      <a class="side-link" href="#prenotazioni">06 · Prenotazioni</a>
+      <a class="side-link" href="#pagamenti">07 · Pagamenti</a>
+      <a class="side-link" href="#privacy">08 · Dati & privacy</a>
+      <a class="side-link" href="#supporto">09 · Supporto</a>
+    </aside>
+
+    <div>
+
+      <article class="content-section" id="inizia">
+        <div class="section-top">
+          <div class="section-num">01</div>
+          <div>
+            <h2>Prima di iniziare.</h2>
+            <div class="intro">Tieni a portata di mano le informazioni principali della tua attività o cucina. La registrazione richiede dati anagrafici e fiscali, contatti e informazioni utili a descrivere ciò che offri.</div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="info-card yellow">
+            <div class="label">ATTIVITÀ</div>
+            <h3>Dati della tua realtà</h3>
+            <p>Nome, descrizione, indirizzo, città, paese e dati del soggetto o della società che gestisce l’attività.</p>
+          </div>
+          <div class="info-card">
+            <div class="label">ACCOUNT</div>
+            <h3>Contatti e accesso</h3>
+            <p>Email, telefono, nome del gestore e credenziali di accesso al profilo vendor.</p>
+          </div>
+        </div>
+
+        <div class="list-box">
+          <div class="list-row"><div class="list-key">Identità</div><div class="list-value">Nome / denominazione sociale, codice fiscale e — quando applicabile — Partita IVA.</div></div>
+          <div class="list-row"><div class="list-key">Fatturazione</div><div class="list-value">Dati fiscali e amministrativi richiesti per la gestione del rapporto e dei pagamenti.</div></div>
+          <div class="list-row"><div class="list-key">Visual</div><div class="list-value">Logo e banner possono essere aggiunti al profilo per rendere subito riconoscibile la tua cucina o attività.</div></div>
+        </div>
+      </article>
+
+      <article class="content-section" id="profilo">
+        <div class="section-top">
+          <div class="section-num">02</div>
+          <div>
+            <h2>Crea un profilo che faccia capire chi sei.</h2>
+            <div class="intro">Il profilo non serve soltanto a dire dove sei. Deve aiutare chi arriva su ZeepUp a capire rapidamente la tua cucina, la tua proposta e cosa rende interessante sceglierti.</div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="info-card black">
+            <div class="label">01 / PRESENTATI</div>
+            <h3>Racconta la tua cucina</h3>
+            <p>Usa una descrizione semplice: che cosa prepari, qual è il tuo stile e che tipo di esperienza vuoi offrire.</p>
+          </div>
+          <div class="info-card">
+            <div class="label">02 / MOSTRATI</div>
+            <h3>Scegli immagini chiare</h3>
+            <p>Carica immagini che aiutino a capire i piatti, l’ambiente e — quando rilevante — la persona che cucina.</p>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="content-section" id="social">
+        <div class="section-top">
+          <div class="section-num">03</div>
+          <div>
+            <h2>Non limitarti a essere presente. Racconta cosa succede nella tua cucina.</h2>
+            <div class="intro">ZeepUp è anche una piattaforma social: puoi pubblicare immagini, video e testi per raccontare la tua cucina e parlare direttamente a una community interessata al food. Gli utenti possono seguire ciò che gli interessa e interagire con i contenuti pubblicati.</div>
+          </div>
+        </div>
+
+        <div class="social-intro">
+          <div class="social-copy">
+            <div>
+              <div class="social-kicker">IL SOCIAL ZEEPUP</div>
+              <h3>Scatta. Racconta. Amplifica.</h3>
+              <p>Uno Zeep non è il tuo menù e non è una scheda prodotto. È il contenuto con cui fai vedere ciò che c’è dietro: una preparazione, un ingrediente, un piatto appena pronto, una persona, una storia o qualcosa che vale la pena raccontare oggi.</p>
+            </div>
+            <div class="social-rules">
+              <div class="social-rule"><b>POSTA</b><span>Condividi foto, video o un messaggio dalla tua cucina.</span></div>
+              <div class="social-rule"><b>RACCONTA</b><span>Dai contesto: cosa stai preparando, perché lo fai così, cosa c’è dietro.</span></div>
+              <div class="social-rule"><b>AMPLIFICA</b><span>Lascia che follower e community scoprano, salvino e interagiscano con ciò che pubblichi.</span></div>
+            </div>
+          </div>
+
+          <div class="social-demo">
+            <div class="zeep-card">
+              <div class="zeep-user">GIULIA · HOMECHEF · MILANO</div>
+              <div class="zeep-title">Ravioli fatti a mano. Pronti stasera.</div>
+              <div class="zeep-body">“Sto chiudendo gli ultimi ravioli: ricotta, erbette e burro alla salvia. Oggi ne preparo 10 porzioni.”</div>
+              <div class="zeep-meta">
+                <span class="zeep-chip">FOTO</span>
+                <span class="zeep-chip">DIETRO LE QUINTE</span>
+                <span class="zeep-chip">OGGI</span>
+              </div>
+            </div>
+
+            <div class="zeep-card second">
+              <div class="zeep-user">OSTERIA NAVIGLI · ZEEP</div>
+              <div class="zeep-title">Il sugo parte da qui.</div>
+              <div class="zeep-body">Mostra il processo, non soltanto il risultato finale.</div>
+            </div>
+
+            <div class="social-arrow">fai vedere perché scegliere te ↗</div>
+          </div>
+        </div>
+
+        <div class="social-steps">
+          <div class="social-step">
+            <strong>01 / CONTENUTO</strong>
+            <h4>Mostra qualcosa di reale</h4>
+            <p>Preparazioni, persone, ingredienti, novità o momenti della giornata.</p>
+          </div>
+          <div class="social-step">
+            <strong>02 / CONTESTO</strong>
+            <h4>Spiega cosa stiamo guardando</h4>
+            <p>Una frase utile vale più di un post promozionale generico.</p>
+          </div>
+          <div class="social-step">
+            <strong>03 / COSTANZA</strong>
+            <h4>Fatti ricordare</h4>
+            <p>Il social funziona quando aiuta la community a conoscere davvero la tua cucina nel tempo.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="content-section" id="offerta">
+        <div class="section-top">
+          <div class="section-num">04</div>
+          <div>
+            <h2>Pubblica ciò che vuoi far scegliere.</h2>
+            <div class="intro">ZeepUp è pensato per rendere chiara la tua proposta: ciò che prepari, come può essere vissuto e quando è disponibile.</div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="acc-item open">
+            <button class="acc-btn" type="button"><span>Cosa devo mostrare nell’offerta?</span><span class="plus">−</span></button>
+            <div class="acc-panel">Una descrizione chiara, fotografie pertinenti, modalità disponibili, prezzo e tutte le informazioni utili a capire cosa riceverà o vivrà il cliente.</div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" type="button"><span>Posso aggiornare ciò che offro?</span><span class="plus">+</span></button>
+            <div class="acc-panel">La struttura della pagina è stata pensata per trattare l’offerta come qualcosa di dinamico: disponibilità, calendario, orari e prezzi possono essere presentati in modo chiaro e aggiornabile.</div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" type="button"><span>Eat-In o To-Go?</span><span class="plus">+</span></button>
+            <div class="acc-panel">Indica sempre con chiarezza la modalità prevista per la proposta. Per le esperienze o i ritiri presso una cucina privata, l’indirizzo comunicato può essere utilizzato per consentire l’esecuzione della prenotazione.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="content-section" id="disponibilita">
+        <div class="section-top">
+          <div class="section-num">05</div>
+          <div>
+            <h2>Decidi quando esserci.</h2>
+            <div class="intro">Imposta calendario, giorni, orari, disponibilità e prezzi in modo coerente con il tuo modo di lavorare. L’obiettivo è rendere chiaro ciò che è realmente disponibile.</div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="info-card yellow">
+            <div class="label">CALENDARIO</div>
+            <h3>Apri quando vuoi</h3>
+            <p>Organizza la disponibilità in base ai giorni e agli orari in cui puoi realmente accettare clienti o ordini.</p>
+          </div>
+          <div class="info-card">
+            <div class="label">PREZZO</div>
+            <h3>Rendi il valore chiaro</h3>
+            <p>Associa a ogni proposta un prezzo comprensibile e coerente con ciò che il cliente vedrà prima di prenotare.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="content-section" id="prenotazioni">
+        <div class="section-top">
+          <div class="section-num">06</div>
+          <div>
+            <h2>Dalla scelta alla prenotazione.</h2>
+            <div class="intro">Quando un cliente prenota, ZeepUp gestisce il flusso di prenotazione e le comunicazioni necessarie all’erogazione del servizio. Tu ricevi le informazioni utili per prepararti.</div>
+          </div>
+        </div>
+
+        <div class="list-box">
+          <div class="list-row"><div class="list-key">Cliente</div><div class="list-value">Riceve le informazioni del venditore necessarie a vivere l’esperienza o effettuare il ritiro.</div></div>
+          <div class="list-row"><div class="list-key">Vendor</div><div class="list-value">Riceve i dati del cliente strettamente necessari a gestire la prenotazione e il servizio richiesto.</div></div>
+          <div class="list-row"><div class="list-key">Preparazione</div><div class="list-value">Usa le informazioni della prenotazione solo per organizzare ed erogare correttamente il servizio.</div></div>
+        </div>
+      </article>
+
+      <article class="content-section" id="pagamenti">
+        <div class="section-top">
+          <div class="section-num">07</div>
+          <div>
+            <h2>Pagamenti, senza confusione.</h2>
+            <div class="intro">I dati bancari e di pagamento servono alla gestione dei corrispettivi. La pagina Business pubblica indica Stripe come infrastruttura per l’accredito dei pagamenti al vendor.</div>
+          </div>
+        </div>
+
+        <div class="info-card black">
+          <div class="label">PAYOUT</div>
+          <h3>Incassa sul tuo conto.</h3>
+          <p>Assicurati che i dati fiscali e bancari associati al profilo siano corretti e aggiornati, così da evitare problemi nella liquidazione dei corrispettivi.</p>
+        </div>
+      </article>
+
+      <article class="content-section" id="privacy">
+        <div class="section-top">
+          <div class="section-num">08</div>
+          <div>
+            <h2>Dati dei clienti: usa solo ciò che serve.</h2>
+            <div class="intro">I dati ricevuti nell’ambito di una prenotazione devono essere trattati esclusivamente per gestire il servizio richiesto e nel rispetto della normativa applicabile.</div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="info-card">
+            <div class="label">DATI CLIENTE</div>
+            <h3>Solo per la prenotazione</h3>
+            <p>Utilizza i dati personali comunicati da ZeepUp esclusivamente per gestire ed erogare il servizio prenotato.</p>
+          </div>
+          <div class="info-card yellow">
+            <div class="label">FOTOGRAFIE</div>
+            <h3>Pubblica ciò che puoi usare</h3>
+            <p>Carica soltanto fotografie per cui disponi dei diritti e delle autorizzazioni necessarie.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="support" id="supporto">
+  <div class="wrap support-grid">
+    <div>
+      <div class="eyebrow">Supporto Vendor</div>
+      <h2>Ti sei bloccato? Non serve ricominciare da capo.</h2>
+      <p>Usa questa sezione come punto di partenza per risolvere dubbi sulla registrazione, sulla configurazione del profilo o sulla gestione di una prenotazione.</p>
+      <div class="hero-actions"><a class="cta primary" href="mailto:info@zeepup.com">CONTATTA ZEEPUP →</a><a class="manual-cta" href="#" onclick="event.preventDefault();alert('Collega qui il PDF del Manuale Vendor ZeepUp.');">APRI IL MANUALE PDF ↓</a></div>
+    </div>
+
+    <div class="support-card">
+      <div class="small">QUICK HELP</div>
+      <h3>Prima controlla queste 3 cose.</h3>
+      <p><strong>01.</strong> I dati del profilo sono completi?<br><br>
+      <strong>02.</strong> Disponibilità, orari e prezzo sono aggiornati?<br><br>
+      <strong>03.</strong> Le foto e le informazioni pubblicate descrivono correttamente ciò che offri?</p>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap final-inner">
+    <h2>Pronto a mettere online la tua cucina?</h2>
+    <div>
+      <p>Crea il profilo vendor e completa la configurazione passo dopo passo.</p>
+      <div class="final-actions">
+        <a class="cta yellow" href="https://it.zeepup.com/registrazione-store">REGISTRATI →</a>
+        <a class="cta dark" href="https://www.zeepup.com/business">TORNA A ZEEPUP BUSINESS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>ZeepUp Vendor Documentation</div>
+    <div>Business · FAQ · Privacy · Termini & Condizioni</div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.acc-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    item.classList.toggle('open');
+    btn.querySelector('.plus').textContent=item.classList.contains('open')?'−':'+';
+  });
+});
+</script>
+
+</body>
+</html>

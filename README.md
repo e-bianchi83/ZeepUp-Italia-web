@@ -15,6 +15,10 @@ Then open `http://localhost:4173`.
 - `index.html` — consumer homepage
 - `business-italia.html` — Italian business and HomeChef page
 - `faq-italia.html` — Italian FAQ and support page
+- `vendor-Documentation.html` — vendor documentation page
+- `scarica-app.html` — app download page
+- `slowfood.html` — ZeepUp × Slow Food Italia page
+- `referral-italia.html` — Italian referral page
 - `assets/css/site.css` — homepage styles and responsive rules
 - `assets/js/site.js` — carousel and interactive map behaviour
 - `assets/data/shops-map-data.js` — restaurant marker data
@@ -29,5 +33,9 @@ Then open `http://localhost:4173`.
 - `/business` — stable business-page URL
 - `/business-italia` — Italian business-page alias
 - `/faq-italia` — Italian FAQ page
+- `/vendor-documentation` — vendor documentation
+- `/scarica-app` — app download page
+- `/slowfood` — ZeepUp × Slow Food Italia page
+- `/referral-italia` — Italian referral page
 
 The map uses OpenStreetMap/CARTO tiles and therefore requires an internet connection for its basemap.

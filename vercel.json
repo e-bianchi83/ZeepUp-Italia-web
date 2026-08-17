@@ -23,6 +23,22 @@
     {
       "source": "/faq-italia",
       "destination": "/faq-italia.html"
+    },
+    {
+      "source": "/vendor-documentation",
+      "destination": "/vendor-Documentation.html"
+    },
+    {
+      "source": "/scarica-app",
+      "destination": "/scarica-app.html"
+    },
+    {
+      "source": "/slowfood",
+      "destination": "/slowfood.html"
+    },
+    {
+      "source": "/referral-italia",
+      "destination": "/referral-italia.html"
     }
   ]
 }

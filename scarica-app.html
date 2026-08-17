@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scarica l'app | ZeepUp</title>
+<style>
+:root{
+  --pink:#ff0066;
+  --butter:#fff493;
+  --ink:#111;
+  --white:#fff;
+  --soft:#f7f7f4;
+  --line:#dedede;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1220px,calc(100% - 48px));margin:0 auto}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}
+.pink-dot{display:inline-block;width:.20em;height:.20em;border-radius:50%;background:var(--pink);margin-left:.08em;transform:translateY(.01em)}
+
+/* HEADER */
+.site-top{height:104px;position:relative}
+.top-pill{
+  position:absolute;top:22px;right:0;display:flex;align-items:center;gap:12px;
+  background:#050505;padding:12px 14px 12px 20px;border-radius:5px;
+  box-shadow:0 7px 20px rgba(0,0,0,.18);z-index:20
+}
+.top-logo{color:#fff;font-size:34px;line-height:1;font-weight:950;letter-spacing:-.065em;padding:0 6px 2px 0}
+.top-logo .dot{color:var(--pink)}
+.top-divider{width:1px;height:34px;background:rgba(255,255,255,.24)}
+.top-btn{min-height:44px;padding:0 16px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;white-space:nowrap}
+.top-btn.yellow{background:var(--butter);color:#111;border:1px solid var(--butter)}
+.top-btn.pink{background:var(--pink);color:#fff;border:1px solid var(--pink)}
+
+/* HERO */
+.hero{padding:40px 0 82px;display:grid;grid-template-columns:1.02fr .98fr;gap:68px;align-items:center}
+.hero h1{font-size:clamp(58px,7vw,94px);line-height:.92;letter-spacing:-.065em;margin:14px 0 22px;max-width:770px}
+.hero p{font-size:20px;line-height:1.5;color:#333;max-width:650px;margin:0 0 28px}
+.hero p strong{color:#111}
+.store-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.store-badge{height:54px;display:block}
+.hero-note{font-size:12px;color:#666;line-height:1.5;margin-top:16px;max-width:560px}
+
+.hero-board{
+  background:var(--butter);min-height:540px;padding:26px;position:relative;
+  display:flex;align-items:center;justify-content:center
+}
+.gif-card{
+  width:100%;background:#fff;border:1px solid #111;padding:18px;
+  box-shadow:12px 12px 0 #111;position:relative
+}
+.gif-card img{display:block;width:100%;height:auto;background:#fff}
+.gif-label{position:absolute;left:18px;top:18px;background:#111;color:#fff;padding:10px 12px;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.float-card{position:absolute;right:-18px;bottom:34px;background:#fff;border:1px solid #111;padding:18px 20px;box-shadow:8px 8px 0 var(--pink);max-width:260px}
+.float-card small{font-size:9px;font-weight:900;letter-spacing:.06em;color:#666;text-transform:uppercase}
+.float-card strong{display:block;font-size:23px;line-height:1.05;letter-spacing:-.035em;margin-top:7px}
+
+/* UTILITY STRIP */
+.utility{background:#111;color:#fff;padding:20px 0}
+.utility-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.utility-title{color:var(--butter);font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+.utility-items{display:flex;gap:8px;flex-wrap:wrap}
+.utility-chip{border:1px solid #444;padding:10px 12px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.utility-chip.pink{border-color:var(--pink);color:var(--pink)}
+
+/* APP BENEFITS */
+.section{padding:92px 0}
+.section.soft{background:var(--soft)}
+.section-head{display:grid;grid-template-columns:.85fr 1.15fr;gap:68px;align-items:end;margin-bottom:42px}
+.section h2{font-size:clamp(42px,5vw,68px);line-height:.97;letter-spacing:-.055em;margin:10px 0 0}
+.section-head p{font-size:17px;line-height:1.55;color:#4a4a4a;margin:0;max-width:680px}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#111;border:1px solid #111}
+.feature{background:#fff;padding:32px;min-height:310px}
+.feature-num{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--pink);color:#fff;font-size:12px;font-weight:900}
+.feature:nth-child(2) .feature-num{background:var(--butter);color:#111;border:1px solid #111}
+.feature:nth-child(3) .feature-num{background:#111;color:#fff}
+.feature h3{font-size:30px;line-height:1.03;letter-spacing:-.04em;margin:22px 0 12px}
+.feature p{font-size:14px;line-height:1.55;color:#555;margin:0}
+
+/* SOCIAL */
+.social{background:#fff;padding:92px 0}
+.social-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:58px;align-items:center}
+.social-copy h2{font-size:clamp(42px,5vw,68px);line-height:.97;letter-spacing:-.055em;margin:10px 0 18px}
+.social-copy p{font-size:17px;line-height:1.55;color:#4a4a4a;max-width:620px}
+.social-board{background:var(--butter);padding:28px;min-height:450px;position:relative}
+.zeep-card{background:#fff;border:1px solid #111;padding:22px;box-shadow:10px 10px 0 #111;width:78%}
+.zeep-card.second{margin:24px 0 0 auto;box-shadow:8px 8px 0 var(--pink);width:68%}
+.zeep-user{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#666}
+.zeep-title{font-size:30px;line-height:1.04;letter-spacing:-.045em;font-weight:900;margin:12px 0 8px}
+.zeep-body{font-size:13px;line-height:1.5;color:#555}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+.tag{padding:7px 9px;border:1px solid #111;font-size:9px;font-weight:900;text-transform:uppercase}
+.social-note{position:absolute;right:18px;bottom:16px;color:var(--pink);font-weight:900;font-style:italic;transform:rotate(-3deg)}
+
+/* REVIEWS */
+.reviews{background:#111;color:#fff;padding:92px 0}
+.reviews .eyebrow{color:var(--butter)}
+.reviews-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:end;margin-bottom:36px}
+.reviews h2{font-size:clamp(44px,5.4vw,72px);line-height:.95;letter-spacing:-.06em;margin:10px 0 0}
+.reviews-head p{font-size:16px;line-height:1.55;color:#ccc;margin:0;max-width:650px}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.review-card{background:#fff;color:#111;padding:26px;border:1px solid #fff;min-height:250px}
+.review-stars{font-size:14px;color:var(--pink);letter-spacing:.1em}
+.review-card h3{font-size:23px;line-height:1.08;letter-spacing:-.035em;margin:18px 0 10px}
+.review-card p{font-size:13px;line-height:1.55;color:#555;margin:0}
+.review-card .who{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#777;margin-top:20px}
+
+/* FINAL CTA */
+.final{padding:86px 0;background:var(--pink);color:#fff}
+.final-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:end}
+.final h2{font-size:clamp(48px,5.8vw,78px);line-height:.94;letter-spacing:-.06em;margin:0}
+.final p{font-size:17px;line-height:1.55;margin:0 0 20px}
+.final .store-badge{height:50px}
+
+/* FOOTER */
+footer{padding:34px 0;background:#111;color:#fff}
+.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:12px;color:#aaa}
+
+@media(max-width:950px){
+  .hero,.section-head,.social-grid,.reviews-head,.final-inner{grid-template-columns:1fr}
+  .features,.review-grid{grid-template-columns:1fr}
+  .hero{gap:42px;padding-top:20px}
+  .float-card{right:12px}
+}
+@media(max-width:650px){
+  .wrap{width:min(100% - 28px,1220px)}
+  .site-top{height:148px}
+  .top-pill{left:0;right:0;top:16px;justify-content:center;flex-wrap:wrap;padding:10px}
+  .top-logo{font-size:27px}
+  .top-divider{display:none}
+  .top-btn{font-size:10px;min-height:38px;padding:0 10px}
+  .hero h1{font-size:53px}
+  .hero p{font-size:17px}
+  .hero-board{min-height:380px;padding:18px}
+  .gif-card{box-shadow:8px 8px 0 #111}
+  .float-card{position:static;margin:20px 0 0 auto}
+  .zeep-card,.zeep-card.second{width:100%}
+  .store-badge{height:48px}
+  .footer-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap site-top">
+  <div class="top-pill">
+    <div class="top-logo">zeep<span class="dot">•</span>up</div>
+    <span class="top-divider"></span>
+    <a class="top-btn yellow" href="https://www.zeepup.com/zeepup-business">APRI LA TUA CUCINA</a>
+    <a class="top-btn pink" href="#download">SCARICA L'APP →</a>
+  </div>
+</header>
+
+<main>
+
+<section class="wrap hero" id="download">
+  <div>
+    <div class="eyebrow">ZeepUp · L'app</div>
+    <h1>Scopri cosa stanno cucinando vicino a te<span class="pink-dot"></span></h1>
+    <p>Chef, HomeChef e cucine da scoprire. Guarda cosa preparano, segui le loro storie e scegli <strong>quello che vuoi mangiare oggi</strong> — Eat-In o To-Go.</p>
+
+    <div class="store-row">
+      <a href="https://apps.apple.com/it/app/zeepup-italia/id6478274769?l=en-GB" target="_blank" rel="noopener">
+        <img class="store-badge" alt="Scarica su App Store" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.zeepup.zeepup&pcampaignid=web_share" target="_blank" rel="noopener">
+        <img class="store-badge" alt="Disponibile su Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/it_badge_web_generic.png">
+      </a>
+    </div>
+
+    <div class="hero-note">Scarica ZeepUp e scopri ogni giorno nuove proposte, persone e cucine intorno a te.</div>
+  </div>
+
+  <div class="hero-board">
+    <div class="gif-card">
+      <div class="gif-label">LA CITTÀ, IN MOVIMENTO</div>
+      <img src="assets/images/app/illustrazione-milano.gif" alt="Illustrazione animata di Milano presente sul sito ZeepUp">
+    </div>
+    <div class="float-card">
+      <small>OGGI · VICINO A TE</small>
+      <strong>Qualcuno sta preparando qualcosa.</strong>
+    </div>
+  </div>
+</section>
+
+<section class="utility">
+  <div class="wrap utility-row">
+    <div class="utility-title">Dentro ZeepUp</div>
+    <div class="utility-items">
+      <span class="utility-chip pink">SCOPRI</span>
+      <span class="utility-chip">SEGUI</span>
+      <span class="utility-chip">ZEEPS</span>
+      <span class="utility-chip">EAT-IN</span>
+      <span class="utility-chip">TO-GO</span>
+      <span class="utility-chip">MAPPA</span>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Cosa fai nell'app</div>
+        <h2>Apri. Scopri. Scegli.</h2>
+      </div>
+      <p>Non un'altra lista infinita di posti. ZeepUp mette insieme discovery, persone e disponibilità reale per aiutarti a capire cosa c'è di interessante oggi e scegliere più facilmente.</p>
+    </div>
+
+    <div class="features">
+      <article class="feature">
+        <div class="feature-num">01</div>
+        <h3>Scopri chi cucina</h3>
+        <p>Esplora Chef, HomeChef e cucine vicino a te e guarda ciò che hanno deciso di rendere disponibile.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-num">02</div>
+        <h3>Segui ciò che ti piace</h3>
+        <p>Attraverso gli Zeeps puoi vedere preparazioni, persone, ingredienti e storie dietro ciò che stai per scegliere.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-num">03</div>
+        <h3>Scegli come mangiarlo</h3>
+        <p>Quando una proposta è disponibile, scegli la modalità più adatta a te: Eat-In, To-Go o l'esperienza prevista dalla cucina.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="social">
+  <div class="wrap social-grid">
+    <div class="social-copy">
+      <div class="eyebrow">Il Food Feed</div>
+      <h2>Prima di scegliere, guarda cosa c'è dietro.</h2>
+      <p>Gli Zeeps trasformano l'app in qualcosa di più di una vetrina. Sono foto, video e messaggi pubblicati da chi cucina e dalla community: il modo più semplice per capire cosa sta succedendo davvero, oggi.</p>
+    </div>
+
+    <div class="social-board">
+      <div class="zeep-card">
+        <div class="zeep-user">CHEF ALESSANDRO · MILANO</div>
+        <div class="zeep-title">Ho appena preparato 10 porzioni di ravioli.</div>
+        <div class="zeep-body">Ricotta, erbette e burro alla salvia. Disponibili stasera.</div>
+        <div class="tags">
+          <span class="tag">OGGI</span>
+          <span class="tag">10 PORZIONI</span>
+          <span class="tag">TO-GO</span>
+        </div>
+      </div>
+
+      <div class="zeep-card second">
+        <div class="zeep-user">ZEEP · DIETRO LE QUINTE</div>
+        <div class="zeep-title">Vedi come nasce.</div>
+        <div class="zeep-body">Non solo il piatto finale: persone, processo e storia.</div>
+      </div>
+
+      <div class="social-note">scopri → segui → scegli ↗</div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <div class="reviews-head">
+      <div>
+        <div class="eyebrow">Dicono dell'app</div>
+        <h2>Già provata. Già raccontata.</h2>
+      </div>
+      <p>Alcune recensioni pubblicate sugli store raccontano cosa apprezzano gli utenti: scoperta, semplicità e la possibilità di scegliere rapidamente cosa mangiare.</p>
+    </div>
+
+    <div class="review-grid">
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <h3>“App fantastica!”</h3>
+        <p>“Da quando ho scoperto quest'app non posso più farne a meno...”</p>
+        <div class="who">Recensione App Store</div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <h3>“Ottima app”</h3>
+        <p>“App comoda e utile... ottima per le pause pranzo fast.”</p>
+        <div class="who">Recensione App Store</div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <h3>“Funziona bene”</h3>
+        <p>“Cibo di qualità e ristoranti scelti, app ben funzionante.”</p>
+        <div class="who">Recensione App Store</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap final-inner">
+    <h2>La prossima cosa che mangerai potrebbe essere già pronta.</h2>
+    <div>
+      <p>Scarica ZeepUp e scopri cosa c'è oggi vicino a te.</p>
+      <div class="store-row">
+        <a href="https://apps.apple.com/it/app/zeepup-italia/id6478274769?l=en-GB" target="_blank" rel="noopener">
+          <img class="store-badge" alt="Scarica su App Store" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83">
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.zeepup.zeepup&pcampaignid=web_share" target="_blank" rel="noopener">
+          <img class="store-badge" alt="Disponibile su Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/it_badge_web_generic.png">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>ZeepUp S.R.L. Startup Innovativa · Milano</div>
+    <div>FAQ · Referral · Business · Privacy · Termini & Condizioni</div>
+  </div>
+</footer>
+
+</body>
+</html>
