@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Favicon.png">
+<title>ZeepUp — Attiva la tua Home Kitchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0" rel="stylesheet">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  --ink:#111;
+  --white:#fff;
+  --pink:#ff0066;
+  --butter:#fff493;
+  --soft:#f7f7f3;
+  --line:#dcdcd5;
+  --green:#2f6847;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:#fff;
+  color:var(--ink);
+  font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  font-synthesis-weight:none;
+}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.wrap{width:min(1220px,calc(100% - 48px));margin:0 auto}
+.mono{
+  font-family:"IBM Plex Mono","Courier New",monospace;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+/* LIGHT HEADER */
+.header{
+  position:fixed;
+  z-index:50;
+  top:24px;
+  right:4vw;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:12px 14px 12px 20px;
+  background:#fff;
+  border:1px solid #111;
+  box-shadow:10px 10px 0 #111;
+}
+.brand{
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:-.07em;
+}
+.brand i{color:var(--pink);font-style:normal}
+.header-link{
+  position:relative;
+  padding:10px 3px 9px;
+  font-size:11px;
+  font-weight:700;
+  z-index:0;
+}
+.header-link::after{
+  content:"";
+  position:absolute;
+  left:0;right:14px;bottom:4px;
+  height:6px;
+  background:var(--butter);
+  z-index:-1;
+  transition:right .15s ease,height .15s ease;
+}
+.header-link:hover::after{right:0;height:8px}
+.header-cta{
+  padding:12px 15px;
+  color:#fff;
+  background:var(--pink);
+  border:1px solid var(--pink);
+  border-radius:3px;
+  font-size:11px;
+  font-weight:700;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.header-cta:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111}
+.header-cta:active{transform:translate(2px,2px);box-shadow:none}
+
+/* Shared ZeepUp header from index.html */
+.shared-site-header{position:absolute;inset:0 0 auto;height:122px;z-index:50}
+.top-pill{position:absolute;top:19px;right:4.5vw;display:flex;align-items:center;gap:20px;background:#fff;padding:15px 16px 15px 26px;border:1px solid #111;border-radius:0;box-shadow:12px 13px 0 #111;z-index:4}
+.top-pill img{width:181px;height:auto;display:block}
+.top-divider{display:none}
+.kitchen-btn,.download-btn{text-decoration:none;font-weight:800;letter-spacing:-.01em;display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap}
+.kitchen-btn{min-width:197px;border:0;color:#111;background:transparent;padding:15px 0 12px;border-radius:0;font-size:15px;gap:0;position:relative;isolation:isolate;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s ease}
+.kitchen-btn:after{content:'';position:absolute;left:0;right:17px;bottom:7px;height:8px;background:var(--butter);z-index:-1;transition:right .18s cubic-bezier(.2,.8,.2,1),height .18s cubic-bezier(.2,.8,.2,1),bottom .18s cubic-bezier(.2,.8,.2,1)}
+.kitchen-icon{width:0;opacity:0;overflow:hidden;margin-right:0;color:var(--pink);font-size:16px!important;transform:translate(-5px,4px);transition:width .18s cubic-bezier(.2,.8,.2,1),margin-right .18s cubic-bezier(.2,.8,.2,1),opacity .14s ease,transform .18s cubic-bezier(.2,.8,.2,1)}
+.kitchen-btn:hover{transform:translateY(-1px);filter:brightness(1.015)}
+.kitchen-btn:hover:after{right:0;bottom:5px;height:10px}
+.kitchen-btn:hover .kitchen-icon{width:16px;margin-right:6px;opacity:1;transform:translate(0,0)}
+.kitchen-btn:active{transform:translateY(1px);filter:brightness(.97)}
+.download-btn{min-width:190px;min-height:57px;background:var(--pink);color:#fff;padding:18px 20px;border:1px solid var(--pink);border-radius:4px;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s cubic-bezier(.2,.8,.2,1),filter .16s ease}
+.download-btn .material-symbols-outlined{font-size:18px;transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+.download-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111;filter:brightness(1.02)}
+.download-btn:hover .material-symbols-outlined{transform:translateX(3px)}
+.download-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 #111;filter:brightness(.96)}
+.kitchen-btn:focus-visible,.download-btn:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
+
+/* Shared ZeepUp footer from index.html */
+.site-footer{background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}
+.footer-inner{max-width:1575px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,1.5fr) repeat(3,minmax(150px,1fr));gap:64px;padding-bottom:62px}
+.footer-logo{display:block;position:relative;width:186px;height:47px;overflow:hidden;background:transparent;text-decoration:none;margin-bottom:27px}
+.footer-logo img{position:absolute;display:block;width:200px;max-width:none;height:200px;left:-7px;top:-78px;filter:brightness(0) invert(1)}
+.footer-logo:after{content:'';position:absolute;left:113px;top:1px;width:14px;height:14px;border-radius:50%;background:var(--pink)}
+.footer-brand p{max-width:350px;margin:0;color:#bdbdbd;font-size:14px;line-height:1.55}
+.footer-social{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:28px}
+.footer-social a{color:#fff;text-decoration:none;font-size:12px;font-weight:800;border-bottom:1px solid transparent;padding-bottom:3px}
+.footer-social a:hover{color:var(--pink);border-color:var(--pink)}
+.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+.footer-column h2{margin:0 0 12px;color:#fff;font-size:15px;line-height:1.2;text-transform:none;letter-spacing:0}
+.footer-column a{color:#fff;text-decoration:none;font-size:14px;line-height:1.4}
+.footer-column a:hover{text-decoration:underline;text-underline-offset:4px}
+.footer-bottom{max-width:1575px;margin:0 auto;padding-top:22px;border-top:1px solid #353535;display:flex;justify-content:space-between;gap:24px;color:#8f8f8f;font-size:11px;letter-spacing:.02em}
+.site-footer a:focus-visible{outline:3px solid var(--butter);outline-offset:4px}
+@media(max-width:1050px){
+  .top-pill{left:5vw;right:5vw;justify-content:center}
+  .footer-inner{grid-template-columns:1.4fr 1fr;gap:50px 40px}
+}
+@media(max-width:650px){
+  .shared-site-header{height:96px}
+  .top-pill{top:16px;left:16px;right:16px;padding:10px 10px 10px 14px;gap:8px;box-shadow:7px 8px 0 #111}
+  .top-pill img{width:105px}
+  .kitchen-btn,.download-btn{min-width:0;min-height:0;font-size:10px;padding:10px 9px}
+  .kitchen-btn:after{right:8px;bottom:6px;height:6px}
+  .download-btn .material-symbols-outlined{font-size:15px}
+  .site-footer{padding:58px 22px 24px}
+  .footer-inner{grid-template-columns:1fr;gap:40px;padding-bottom:46px}
+  .footer-bottom{flex-direction:column;gap:8px}
+}
+
+/* INTRO */
+.intro{
+  padding:150px 0 72px;
+  border-bottom:1px solid var(--line);
+}
+.intro-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:70px;
+  align-items:end;
+}
+.intro .eyebrow{color:var(--pink);margin-bottom:14px}
+.intro h1{
+  margin:0;
+  font-size:clamp(56px,6.4vw,92px);
+  line-height:.91;
+  letter-spacing:-.065em;
+  font-weight:700;
+  max-width:760px;
+}
+.intro h1 span{color:var(--pink)}
+.intro-copy{
+  max-width:510px;
+  margin:0;
+  font-size:17px;
+  line-height:1.55;
+  color:#555;
+}
+.quick-info{
+  margin-top:36px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.quick-pill{
+  border:1px solid #111;
+  padding:8px 11px;
+  background:#fff;
+  font-size:10px;
+  font-weight:600;
+}
+.quick-pill:nth-child(2){background:var(--butter)}
+
+/* FORM LAYOUT */
+.registration{
+  padding:76px 0 110px;
+  background:var(--soft);
+}
+.registration-grid{
+  display:grid;
+  grid-template-columns:310px minmax(0,1fr);
+  gap:42px;
+  align-items:start;
+}
+
+/* LEFT RAIL */
+.rail{
+  position:sticky;
+  top:130px;
+}
+.rail-card{
+  background:#111;
+  color:#fff;
+  border:1px solid #111;
+  box-shadow:9px 9px 0 var(--butter);
+  padding:24px;
+}
+.rail-card .mono{color:var(--butter)}
+.rail-card h3{
+  margin:10px 0 18px;
+  font-size:28px;
+  line-height:1;
+  letter-spacing:-.04em;
+}
+.rail-card p{
+  margin:0;
+  color:#bbb;
+  font-size:13px;
+  line-height:1.5;
+}
+.progress{
+  margin-top:28px;
+  display:grid;
+  gap:7px;
+}
+.progress a{
+  display:grid;
+  grid-template-columns:30px 1fr;
+  gap:10px;
+  padding:10px 0;
+  border-top:1px solid #3a3a3a;
+  color:#aaa;
+  font-size:12px;
+}
+.progress a:first-child{color:#fff}
+.progress b{
+  color:var(--pink);
+  font-family:"IBM Plex Mono","Courier New",monospace;
+  font-size:10px;
+}
+.help{
+  margin-top:20px;
+  padding:16px;
+  background:var(--butter);
+  border:1px solid #111;
+  font-size:12px;
+  line-height:1.45;
+}
+.help strong{display:block;margin-bottom:4px}
+
+/* FORM */
+.form-stack{display:grid;gap:16px}
+.form-section{
+  background:#fff;
+  border:1px solid #111;
+  box-shadow:6px 6px 0 #111;
+  padding:30px;
+  scroll-margin-top:130px;
+}
+.section-head{
+  display:grid;
+  grid-template-columns:56px 1fr;
+  gap:14px;
+  padding-bottom:24px;
+  margin-bottom:26px;
+  border-bottom:1px solid var(--line);
+}
+.section-num{
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  background:var(--butter);
+  border:1px solid #111;
+  font-weight:700;
+  font-size:13px;
+}
+.section-head h2{
+  margin:0;
+  font-size:30px;
+  line-height:1;
+  letter-spacing:-.045em;
+}
+.section-head p{
+  margin:7px 0 0;
+  font-size:13px;
+  color:#666;
+}
+.field-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.field.full{grid-column:1/-1}
+label{
+  display:block;
+  margin-bottom:7px;
+  font-size:12px;
+  font-weight:700;
+}
+.required{color:var(--pink)}
+input[type=text],
+input[type=email],
+input[type=number],
+select,
+textarea{
+  width:100%;
+  min-height:48px;
+  border:1px solid #bdbdb7;
+  border-radius:0;
+  background:#fff;
+  padding:11px 12px;
+  outline:none;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+textarea{min-height:95px;resize:vertical}
+input:focus,select:focus,textarea:focus{
+  border-color:#111;
+  box-shadow:3px 3px 0 var(--butter);
+}
+.hint{
+  margin-top:6px;
+  color:#777;
+  font-size:10px;
+  line-height:1.4;
+}
+
+/* UPLOADS */
+.upload{
+  border:1px dashed #777;
+  padding:18px;
+  background:#fbfbf8;
+}
+.upload input{width:100%}
+.upload-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:7px;
+}
+.upload-title b{font-size:12px}
+.upload-title span{color:var(--pink);font-size:18px}
+
+/* CHECK / DECLARATIONS */
+.check-card{
+  display:grid;
+  grid-template-columns:24px 1fr;
+  gap:12px;
+  padding:17px 0;
+  border-top:1px solid var(--line);
+}
+.check-card:first-child{border-top:0;padding-top:0}
+.check-card input{
+  width:18px;
+  height:18px;
+  accent-color:var(--pink);
+  margin-top:2px;
+}
+.check-copy{
+  font-size:12px;
+  line-height:1.52;
+  color:#444;
+}
+.check-copy strong{
+  display:block;
+  margin-bottom:5px;
+  color:#111;
+  font-size:13px;
+}
+.check-copy ul{padding-left:17px;margin:8px 0 0}
+.check-copy a{
+  font-weight:700;
+  border-bottom:2px solid var(--butter);
+}
+.check-copy a:hover{border-color:var(--pink)}
+
+/* FISCAL OPTIONS */
+.radio-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.radio-card{
+  position:relative;
+  border:1px solid #aaa;
+  padding:18px;
+  cursor:pointer;
+}
+.radio-card input{
+  position:absolute;
+  top:17px;
+  right:17px;
+  accent-color:var(--pink);
+}
+.radio-card strong{
+  display:block;
+  padding-right:28px;
+  font-size:13px;
+}
+.radio-card span{
+  display:block;
+  margin-top:7px;
+  color:#666;
+  font-size:11px;
+  line-height:1.45;
+}
+.radio-card:has(input:checked){
+  border-color:#111;
+  box-shadow:4px 4px 0 var(--butter);
+}
+
+/* SUBMIT */
+.submit-box{
+  background:var(--butter);
+  border:1px solid #111;
+  box-shadow:8px 8px 0 #111;
+  padding:26px;
+}
+.submit-box h3{
+  margin:0 0 8px;
+  font-size:28px;
+  letter-spacing:-.045em;
+}
+.submit-box p{
+  margin:0 0 20px;
+  color:#555;
+  font-size:12px;
+  line-height:1.5;
+}
+.submit{
+  width:100%;
+  min-height:54px;
+  border:1px solid var(--pink);
+  border-radius:3px;
+  background:var(--pink);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.submit:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #111}
+.submit:active{transform:translate(2px,2px);box-shadow:none}
+.backend-note{
+  margin-top:10px;
+  font-family:"IBM Plex Mono","Courier New",monospace;
+  font-size:8px;
+  color:#777;
+  text-transform:uppercase;
+}
+
+/* responsive */
+@media(max-width:930px){
+  .header{left:5vw;right:5vw;justify-content:center}
+  .intro-grid,.registration-grid{grid-template-columns:1fr}
+  .rail{position:static}
+  .progress{grid-template-columns:repeat(5,1fr);gap:4px}
+  .progress a{display:block;border:1px solid #3a3a3a;padding:10px}
+}
+@media(max-width:680px){
+  .wrap{width:min(100% - 28px,1220px)}
+  .header{
+    left:15px;right:15px;top:15px;
+    gap:8px;padding:10px;
+    box-shadow:7px 7px 0 #111;
+  }
+  .brand{font-size:22px}
+  .header-link,.header-cta{font-size:8px}
+  .intro{padding-top:145px}
+  .intro h1{font-size:54px}
+  .field-grid,.radio-grid{grid-template-columns:1fr}
+  .form-section{padding:22px}
+  .progress{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header class="shared-site-header">
+  <div class="top-pill">
+    <a href="index.html" aria-label="Torna alla homepage ZeepUp"><img src="assets/images/embedded/header-logo-black.png" alt="ZeepUp"></a>
+    <span class="top-divider"></span>
+    <a class="kitchen-btn" href="business-italia.html"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
+    <a class="download-btn" href="scarica-app.html">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap intro-grid">
+    <div>
+      <div class="eyebrow mono">HOMECHEF · ATTIVAZIONE</div>
+      <h1>Attiva la tua Home Kitchen<span>.</span></h1>
+    </div>
+    <p class="intro-copy">
+      Completa i dati, carica i documenti richiesti e conferma le dichiarazioni
+      necessarie per pubblicare le tue esperienze su ZeepUp. I campi con
+      <strong class="required">*</strong> sono obbligatori.
+    </p>
+  </div>
+  <div class="wrap quick-info">
+    <span class="quick-pill">DATI IDENTIFICATIVI</span>
+    <span class="quick-pill">DOCUMENTI</span>
+    <span class="quick-pill">PAGAMENTI</span>
+    <span class="quick-pill">REQUISITI</span>
+    <span class="quick-pill">CONFERMA</span>
+  </div>
+</section>
+
+<section class="registration">
+  <div class="wrap registration-grid">
+
+    <aside class="rail">
+      <div class="rail-card">
+        <div class="mono">LA TUA CANDIDATURA</div>
+        <h3>Tutto in un unico percorso.</h3>
+        <p>Abbiamo separato il form in blocchi chiari, senza cambiare le informazioni richieste.</p>
+
+        <nav class="progress">
+          <a href="#dati"><b>01</b> Dati</a>
+          <a href="#documenti"><b>02</b> Documenti</a>
+          <a href="#pagamenti"><b>03</b> Pagamenti</a>
+          <a href="#requisiti"><b>04</b> Requisiti</a>
+          <a href="#conferma"><b>05</b> Conferma</a>
+        </nav>
+      </div>
+
+      <div class="help">
+        <strong>Prima di iniziare</strong>
+        Tieni a portata di mano documento d’identità, attestato HACCP e almeno 3 foto della cucina.
+      </div>
+    </aside>
+
+    <!--
+      IMPORTANT:
+      In the connected production version, keep the EXISTING Google Form/Wix
+      submission action, hidden fields and original field names/entry IDs here.
+      This preview intentionally does not fake those backend identifiers.
+    -->
+    <form class="form-stack" action="#" method="post" onsubmit="event.preventDefault();">
+
+      <section class="form-section" id="dati">
+        <div class="section-head">
+          <div class="section-num">01</div>
+          <div>
+            <h2>Dati identificativi</h2>
+            <p>Chi sei e dove si trova la tua Home Kitchen.</p>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>Nome e Cognome <span class="required">*</span></label>
+            <input type="text" placeholder="Nome e cognome">
+          </div>
+
+          <div class="field">
+            <label>Nome attività</label>
+            <input type="text">
+          </div>
+
+          <div class="field full">
+            <label>Email <span class="required">*</span></label>
+            <input type="email">
+          </div>
+
+          <div class="field">
+            <label>Paese/Regione <span class="required">*</span></label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>Indirizzo <span class="required">*</span></label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>Città <span class="required">*</span></label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>CAP <span class="required">*</span></label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>Codice Fiscale <span class="required">*</span></label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>Partita IVA <span class="required">*</span></label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>Codice SDI</label>
+            <input type="text">
+          </div>
+
+          <div class="field">
+            <label>PEC <span class="required">*</span></label>
+            <input type="text">
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section" id="documenti">
+        <div class="section-head">
+          <div class="section-num">02</div>
+          <div>
+            <h2>Documenti</h2>
+            <p>Carica i documenti necessari alla verifica.</p>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>Documento d'identità <span class="required">*</span></label>
+            <div class="upload">
+              <div class="upload-title"><b>Carica documento</b><span>＋</span></div>
+              <input type="file">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Attestato HACCP <span class="required">*</span></label>
+            <div class="upload">
+              <div class="upload-title"><b>Carica attestato HACCP</b><span>＋</span></div>
+              <input type="file">
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>Manuale di autocontrollo HACCP</label>
+            <div class="upload">
+              <div class="upload-title"><b>Carica manuale HACCP</b><span>＋</span></div>
+              <input type="file" accept=".pdf">
+              <div class="hint">PDF — max 20MB. Se disponibile caricalo; altrimenti puoi autocertificare.</div>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>Requisiti del locale + foto cucina <span class="required">*</span></label>
+            <div class="upload">
+              <div class="upload-title"><b>Carica foto cucina</b><span>＋</span></div>
+              <input type="file" accept=".jpg,.jpeg,.png" multiple>
+              <div class="hint">Almeno 3 foto — piano cottura, lavello, zona preparazione (JPG/PNG).</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section" id="pagamenti">
+        <div class="section-head">
+          <div class="section-num">03</div>
+          <div>
+            <h2>Pagamenti & regime fiscale</h2>
+            <p>Conferma la gestione dei pagamenti e il regime applicabile.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            Dichiaro di aver preso visione e di accettare che tutti i pagamenti delle prenotazioni effettuate tramite ZeepUp siano gestiti tramite Stripe Connect. Accetto che i compensi vengano accreditati sul conto associato al mio account Stripe, secondo le tempistiche previste. Prendo atto che ZeepUp potrà sospendere o ritardare i pagamenti in caso di reclami, rimborsi, chargeback, verifiche antifrode, violazioni dei
+            <a href="https://www.zeepup.com/termini-e-condizioni/termini-e-condizioni-acquirenti">Termini e Condizioni</a>
+            o altre verifiche di conformità.
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            Dichiaro di essere l'unico responsabile dell'emissione del documento fiscale previsto dalla normativa vigente (documento commerciale, ricevuta o fattura, ove applicabile) per tutte le prestazioni effettuate tramite ZeepUp e dell'adempimento dei relativi obblighi fiscali e tributari.
+          </div>
+        </div>
+
+        <div style="margin-top:26px">
+          <label>Regime fiscale <span class="required">*</span></label>
+          <div class="hint" style="margin:0 0 12px">Seleziona il regime attuale — determina come emetterai ricevuta o fattura ai tuoi clienti.</div>
+          <div class="radio-grid">
+            <label class="radio-card">
+              <input type="radio" name="regime">
+              <strong>Regime forfettario</strong>
+              <span>Ricavi sotto €85.000 — ricevuta cartacea o PDF, nessun obbligo SDI sotto €25k.</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="regime">
+              <strong>Regime ordinario / semplificato</strong>
+              <span>Fattura elettronica con IVA 22% tramite SDI.</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section" id="requisiti">
+        <div class="section-head">
+          <div class="section-num">04</div>
+          <div>
+            <h2>Certificazioni obbligatorie</h2>
+            <p>Le dichiarazioni richieste per completare la candidatura.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            <strong>Dichiarazione 1 — Requisiti normativi</strong>
+            Dichiaro, sotto la mia esclusiva responsabilità, di svolgere la mia attività nel pieno rispetto della normativa vigente e di essere in possesso di tutti i requisiti, autorizzazioni, comunicazioni, coperture assicurative e adempimenti previsti dalla legge per l'attività esercitata, inclusi, ove applicabili:
+            <ul>
+              <li>Partita IVA;</li>
+              <li>Codice ATECO idoneo;</li>
+              <li>SCIA o altra comunicazione amministrativa richiesta;</li>
+              <li>Registrazione sanitaria presso l'ASL/ATS competente;</li>
+              <li>Attestazione HACCP in corso di validità;</li>
+              <li>Polizza RC idonea, ove richiesta;</li>
+              <li>Disponibilità e legittimo utilizzo dei locali;</li>
+              <li>Requisiti morali e assenza di cause ostative;</li>
+              <li>Corretta gestione degli allergeni;</li>
+              <li>MOCA conformi;</li>
+              <li>Tracciabilità di alimenti e ingredienti;</li>
+              <li>Ogni ulteriore requisito previsto dalla normativa applicabile.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            <strong>Dichiarazione 2 — Obblighi fiscali</strong>
+            Dichiaro di emettere regolarmente il documento fiscale previsto dalla normativa vigente per tutte le prestazioni effettuate tramite ZeepUp e di adempiere ai relativi obblighi fiscali e tributari.
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            <strong>Dichiarazione 3 — Veridicità</strong>
+            Dichiaro che tutte le informazioni e i documenti forniti durante la registrazione sono completi, veritieri e aggiornati e mi impegno a comunicare tempestivamente qualsiasi variazione rilevante.
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            <strong>Dichiarazione 4 — Diritto di verifica</strong>
+            Prendo atto che ZeepUp potrà richiedere ulteriore documentazione, effettuare verifiche e sospendere o revocare il mio account in caso di dichiarazioni non veritiere, documentazione incompleta o mancato rispetto della normativa applicabile o dei Termini e Condizioni.
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section" id="conferma">
+        <div class="section-head">
+          <div class="section-num">05</div>
+          <div>
+            <h2>Conferma e termini</h2>
+            <p>Ultimo passaggio prima dell'invio.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            Dichiaro di essere consapevole che ZeepUp opera esclusivamente come piattaforma di intermediazione tra Host e Clienti e che rimango l'unico responsabile della conformità della mia attività alla normativa applicabile, nonché della qualità, sicurezza e liceità delle esperienze offerte tramite la piattaforma.
+          </div>
+        </div>
+
+        <div class="check-card">
+          <input type="checkbox">
+          <div class="check-copy">
+            Dichiaro di aver letto, compreso e accettato i
+            <a href="https://www.zeepup.com/termini-e-condizioni/termini-e-condizioni-acquirenti">Termini e Condizioni</a>
+            per gli Host di ZeepUp e di aver preso visione dell'
+            <a href="https://www.zeepup.com/privacy-policy-italia">Informativa Privacy</a>,
+            acconsentendo al trattamento dei miei dati personali secondo quanto ivi previsto.
+          </div>
+        </div>
+      </section>
+
+      <div class="submit-box">
+        <h3>Pronto per l’invio?</h3>
+        <p>Nel file di produzione questo pulsante deve continuare a usare esattamente l’azione, gli ID campo e gli eventuali script del form Google/Wix già esistente.</p>
+        <button class="submit" type="submit">INVIA CANDIDATURA →</button>
+        <div class="backend-note">Preview UI — backend identifiers intentionally not guessed</div>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html" aria-label="ZeepUp"><img src="assets/images/brand/zeepup-logo.png" alt="ZeepUp"></a>
+      <p>Scopri chi cucina vicino a te, guarda cosa prepara oggi e scegli tra Eat-In e To-Go.</p>
+      <div class="footer-social" aria-label="ZeepUp sui social media">
+        <a href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/people/ZeepUp-Italia/100093111542954/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://it.linkedin.com/company/zeepupsrl" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.youtube.com/@ZeepUp" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <nav class="footer-column" aria-label="Informazioni legali">
+      <h2>Legale</h2>
+      <a href="termini-e-condizioni.html">Termini &amp; Condizioni</a>
+      <a href="privacy-policy-italia.html">Privacy Policy</a>
+    </nav>
+    <nav class="footer-column" aria-label="Informazioni utili">
+      <h2>Info Utili</h2>
+      <a href="https://www.zeepup.com/chi-siamo">Chi siamo</a>
+      <a href="mailto:info@zeepup.com">Contattaci</a>
+      <a href="faq-italia.html">FAQ</a>
+    </nav>
+    <nav class="footer-column" aria-label="Community ZeepUp">
+      <h2>Community</h2>
+      <a href="referral-italia.html">Referral</a>
+      <a href="https://www.zeepup.com/news-italia">News</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 ZeepUp S.r.l.</span>
+    <span>P. IVA 12859150968</span>
+    <span>Made for people who love good food.</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Favicon.png">
 <title>Scarica l'app | ZeepUp</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0" rel="stylesheet">
 <style>
 :root{
   --pink:#ff0066;
@@ -143,15 +145,58 @@ footer{padding:34px 0;background:#111;color:#fff}
   .footer-row{flex-direction:column;align-items:flex-start}
 }
 </style>
+<style id="zeepup-shared-header-footer">
+/* Header, footer and store-badge sizing copied from index.html. */
+.site-top{height:132px;position:relative}
+.top-pill{position:absolute;top:19px;right:4.5vw;display:flex;align-items:center;gap:20px;background:#fff;padding:15px 16px 15px 26px;border:1px solid #111;border-radius:0;box-shadow:12px 13px 0 #111;z-index:20}
+.top-pill img{width:181px;height:auto;display:block}
+.top-divider{display:none}
+.kitchen-btn,.download-btn{text-decoration:none;font-weight:800;letter-spacing:-.01em;display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap}
+.kitchen-btn{min-width:197px;border:0;color:#111;background:transparent;padding:15px 0 12px;border-radius:0;font-size:15px;gap:0;position:relative;isolation:isolate;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s ease}
+.kitchen-btn:after{content:'';position:absolute;left:0;right:17px;bottom:7px;height:8px;background:var(--butter);z-index:-1;transition:right .18s cubic-bezier(.2,.8,.2,1),height .18s cubic-bezier(.2,.8,.2,1),bottom .18s cubic-bezier(.2,.8,.2,1)}
+.kitchen-icon{width:0;opacity:0;overflow:hidden;margin-right:0;color:var(--pink);font-size:16px!important;transform:translate(-5px,4px);transition:width .18s cubic-bezier(.2,.8,.2,1),margin-right .18s cubic-bezier(.2,.8,.2,1),opacity .14s ease,transform .18s cubic-bezier(.2,.8,.2,1)}
+.kitchen-btn:hover{transform:translateY(-1px);filter:brightness(1.015)}
+.kitchen-btn:hover:after{right:0;bottom:5px;height:10px}
+.kitchen-btn:hover .kitchen-icon{width:16px;margin-right:6px;opacity:1;transform:translate(0,0)}
+.kitchen-btn:active{transform:translateY(1px);filter:brightness(.97)}
+.download-btn{min-width:190px;min-height:57px;background:var(--pink);color:#fff;padding:18px 20px;border:1px solid var(--pink);border-radius:4px;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s cubic-bezier(.2,.8,.2,1),filter .16s ease}
+.download-btn .material-symbols-outlined{font-size:18px;transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+.download-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111;filter:brightness(1.02)}
+.download-btn:hover .material-symbols-outlined{transform:translateX(3px)}
+.download-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 #111;filter:brightness(.96)}
+.kitchen-btn:focus-visible,.download-btn:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
+.store-badge-link{display:inline-flex;align-items:center;justify-content:center;width:188px;height:56px;overflow:hidden;text-decoration:none;transition:.2s ease}
+.store-badge-link:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.store-badge-link .store-badge,.store-badge-link .store-badge.google{display:block;width:100%;height:100%;object-fit:contain}
+.store-badge-link .store-badge.google{width:89.2%;height:100%;max-width:none;object-fit:fill}
+.site-footer{background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}
+.footer-inner{max-width:1575px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,1.5fr) repeat(3,minmax(150px,1fr));gap:64px;padding-bottom:62px}
+.footer-logo{display:block;position:relative;width:186px;height:47px;overflow:hidden;background:transparent;text-decoration:none;margin-bottom:27px}
+.footer-logo img{position:absolute;display:block;width:200px;max-width:none;height:200px;left:-7px;top:-78px;filter:brightness(0) invert(1)}
+.footer-logo:after{content:'';position:absolute;left:113px;top:1px;width:14px;height:14px;border-radius:50%;background:var(--pink)}
+.footer-brand p{max-width:350px;margin:0;color:#bdbdbd;font-size:14px;line-height:1.55}
+.footer-social{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:28px}
+.footer-social a{color:#fff;text-decoration:none;font-size:12px;font-weight:800;border-bottom:1px solid transparent;padding-bottom:3px}
+.footer-social a:hover{color:var(--pink);border-color:var(--pink)}
+.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+.footer-column h2{margin:0 0 12px;color:#fff;font-size:15px;line-height:1.2;text-transform:none;letter-spacing:0}
+.footer-column a{color:#fff;text-decoration:none;font-size:14px;line-height:1.4}
+.footer-column a:hover{text-decoration:underline;text-underline-offset:4px}
+.footer-bottom{max-width:1575px;margin:0 auto;padding-top:22px;border-top:1px solid #353535;display:flex;justify-content:space-between;gap:24px;color:#8f8f8f;font-size:11px;letter-spacing:.02em}
+.site-footer a:focus-visible{outline:3px solid var(--butter);outline-offset:4px}
+@media(max-width:1050px){.top-pill{left:5vw;right:5vw;justify-content:center}.footer-inner{grid-template-columns:1.4fr 1fr;gap:50px 40px}}
+@media(max-width:650px){.site-top{height:116px}.top-pill{top:16px;left:16px;right:16px;padding:10px 10px 10px 14px;gap:8px;box-shadow:7px 8px 0 #111;flex-wrap:nowrap}.top-pill img{width:105px}.kitchen-btn,.download-btn{min-width:0;min-height:0;font-size:10px;padding:10px 9px}.kitchen-btn:after{right:8px;bottom:6px;height:6px}.download-btn .material-symbols-outlined{font-size:15px}.store-badge-link{width:168px;height:50px}.site-footer{padding:58px 22px 24px}.footer-inner{grid-template-columns:1fr;gap:40px;padding-bottom:46px}.footer-bottom{flex-direction:column;gap:8px}}
+@media(prefers-reduced-motion:reduce){.kitchen-btn,.kitchen-btn:after,.kitchen-icon,.download-btn,.download-btn .material-symbols-outlined{transition:none!important}}
+</style>
 </head>
 <body>
 
 <header class="wrap site-top">
   <div class="top-pill">
-    <div class="top-logo">zeep<span class="dot">•</span>up</div>
+    <img src="assets/images/embedded/header-logo-black.png" alt="ZeepUp">
     <span class="top-divider"></span>
-    <a class="top-btn yellow" href="https://www.zeepup.com/zeepup-business">APRI LA TUA CUCINA</a>
-    <a class="top-btn pink" href="#download">SCARICA L'APP →</a>
+    <a class="kitchen-btn" href="business-italia.html"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
+    <a class="download-btn" href="#download">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
   </div>
 </header>
 
@@ -164,11 +209,11 @@ footer{padding:34px 0;background:#111;color:#fff}
     <p>Chef, HomeChef e cucine da scoprire. Guarda cosa preparano, segui le loro storie e scegli <strong>quello che vuoi mangiare oggi</strong> — Eat-In o To-Go.</p>
 
     <div class="store-row">
-      <a href="https://apps.apple.com/it/app/zeepup-italia/id6478274769?l=en-GB" target="_blank" rel="noopener">
-        <img class="store-badge" alt="Scarica su App Store" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83">
+      <a class="store-badge-link" href="https://apps.apple.com/it/app/zeepup-italia/id6478274769" target="_blank" rel="noopener noreferrer" aria-label="Scarica ZeepUp Italia sull’App Store">
+        <img class="store-badge" alt="Scarica sull’App Store" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83">
       </a>
-      <a href="https://play.google.com/store/apps/details?id=com.zeepup.zeepup&pcampaignid=web_share" target="_blank" rel="noopener">
-        <img class="store-badge" alt="Disponibile su Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/it_badge_web_generic.png">
+      <a class="store-badge-link" href="https://play.google.com/store/apps/details?hl=it&amp;id=com.zeepup.zeepup" target="_blank" rel="noopener noreferrer" aria-label="Scarica ZeepUp Italia su Google Play">
+        <img class="store-badge google" alt="Disponibile su Google Play" src="assets/images/store/google-play-it.webp">
       </a>
     </div>
 
@@ -303,11 +348,11 @@ footer{padding:34px 0;background:#111;color:#fff}
     <div>
       <p>Scarica ZeepUp e scopri cosa c'è oggi vicino a te.</p>
       <div class="store-row">
-        <a href="https://apps.apple.com/it/app/zeepup-italia/id6478274769?l=en-GB" target="_blank" rel="noopener">
-          <img class="store-badge" alt="Scarica su App Store" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83">
+        <a class="store-badge-link" href="https://apps.apple.com/it/app/zeepup-italia/id6478274769" target="_blank" rel="noopener noreferrer" aria-label="Scarica ZeepUp Italia sull’App Store">
+          <img class="store-badge" alt="Scarica sull’App Store" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83">
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.zeepup.zeepup&pcampaignid=web_share" target="_blank" rel="noopener">
-          <img class="store-badge" alt="Disponibile su Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/it_badge_web_generic.png">
+        <a class="store-badge-link" href="https://play.google.com/store/apps/details?hl=it&amp;id=com.zeepup.zeepup" target="_blank" rel="noopener noreferrer" aria-label="Scarica ZeepUp Italia su Google Play">
+          <img class="store-badge google" alt="Disponibile su Google Play" src="assets/images/store/google-play-it.webp">
         </a>
       </div>
     </div>
@@ -316,10 +361,39 @@ footer{padding:34px 0;background:#111;color:#fff}
 
 </main>
 
-<footer>
-  <div class="wrap footer-row">
-    <div>ZeepUp S.R.L. Startup Innovativa · Milano</div>
-    <div>FAQ · Referral · Business · Privacy · Termini & Condizioni</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html" aria-label="ZeepUp"><img src="assets/images/brand/zeepup-logo.png" alt="ZeepUp"></a>
+      <p>Scopri chi cucina vicino a te, guarda cosa prepara oggi e scegli tra Eat-In e To-Go.</p>
+      <div class="footer-social" aria-label="ZeepUp sui social media">
+        <a href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/people/ZeepUp-Italia/100093111542954/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://it.linkedin.com/company/zeepupsrl" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.youtube.com/@ZeepUp" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <nav class="footer-column" aria-label="Informazioni legali">
+      <h2>Legale</h2>
+      <a href="termini-e-condizioni.html">Termini &amp; Condizioni</a>
+      <a href="privacy-policy-italia.html">Privacy Policy</a>
+    </nav>
+    <nav class="footer-column" aria-label="Informazioni utili">
+      <h2>Info Utili</h2>
+      <a href="https://www.zeepup.com/chi-siamo">Chi siamo</a>
+      <a href="mailto:info@zeepup.com">Contattaci</a>
+      <a href="faq-italia.html">FAQ</a>
+    </nav>
+    <nav class="footer-column" aria-label="Community ZeepUp">
+      <h2>Community</h2>
+      <a href="referral-italia.html">Referral</a>
+      <a href="https://www.zeepup.com/news-italia">News</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 ZeepUp S.r.l.</span>
+    <span>P. IVA 12859150968</span>
+    <span>Made for people who love good food.</span>
   </div>
 </footer>
 

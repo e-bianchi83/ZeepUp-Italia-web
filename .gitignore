@@ -6,6 +6,7 @@ debug.log
 qa-*.png
 design-qa.md
 *.zip
+_archive/
 
 # Superseded root-level working assets
 /hero-phone-transparent-v*.png

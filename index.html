@@ -6,55 +6,65 @@
 <link rel="icon" type="image/png" href="Favicon.png" />
 <title>ZeepUp — Homepage Concept V04</title>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.min.css?v=1.9.4-local">
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/site.css?v=20260817-18">
 </head>
 <body>
 <section class="hero">
   <div class="top-pill">
-    <img src="assets/images/embedded/top-pill-logo.png" alt="ZeepUp" />
+    <img src="assets/images/embedded/header-logo-black.png" alt="ZeepUp" />
     <span class="top-divider"></span>
-    <a class="kitchen-btn" href="/business-italia">APRI LA TUA CUCINA</a>
-    <a class="download-btn" href="https://www.zeepup.com/scarica-app">SCARICA L’APP →</a>
+    <a class="kitchen-btn" href="business-italia.html"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
+    <a class="download-btn" href="scarica-app.html">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
   </div>
 
   <div class="copy">
     <div class="eyebrow">Un nuovo modo di mangiare ogni giorno</div>
-    <h1>Ogni giorno, qualcuno può cucinare al posto tuo<span class="pinkdot">.</span></h1>
+    <h1>Ogni giorno, qualcuno può cucinare al posto <span class="sentence-end">tuo<span class="pinkdot">.</span></span></h1>
     <p class="sub">Scopri cosa preparano <strong>Chef e HomeChef vicino a te</strong> e scegli quello che ti va oggi — <strong>Eat-In o To-Go.</strong></p>
-    <a class="primary-btn" href="#map">SCOPRI COSA C’È DI BUONO OGGI →</a>
     <div class="note"><span class="phone">▯</span>Prenotazioni e ordini disponibili sull’app ZeepUp.</div>
   </div>
 
-  <div class="visual"><img src="assets/images/hero/hero-phone.png" alt="ZeepUp app con Chef e HomeChef vicino a te" /></div>
+  <div class="visual"><img src="assets/images/hero/hero-phone-follow-v4.png" alt="ZeepUp app con Chef e HomeChef vicino a te" /></div>
 
   <div class="utility-wrap" id="map">
     <div class="utility">
-      <div class="utility-copy">
+      <div class="utility-main">
         <div class="utility-title">Scopri vicino a te</div>
-        <div class="utility-data">
-          <span class="location"><span class="material-symbols-outlined" aria-hidden="true">location_on</span> MILANO</span><span class="divider"></span>
-          <span class="u-today">OGGI</span><span class="divider"></span>
-          <span class="meal-mode"><span class="material-symbols-outlined" aria-hidden="true">restaurant</span> EAT-IN</span><span class="mode-dot">·</span><span>TO-GO</span>
+        <div class="utility-discovery-row">
+          <div>
+            <div class="utility-data" aria-label="Contesto della scoperta">
+              <span class="location"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>MILANO</span>
+              <span class="utility-separator">/</span>
+              <span class="u-today">OGGI</span>
+              <span class="utility-separator">·</span>
+              <span class="meal-mode">EAT-IN</span>
+              <span class="utility-separator">·</span>
+              <span class="meal-mode">TO-GO</span>
+            </div>
+            <div class="utility-intro"><strong>Guarda cosa c’è oggi intorno a te.</strong> Chef, HomeChef, locali, menu ed esperienze disponibili sulla mappa ZeepUp.</div>
+          </div>
+          <a class="mapbtn" href="https://it.zeepup.com/search-city/Milano?vendor_location=Milano" target="_blank" rel="noopener noreferrer">GUARDA LA MAPPA <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </div>
       </div>
-      <a class="mapbtn" href="#shopsMap">ESPLORA LA MAPPA <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
       <div class="utility-benefits" aria-label="Vantaggi ZeepUp">
-        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">person</span><div><strong>Solo chef e homechef</strong><span>selezionati con cura</span></div></div>
-        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">soup_kitchen</span><div><strong>Piatti unici</strong><span>che trovi solo su ZeepUp</span></div></div>
-        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">sell</span><div><strong>Vantaggi esclusivi</strong><span>e promozioni dedicate</span></div></div>
-        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">lock</span><div><strong>Pagamenti sicuri</strong><span>e zero sorprese</span></div></div>
+        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">person</span><div><strong>Chef, HomeChef e locali</strong><span>Scopri chi cucina vicino a te.</span></div></div>
+        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">soup_kitchen</span><div><strong>Piatti e menu da scegliere</strong><span>Proposte disponibili oggi su ZeepUp.</span></div></div>
+        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">sell</span><div><strong>Vantaggi dedicati</strong><span>Menu, prezzi e occasioni pensati per ZeepUp.</span></div></div>
+        <div class="utility-benefit"><span class="material-symbols-outlined" aria-hidden="true">tune</span><div><strong>Scelta semplice</strong><span>Modalità, disponibilità e dettagli utili subito visibili.</span></div></div>
       </div>
+      <div class="utility-signal">VICINO × OGGI × SCOPRI <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></div>
     </div>
   </div>
 </section>
 
 <section class="story">
   <div class="story-grid">
-    <div class="story-media"><img src="assets/images/embedded/story-homechef.jpg" alt="Chef che porta un piatto a tavola" /></div>
+    <div class="story-media"><img src="assets/images/hospitality/real-home-meal.jpg" alt="Amici che condividono un pasto preparato in casa" /></div>
     <div class="story-copy">
       <div class="story-label">Un mondo che prima dovevi conoscere</div>
-      <h2>Vicino a te ci sono persone che ogni giorno preparano qualcosa di speciale<span class="pinkdot">.</span></h2>
+      <h2>Vicino a te ci sono persone che ogni giorno preparano qualcosa di <span class="sentence-end">speciale<span class="pinkdot">.</span></span></h2>
       <p class="unlock"><strong>Fino a ieri dovevi conoscerle.</strong> Oggi ZeepUp te le fa scoprire e ti permette di scegliere ciò che cucinano.</p>
       <p>Guarda i loro piatti, scopri attraverso gli <strong>Zeeps</strong> come li preparano e scegli quello che hanno disponibile oggi.</p>
       <p class="story-closing">Quando non cucini tu, puoi comunque scegliere qualcosa preparato con la cura che cercheresti nella tua cucina.</p>
@@ -62,13 +72,15 @@
     </div>
   </div>
 </section>
+
 <section class="process" id="come-funziona">
   <div class="process-inner">
     <div class="process-intro">
       <div>
         <div class="process-label">Come funziona</div>
-        <h2>Scopri. Segui. Scegli<span class="pinkdot">.</span></h2>
+        <h2>Scopri. Segui. <span class="sentence-end">Scegli<span class="pinkdot">.</span></span></h2>
         <p>ZeepUp mette insieme persone, cibo e utilità: trovi chi cucina vicino a te, capisci cosa prepara e scegli quello che vuoi mangiare oggi.</p>
+        <a class="process-invite" href="referral-italia.html">INVITA UN AMICO <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
       </div>
       <div class="process-photo">
         <img src="assets/images/embedded/process-community.jpg" alt="Persone che condividono un pasto" />
@@ -110,12 +122,29 @@
   </div>
 </section>
 
+<section class="golden-z-section" aria-labelledby="goldenZTitle">
+  <div class="golden-z-wrap golden-z-grid">
+    <div class="golden-z-copy-block">
+      <div class="golden-z-kicker">GREEN Z</div>
+      <h2 class="golden-z-title" id="goldenZTitle">La qualità non finisce nella <span class="sentence-end">foto<span class="pinkdot">.</span></span></h2>
+      <p class="golden-z-copy">Green Z aggiunge un segnale in più per leggere ingredienti, filiera, autenticità e sostenibilità. Metodo di valutazione sviluppato con Slow Food Italia.</p>
+      <a class="golden-z-cta" href="slowfood.html">SCOPRI IL GREEN Z <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    </div>
+    <div class="golden-z-rating-card">
+      <div class="golden-z-rating-label">SOSTENIBILITÀ · GREEN Z</div>
+      <h3>Molto buono.</h3>
+      <div class="golden-z-meter" aria-hidden="true"></div>
+      <p>Un segnale ZeepUp che aiuta a leggere aspetti legati alla proposta e ai criteri del Green Z.</p>
+      <p class="golden-z-note">Green Z è un sistema informativo/di selezione ZeepUp e non va presentato automaticamente come certificazione Slow Food del singolo locale.</p>
+    </div>
+  </div>
+</section>
 
 <section class="occasions" aria-label="Occasioni ZeepUp">
   <div class="occasions-inner">
     <div class="occasions-kicker">ZEEPUP, ANCHE QUANDO L'OCCASIONE CAMBIA</div>
     <div class="occasions-intro">
-      <h2>Dal pranzo di lavoro a una serata da ricordare.</h2>
+      <h2>Dal pranzo di lavoro a una serata da <span class="sentence-end">ricordare<span class="pinkdot">.</span></span></h2>
       <p>Scopri proposte pensate per condividere il cibo con colleghi, clienti, amici o semplicemente con chi vuoi tu.</p>
     </div>
 
@@ -128,7 +157,7 @@
             <p>Dal pranzo in ufficio alla cena con clienti: scopri Chef e HomeChef che preparano menu per gruppi, con una persona e una cucina vera dietro ogni proposta.</p>
             <a class="occasion-btn" href="#">SCOPRI LE PROPOSTE <span>→</span></a>
           </div>
-          <div class="occasion-media"><img src="assets/images/embedded/occasion-team.jpg" alt="Chef che serve un pranzo condiviso" /></div>
+          <div class="occasion-media"><img src="assets/images/hospitality/real-team-dining.jpg" alt="Chef che prepara più piatti per un pranzo di gruppo" /></div>
         </article>
 
         <article class="occasion-slide">
@@ -157,7 +186,7 @@
     <div class="resource-hub-heading">
       <div>
         <div class="resource-hub-kicker">ESPLORA ZEEPUP</div>
-        <h2 id="resourceHubTitle">Tutto quello che ti serve, in un unico posto<span class="pinkdot">.</span></h2>
+        <h2 id="resourceHubTitle">Tutto quello che ti serve, in un unico <span class="sentence-end">posto<span class="pinkdot">.</span></span></h2>
       </div>
       <p>Scopri gli strumenti, l'app e il progetto sulla qualità sviluppato insieme a Slow Food Italia.</p>
     </div>
@@ -254,23 +283,22 @@
         <a href="https://www.youtube.com/@ZeepUp" target="_blank" rel="noopener">YouTube</a>
       </div>
     </div>
-    <nav class="footer-column" aria-label="Esplora ZeepUp">
-      <h2>ZeepUp</h2>
-      <a href="https://www.zeepup.com/">Come funziona</a>
+    <nav class="footer-column" aria-label="Informazioni legali">
+      <h2>Legale</h2>
+      <a href="termini-e-condizioni.html">Termini &amp; Condizioni</a>
+      <a href="privacy-policy-italia.html">Privacy Policy</a>
+    </nav>
+    <nav class="footer-column" aria-label="Informazioni utili">
+      <h2>Info Utili</h2>
       <a href="https://www.zeepup.com/chi-siamo">Chi siamo</a>
+      <a href="mailto:info@zeepup.com">Contattaci</a>
+      <a href="/faq-italia">FAQ</a>
+    </nav>
+    <nav class="footer-column" aria-label="Community ZeepUp">
+      <h2>Community</h2>
+      <a href="referral-italia.html">Referral</a>
       <a href="https://www.zeepup.com/news-italia">News</a>
     </nav>
-    <nav class="footer-column" aria-label="Supporto e informazioni legali">
-      <h2>Supporto</h2>
-      <a href="/faq-italia">FAQ</a>
-      <a href="mailto:info@zeepup.com">Contattaci</a>
-      <a href="https://www.zeepup.com/termini-e-condizioni">Termini e condizioni</a>
-      <a href="https://www.zeepup.com/privacy-policy-italia">Privacy policy</a>
-    </nav>
-    <div class="footer-column">
-      <h2>Vieni a trovarci</h2>
-      <address>ZEEPUP S.R.L.<br>Via Santa Radegonda 11<br>20121 Milano, Italia</address>
-    </div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 ZeepUp S.r.l.</span>
