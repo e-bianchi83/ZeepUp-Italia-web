@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Favicon.png">
+<title>ZeepUp — Registra il tuo punto vendita</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+:root{--ink:#111;--pink:#ff0066;--butter:#fff493;--soft:#f7f7f3;--line:#d8d8d1;--green:#2f6847}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--soft);color:var(--ink);font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif;font-synthesis-weight:none}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.wrap{width:min(1220px,calc(100% - 48px));margin:auto}.mono{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.075em;text-transform:uppercase}
+.shared-site-header{position:absolute;inset:0 0 auto;width:100%;height:0;z-index:50}.top-pill{position:absolute;top:19px;right:4.5vw;display:flex;align-items:center;justify-content:flex-start;gap:20px;padding:15px 16px 15px 26px;background:#fff;border:1px solid #111;box-shadow:12px 13px 0 #111;z-index:20}.top-pill>a:first-child{display:block;flex:0 0 auto;line-height:0}.top-pill img{width:181px;height:auto;display:block}.top-divider{display:none}.kitchen-btn,.download-btn{text-decoration:none;font-weight:800;letter-spacing:-.01em;display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap}.kitchen-btn{min-width:197px;border:0;color:#111;background:transparent;padding:15px 0 12px;font-size:15px;gap:0;position:relative;isolation:isolate;cursor:pointer;transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s ease}.kitchen-btn:after{content:"";position:absolute;left:0;right:17px;bottom:7px;height:8px;background:var(--butter);z-index:-1;transition:right .18s cubic-bezier(.2,.8,.2,1),height .18s cubic-bezier(.2,.8,.2,1),bottom .18s cubic-bezier(.2,.8,.2,1)}.kitchen-icon{width:0;opacity:0;overflow:hidden;color:var(--pink);font-size:16px!important;transform:translate(-5px,4px);transition:width .18s cubic-bezier(.2,.8,.2,1),margin-right .18s cubic-bezier(.2,.8,.2,1),opacity .14s ease,transform .18s cubic-bezier(.2,.8,.2,1)}.kitchen-btn:hover{transform:translateY(-1px)}.kitchen-btn:hover:after{right:0;bottom:5px;height:10px}.kitchen-btn:hover .kitchen-icon{width:16px;margin-right:6px;opacity:1;transform:translate(0)}.download-btn{min-width:190px;min-height:57px;background:var(--pink);color:#fff;padding:18px 20px;border:1px solid var(--pink);border-radius:4px;font-size:15px;transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s cubic-bezier(.2,.8,.2,1)}.download-btn .material-symbols-outlined{font-size:18px;transition:transform .16s ease}.download-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111}.download-btn:hover .material-symbols-outlined{transform:translateX(3px)}.kitchen-btn:focus-visible,.download-btn:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
+.hero{padding:150px 0 64px;background:#fff;border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:end}.eyebrow{color:var(--pink);margin-bottom:15px}.hero h1{margin:0;font-size:clamp(58px,6.3vw,92px);line-height:.9;letter-spacing:-.065em;font-weight:700;max-width:760px}.hero h1 span{color:var(--pink)}.hero p{margin:0;font-size:17px;line-height:1.55;color:#555;max-width:520px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.chip{border:1px solid #111;padding:8px 11px;background:#fff;font-size:10px;font-weight:600}.chip:nth-child(2){background:var(--butter)}
+.main{padding:72px 0 110px}.grid{display:grid;grid-template-columns:310px 1fr;gap:42px;align-items:start}.rail{position:sticky;top:130px}.railbox{background:#111;color:#fff;border:1px solid #111;box-shadow:9px 9px 0 var(--butter);padding:25px}.railbox .mono{color:var(--butter)}.railbox h2{font-size:30px;line-height:.98;letter-spacing:-.045em;margin:10px 0 12px}.railbox p{font-size:12px;line-height:1.5;color:#aaa;margin:0}.nav{display:grid;margin-top:25px}.nav a{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:11px 0;border-top:1px solid #363636;color:#aaa;font-size:12px}.nav b{color:var(--pink);font-family:"IBM Plex Mono",monospace;font-size:10px}.note{margin-top:18px;padding:16px;background:var(--butter);border:1px solid #111;font-size:12px;line-height:1.45}.note strong{display:block;margin-bottom:4px}.green{margin-top:16px;padding:15px 17px;background:var(--green);color:#fff;border:1px solid #111;font-size:10px;line-height:1.45}.green b{color:var(--butter)}
+.stack{display:grid;gap:16px}.section{background:#fff;border:1px solid #111;box-shadow:6px 6px 0 #111;padding:30px;scroll-margin-top:130px}.shead{display:grid;grid-template-columns:50px 1fr;gap:15px;padding-bottom:23px;margin-bottom:25px;border-bottom:1px solid var(--line)}.num{width:46px;height:46px;display:grid;place-items:center;background:var(--butter);border:1px solid #111;font-weight:700}.shead h2{margin:0;font-size:31px;line-height:1;letter-spacing:-.045em}.shead p{margin:7px 0 0;color:#777;font-size:12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field.full{grid-column:1/-1}label{display:block;margin-bottom:7px;font-size:12px;font-weight:700}.req{color:var(--pink)}input[type=text],input[type=email],input[type=tel],input[type=password],select,textarea{width:100%;min-height:48px;padding:11px 12px;border:1px solid #bbb;background:#fff;border-radius:0;outline:0}textarea{min-height:108px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#111;box-shadow:3px 3px 0 var(--butter)}.hint{margin-top:6px;color:#777;font-size:10px;line-height:1.4}
+.address-tip,.account-tip{margin-bottom:18px;padding:15px 16px;background:#111;color:#fff;font-size:12px;line-height:1.45}.account-tip{background:var(--butter);color:#111}.uploads{display:grid;grid-template-columns:1fr 1fr;gap:16px}.upload{min-height:175px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;background:#fbfbf7;border:1px dashed #777}.upload-head{display:flex;justify-content:space-between;gap:15px}.upload h3{margin:0 0 6px;font-size:20px}.upload p{margin:0;color:#777;font-size:10px;line-height:1.4}.plus{width:38px;height:38px;display:grid;place-items:center;background:var(--pink);color:#fff;border:1px solid #111;font-size:23px}.upload input{font-size:11px}
+.consent{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}.consent input{width:18px;height:18px;accent-color:var(--pink);margin-top:2px}.consent label{font-weight:400;line-height:1.55;color:#444}.consent a{font-weight:700;border-bottom:2px solid var(--butter)}.submitbox{background:var(--butter);border:1px solid #111;box-shadow:8px 8px 0 #111;padding:27px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}.submitbox h2{margin:0 0 6px;font-size:30px;letter-spacing:-.045em}.submitbox p{margin:0;color:#555;font-size:11px;line-height:1.45;max-width:560px}.submit{min-height:52px;padding:0 22px;border:1px solid var(--pink);background:var(--pink);color:#fff;border-radius:3px;font-weight:700}.submit:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #111}.backend{grid-column:1/-1;border-top:1px solid #c9c173;padding-top:10px;color:#777;font-size:8px}
+.site-footer{background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}.footer-inner{max-width:1575px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,1.5fr) repeat(3,minmax(150px,1fr));gap:64px;padding-bottom:62px}.footer-logo{display:block;position:relative;width:186px;height:47px;overflow:hidden;background:transparent;margin-bottom:27px}.footer-logo img{position:absolute;display:block;width:200px;max-width:none;height:200px;left:-7px;top:-78px;filter:brightness(0) invert(1)}.footer-logo:after{content:"";position:absolute;left:113px;top:1px;width:14px;height:14px;border-radius:50%;background:var(--pink)}.footer-brand p{max-width:350px;margin:0;color:#bdbdbd;font-size:14px;line-height:1.55}.footer-social{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:28px}.footer-social a{color:#fff;font-size:12px;font-weight:800;border-bottom:1px solid transparent;padding-bottom:3px}.footer-social a:hover{color:var(--pink);border-color:var(--pink)}.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:13px}.footer-column h2{margin:0 0 12px;color:#fff;font-size:15px;line-height:1.2}.footer-column a{color:#fff;font-size:14px;line-height:1.4}.footer-column a:hover{text-decoration:underline;text-underline-offset:4px}.footer-bottom{max-width:1575px;margin:0 auto;padding-top:22px;border-top:1px solid #353535;display:flex;justify-content:space-between;gap:24px;color:#8f8f8f;font-size:11px;letter-spacing:.02em}.site-footer a:focus-visible{outline:3px solid var(--butter);outline-offset:4px}
+@media(max-width:1050px){.top-pill{left:5vw;right:5vw;justify-content:center}.footer-inner{grid-template-columns:1.4fr 1fr;gap:50px 40px}}
+@media(max-width:930px){.hero-grid,.grid{grid-template-columns:1fr}.rail{position:static}.nav{grid-template-columns:repeat(3,1fr);gap:5px}.nav a{display:block;border:1px solid #333;padding:10px}}
+@media(max-width:680px){.wrap{width:min(100% - 28px,1220px)}.hero{padding-top:145px}.hero h1{font-size:54px}.fields,.uploads,.submitbox{grid-template-columns:1fr}.section{padding:22px}.nav{grid-template-columns:1fr 1fr}.site-footer{padding:58px 22px 24px}.footer-inner{grid-template-columns:1fr;gap:40px;padding-bottom:46px}.footer-bottom{flex-direction:column;gap:8px}}
+@media(max-width:650px){.top-pill{top:16px;left:16px;right:16px;gap:8px;padding:10px 10px 10px 14px;box-shadow:7px 8px 0 #111}.top-pill img{width:105px}.kitchen-btn,.download-btn{min-width:0;min-height:0;font-size:10px;padding:10px 9px}.kitchen-btn:after{right:8px;bottom:6px;height:6px}.download-btn .material-symbols-outlined{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.kitchen-btn,.kitchen-btn:after,.kitchen-icon,.download-btn,.download-btn .material-symbols-outlined{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="shared-site-header">
+<div class="top-pill">
+<a href="index.html" aria-label="Torna alla homepage ZeepUp"><img src="assets/images/embedded/header-logo-black.png" alt="ZeepUp" /></a>
+<span class="top-divider"></span>
+<a class="kitchen-btn" href="business-italia.html"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
+<a class="download-btn" href="scarica-app.html">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+</div>
+</header>
+
+<section class="hero">
+<div class="wrap hero-grid">
+<div><div class="eyebrow mono">ZEEPUP BUSINESS · REGISTRAZIONE</div><h1>Porta il tuo punto vendita su ZeepUp<span>.</span></h1></div>
+<div><p>Inserisci i dati della tua attività, crea le credenziali del gestore e prepara logo e banner. Un percorso unico, più chiaro e più veloce.</p><div class="chips"><span class="chip">ATTIVITÀ FOOD</span><span class="chip">RISTORANTI · FARM SHOP · STORE</span><span class="chip">PROFILO BUSINESS</span></div></div>
+</div>
+</section>
+
+<section class="main">
+<div class="wrap grid">
+<aside class="rail">
+<div class="railbox"><div class="mono">REGISTRA IL TUO STORE</div><h2>Un form. Cinque passaggi.</h2><p>Le stesse informazioni della registrazione attuale, organizzate in blocchi molto più leggibili.</p>
+<nav class="nav"><a href="#attivita"><b>01</b> Attività</a><a href="#indirizzo"><b>02</b> Indirizzo</a><a href="#fiscale"><b>03</b> Fiscale</a><a href="#media"><b>04</b> Media</a><a href="#account"><b>05</b> Account</a></nav></div>
+<div class="note"><strong>Prima di iniziare</strong>Tieni a portata di mano Partita IVA, Codice Fiscale, PEC/SDI e — se li hai — logo e banner.</div>
+<div class="green"><b>GREEN Z</b><br>Il profilo potrà raccontare meglio qualità, identità e proposta della tua attività.</div>
+</aside>
+
+<form class="stack" action="#" method="post" onsubmit="event.preventDefault();">
+
+<section class="section" id="attivita">
+<div class="shead"><div class="num">01</div><div><h2>La tua attività</h2><p>Come vuoi presentarti alle persone su ZeepUp?</p></div></div>
+<div class="fields">
+<div class="field full"><label>Nome del punto vendita <span class="req">*</span></label><input type="text" name="name" placeholder="Es. Govinda by Jonathan"></div>
+<div class="field full"><label>Descrizione</label><textarea name="description" placeholder="Racconta in poche righe cosa rende riconoscibile la tua attività."></textarea><div class="hint">Piatti, cucina, filosofia, ingredienti o ciò che vuoi far scoprire per primo.</div></div>
+</div>
+</section>
+
+<section class="section" id="indirizzo">
+<div class="shead"><div class="num">02</div><div><h2>Dove trovarti</h2><p>L’indirizzo che useremo per localizzare il punto vendita.</p></div></div>
+<div class="address-tip"><strong>Questo indirizzo alimenta la discovery locale.</strong><br>Inseriscilo esattamente come vuoi che venga associato al tuo store.</div>
+<div class="fields">
+<div class="field"><label>Indirizzo <span class="req">*</span></label><input type="text" name="address" placeholder="Via, piazza..."></div>
+<div class="field"><label>Numero <span class="req">*</span></label><input type="text" name="street_number" placeholder="000"></div>
+<div class="field"><label>Città <span class="req">*</span></label><select name="city"><option value="">Seleziona città</option><option>Milano</option><option>Firenze</option></select></div>
+<div class="field"><label>Codice Postale <span class="req">*</span></label><input type="text" name="postal_code" placeholder="20121"></div>
+<div class="field"><label>Regione <span class="req">*</span></label><select name="region"><option value="">Seleziona regione</option><option>Lombardia</option><option>Toscana</option></select></div>
+<div class="field"><label>Paese <span class="req">*</span></label><select name="country"><option>Italy</option></select></div>
+</div>
+</section>
+
+<section class="section" id="fiscale">
+<div class="shead"><div class="num">03</div><div><h2>Dati fiscali</h2><p>L’intestatario o la società che gestisce il punto vendita.</p></div></div>
+<div class="fields">
+<div class="field full"><label>Nome e Cognome, o Denominazione Sociale <span class="req">*</span></label><input type="text" name="legal_name"></div>
+<div class="field"><label>Codice Fiscale <span class="req">*</span></label><input type="text" name="tax_code" placeholder="MRTMTT91D08F205J"></div>
+<div class="field"><label>Partita IVA <span class="req">*</span></label><input type="text" name="vat_number" placeholder="07643520567"></div>
+<div class="field"><label>Codice SDI</label><input type="text" name="sdi" placeholder="Codice SDI"></div>
+<div class="field"><label>PEC</label><input type="email" name="pec" placeholder="PEC"></div>
+</div>
+</section>
+
+<section class="section" id="media">
+<div class="shead"><div class="num">04</div><div><h2>Logo & banner</h2><p>Due immagini per rendere il profilo immediatamente riconoscibile.</p></div></div>
+<div class="uploads">
+<div class="upload"><div class="upload-head"><div><h3>Logo</h3><p>Opzionale · preferibilmente quadrato.</p></div><div class="plus">+</div></div><input type="file" name="logo" accept="image/*"></div>
+<div class="upload"><div class="upload-head"><div><h3>Banner</h3><p>Opzionale · immagine orizzontale del locale o della cucina.</p></div><div class="plus">+</div></div><input type="file" name="banner" accept="image/*"></div>
+</div>
+</section>
+
+<section class="section" id="account">
+<div class="shead"><div class="num">05</div><div><h2>Account del gestore</h2><p>Contatti e credenziali per gestire il profilo.</p></div></div>
+<div class="account-tip"><strong>Questi dati sono per la gestione dell’account.</strong> Il nome pubblico del punto vendita resta quello inserito nel primo passaggio.</div>
+<div class="fields">
+<div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" placeholder="email"></div>
+<div class="field"><label>Telefono <span class="req">*</span></label><input type="tel" name="phone" placeholder="+39 000 0000000"></div>
+<div class="field full"><label>Nome del gestore <span class="req">*</span></label><input type="text" name="manager_name" placeholder="Nome del gestore"></div>
+<div class="field"><label>Password <span class="req">*</span></label><input type="password" name="password" placeholder="Inserisci password"></div>
+<div class="field"><label>Conferma Password <span class="req">*</span></label><input type="password" name="password_confirmation" placeholder="Conferma password"></div>
+<div class="field full"><div class="consent"><input type="checkbox" id="terms" name="terms"><label for="terms">Dichiaro di aver letto e accettato i <a href="https://www.zeepup.com/termini-e-condizioni" target="_blank">Termini e Condizioni</a> e la <a href="https://www.zeepup.com/privacy-policy-italia" target="_blank">Privacy Policy</a> di ZeepUp.</label></div></div>
+</div>
+</section>
+
+<section class="submitbox">
+<div><div class="mono" style="color:#ff0066;margin-bottom:7px">ULTIMO PASSAGGIO</div><h2>Pronto a entrare su ZeepUp?</h2><p>Controlla i dati e crea il tuo profilo business. In produzione questo pulsante può continuare a chiamare lo stesso backend della pagina attuale.</p></div>
+<button class="submit" type="submit">REGISTRATI →</button>
+<div class="backend mono">UI prototype · existing backend/API identifiers intentionally not guessed</div>
+</section>
+
+</form>
+</div>
+</section>
+<footer class="site-footer">
+<div class="footer-inner">
+<div class="footer-brand">
+<a class="footer-logo" href="https://www.zeepup.com/" aria-label="ZeepUp"><img src="assets/images/brand/zeepup-logo.png" alt="ZeepUp"></a>
+<p>Scopri chi cucina vicino a te, guarda cosa prepara oggi e scegli tra Eat-In e To-Go.</p>
+<div class="footer-social" aria-label="ZeepUp sui social media">
+<a href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Instagram</a>
+<a href="https://www.facebook.com/people/ZeepUp-Italia/100093111542954/" target="_blank" rel="noopener">Facebook</a>
+<a href="https://it.linkedin.com/company/zeepupsrl" target="_blank" rel="noopener">LinkedIn</a>
+<a href="https://www.youtube.com/@ZeepUp" target="_blank" rel="noopener">YouTube</a>
+</div>
+</div>
+<nav class="footer-column" aria-label="Informazioni legali">
+<h2>Legale</h2>
+<a href="termini-e-condizioni.html">Termini &amp; Condizioni</a>
+<a href="privacy-policy-italia.html">Privacy Policy</a>
+</nav>
+<nav class="footer-column" aria-label="Informazioni utili">
+<h2>Info Utili</h2>
+<a href="mailto:info@zeepup.com">Contattaci</a>
+<a href="/faq-italia">FAQ</a>
+</nav>
+<nav class="footer-column" aria-label="Community ZeepUp">
+<h2>Community</h2>
+<a href="referral-italia.html">Referral</a>
+<a href="https://www.zeepup.com/news-italia">News</a>
+</nav>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 ZeepUp S.r.l.</span>
+<span>P. IVA 12859150968</span>
+<span>Made for people who love good food.</span>
+</div>
+</footer>
+</body>
+</html>
