@@ -449,6 +449,136 @@ input:focus,select:focus,textarea:focus{
   text-transform:uppercase;
 }
 
+/* SUCCESS MODAL */
+body.modal-open{overflow:hidden}
+.success-modal[hidden]{display:none}
+.success-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  background:rgba(17,17,17,.72);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  animation:modal-fade-in .22s ease both;
+}
+.success-modal-card{
+  position:relative;
+  width:min(560px,100%);
+  overflow:hidden;
+  border:1px solid #111;
+  background:#fff;
+  box-shadow:14px 14px 0 var(--pink);
+  animation:modal-card-in .32s cubic-bezier(.2,.8,.2,1) both;
+}
+.success-modal-stripe{
+  height:10px;
+  background:var(--butter);
+  border-bottom:1px solid #111;
+}
+.success-modal-content{padding:42px 44px 40px}
+.success-modal-close{
+  position:absolute;
+  top:24px;
+  right:22px;
+  width:40px;
+  height:40px;
+  border:1px solid #111;
+  border-radius:50%;
+  background:#fff;
+  color:#111;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  transition:transform .15s ease,background .15s ease,color .15s ease;
+}
+.success-modal-close:hover{
+  transform:rotate(8deg);
+  background:#111;
+  color:#fff;
+}
+.success-icon{
+  width:68px;
+  height:68px;
+  display:grid;
+  place-items:center;
+  margin-bottom:28px;
+  border:1px solid #111;
+  border-radius:50%;
+  background:var(--butter);
+  box-shadow:5px 5px 0 #111;
+  color:var(--pink);
+  font-size:34px;
+  font-weight:700;
+}
+.success-modal-kicker{
+  margin:0 0 10px;
+  color:var(--pink);
+  font-family:"IBM Plex Mono","Courier New",monospace;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.success-modal-card h2{
+  max-width:430px;
+  margin:0 0 16px;
+  font-size:clamp(38px,6vw,58px);
+  line-height:.95;
+  letter-spacing:-.055em;
+}
+.success-modal-copy{
+  max-width:440px;
+  margin:0;
+  color:#555;
+  font-size:15px;
+  line-height:1.6;
+}
+.success-modal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:30px;
+}
+.success-modal-primary,
+.success-modal-secondary{
+  min-height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 20px;
+  border:1px solid #111;
+  border-radius:3px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.success-modal-primary{
+  background:var(--pink);
+  border-color:var(--pink);
+  color:#fff;
+  box-shadow:4px 4px 0 #111;
+}
+.success-modal-secondary{background:#fff;color:#111}
+.success-modal-close:focus-visible,
+.success-modal-primary:focus-visible,
+.success-modal-secondary:focus-visible{
+  outline:3px solid var(--butter);
+  outline-offset:3px;
+}
+@keyframes modal-fade-in{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes modal-card-in{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
 /* responsive */
 @media(max-width:930px){
   .header{left:5vw;right:5vw;justify-content:center}
@@ -471,6 +601,15 @@ input:focus,select:focus,textarea:focus{
   .field-grid,.radio-grid{grid-template-columns:1fr}
   .form-section{padding:22px}
   .progress{grid-template-columns:1fr 1fr}
+  .success-modal{padding:18px}
+  .success-modal-card{box-shadow:8px 8px 0 var(--pink)}
+  .success-modal-content{padding:34px 24px 28px}
+  .success-modal-actions{flex-direction:column}
+  .success-modal-primary,.success-modal-secondary{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .success-modal,.success-modal-card{animation:none}
+  .success-modal-close{transition:none}
 }
 </style>
 <link rel="stylesheet" href="assets/css/shared-header.css?v=20260818-1">
@@ -827,6 +966,39 @@ input:focus,select:focus,textarea:focus{
   </div>
 </footer>
 
+<div
+  class="success-modal"
+  id="registration-success-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="registration-success-title"
+  aria-describedby="registration-success-description"
+  hidden
+>
+  <div class="success-modal-card" role="document">
+    <div class="success-modal-stripe" aria-hidden="true"></div>
+    <button
+      class="success-modal-close"
+      id="registration-success-close"
+      type="button"
+      aria-label="Chiudi conferma"
+    >&times;</button>
+    <div class="success-modal-content">
+      <div class="success-icon" aria-hidden="true">&#10003;</div>
+      <p class="success-modal-kicker">Candidatura ricevuta</p>
+      <h2 id="registration-success-title">Grazie! Ci siamo quasi.</h2>
+      <p class="success-modal-copy" id="registration-success-description">
+        La tua candidatura &egrave; stata inviata correttamente. Il team ZeepUp
+        verificher&agrave; i dati e i documenti e ti contatter&agrave; per i prossimi passi.
+      </p>
+      <div class="success-modal-actions">
+        <a class="success-modal-primary" href="business-italia.html">Torna a ZeepUp Business &rarr;</a>
+        <button class="success-modal-secondary" id="registration-success-dismiss" type="button">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -847,35 +1019,60 @@ input:focus,select:focus,textarea:focus{
 
   const form = document.getElementById("business-registration-form");
   const submitButton = form.querySelector('button[type="submit"]');
+  const successModal = document.getElementById("registration-success-modal");
+  const successModalClose = document.getElementById("registration-success-close");
+  const successModalDismiss = document.getElementById("registration-success-dismiss");
+  let successModalTrigger = null;
 
-  /**
-   * Makes an uploaded filename safer for storage.
-   */
-  function safeFilename(filename) {
-    return filename
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9._-]/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-|-$/g, "");
+  function showSuccessModal() {
+    successModalTrigger = document.activeElement;
+    successModal.hidden = false;
+    document.body.classList.add("modal-open");
+    successModalClose.focus();
   }
 
-  /**
-   * Uploads one file to the private Supabase bucket.
-   */
+  function hideSuccessModal() {
+    successModal.hidden = true;
+    document.body.classList.remove("modal-open");
+
+    if (successModalTrigger instanceof HTMLElement) {
+      successModalTrigger.focus();
+    }
+  }
+
+  successModalClose.addEventListener("click", hideSuccessModal);
+  successModalDismiss.addEventListener("click", hideSuccessModal);
+
+  successModal.addEventListener("click", function (event) {
+    if (event.target === successModal) {
+      hideSuccessModal();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !successModal.hidden) {
+      hideSuccessModal();
+    }
+  });
+
+  function getFileExtension(filename) {
+    const parts = filename.toLowerCase().split(".");
+    return parts.length > 1 ? parts.pop() : "file";
+  }
+
   async function uploadFile(
     file,
     userId,
     applicationId,
-    category
+    category,
+    readableName
   ) {
     if (!file) {
       return null;
     }
 
-    const filename =
-      `${crypto.randomUUID()}-${safeFilename(file.name)}`;
+    const extension = getFileExtension(file.name);
+    const filename = `${readableName}.${extension}`;
 
     const filePath =
       `${userId}/${applicationId}/${category}/${filename}`;
@@ -1028,14 +1225,16 @@ input:focus,select:focus,textarea:focus{
         identityDocument,
         userId,
         applicationId,
-        "identity-document"
+        "identity-document",
+        "documento-identita"
       );
 
       const haccpCertificatePath = await uploadFile(
         haccpCertificate,
         userId,
         applicationId,
-        "haccp-certificate"
+        "haccp-certificate",
+        "attestato-haccp"
       );
 
       /*
@@ -1048,7 +1247,8 @@ input:focus,select:focus,textarea:focus{
           haccpManual,
           userId,
           applicationId,
-          "haccp-manual"
+          "haccp-manual",
+          "manuale-haccp"
         );
       }
 
@@ -1056,12 +1256,15 @@ input:focus,select:focus,textarea:focus{
        * Upload all kitchen photographs.
        */
       const kitchenPhotoPaths = await Promise.all(
-        kitchenPhotos.map(function (file) {
+        kitchenPhotos.map(function (file, index) {
+          const photoNumber = String(index + 1).padStart(2, "0");
+
           return uploadFile(
             file,
             userId,
             applicationId,
-            "kitchen-photos"
+            "kitchen-photos",
+            `foto-cucina-${photoNumber}`
           );
         })
       );
@@ -1164,10 +1367,7 @@ input:focus,select:focus,textarea:focus{
       }
 
       form.reset();
-
-      alert(
-        "Candidatura inviata correttamente. Grazie!"
-      );
+      showSuccessModal();
     } catch (error) {
       console.error("Registration error:", error);
 
