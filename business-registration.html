@@ -538,7 +538,7 @@ input:focus,select:focus,textarea:focus{
       submission action, hidden fields and original field names/entry IDs here.
       This preview intentionally does not fake those backend identifiers.
     -->
-    <form class="form-stack" action="#" method="post" onsubmit="event.preventDefault();">
+<form class="form-stack" id="business-registration-form">
 
       <section class="form-section" id="dati">
         <div class="section-head">
@@ -552,57 +552,57 @@ input:focus,select:focus,textarea:focus{
         <div class="field-grid">
           <div class="field">
             <label>Nome e Cognome <span class="required">*</span></label>
-            <input type="text" placeholder="Nome e cognome">
+            <input type="text" name="full_name" placeholder="Nome e cognome" required>
           </div>
 
           <div class="field">
             <label>Nome attività</label>
-            <input type="text">
+            <input type="text" name="business_name">
           </div>
 
           <div class="field full">
             <label>Email <span class="required">*</span></label>
-            <input type="email">
+            <input type="email" name="email" required>
           </div>
 
           <div class="field">
             <label>Paese/Regione <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="country_region" required>
           </div>
 
           <div class="field">
             <label>Indirizzo <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="address" required>
           </div>
 
           <div class="field">
             <label>Città <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="city" required>
           </div>
 
           <div class="field">
             <label>CAP <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="postal_code" required>
           </div>
 
           <div class="field">
             <label>Codice Fiscale <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="tax_code" required>
           </div>
 
           <div class="field">
             <label>Partita IVA <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="vat_number" required>
           </div>
 
           <div class="field">
             <label>Codice SDI</label>
-            <input type="text">
+            <input type="text" name="sdi_code">
           </div>
 
           <div class="field">
             <label>PEC <span class="required">*</span></label>
-            <input type="text">
+            <input type="text" name="pec" required>
           </div>
         </div>
       </section>
@@ -621,7 +621,7 @@ input:focus,select:focus,textarea:focus{
             <label>Documento d'identità <span class="required">*</span></label>
             <div class="upload">
               <div class="upload-title"><b>Carica documento</b><span>＋</span></div>
-              <input type="file">
+              <input type="file" id="identity-document" accept=".pdf,.jpg,.jpeg,.png" required>
             </div>
           </div>
 
@@ -629,7 +629,7 @@ input:focus,select:focus,textarea:focus{
             <label>Attestato HACCP <span class="required">*</span></label>
             <div class="upload">
               <div class="upload-title"><b>Carica attestato HACCP</b><span>＋</span></div>
-              <input type="file">
+              <input type="file" id="haccp-certificate" accept=".pdf,.jpg,.jpeg,.png" required>
             </div>
           </div>
 
@@ -637,7 +637,7 @@ input:focus,select:focus,textarea:focus{
             <label>Manuale di autocontrollo HACCP</label>
             <div class="upload">
               <div class="upload-title"><b>Carica manuale HACCP</b><span>＋</span></div>
-              <input type="file" accept=".pdf">
+              <input type="file" id="haccp-manual" accept=".pdf">
               <div class="hint">PDF — max 20MB. Se disponibile caricalo; altrimenti puoi autocertificare.</div>
             </div>
           </div>
@@ -646,7 +646,7 @@ input:focus,select:focus,textarea:focus{
             <label>Requisiti del locale + foto cucina <span class="required">*</span></label>
             <div class="upload">
               <div class="upload-title"><b>Carica foto cucina</b><span>＋</span></div>
-              <input type="file" accept=".jpg,.jpeg,.png" multiple>
+              <input type="file" id="kitchen-photos" accept=".jpg,.jpeg,.png" multiple required>
               <div class="hint">Almeno 3 foto — piano cottura, lavello, zona preparazione (JPG/PNG).</div>
             </div>
           </div>
@@ -663,7 +663,7 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="stripe_payments_accepted" required>
           <div class="check-copy">
             Dichiaro di aver preso visione e di accettare che tutti i pagamenti delle prenotazioni effettuate tramite ZeepUp siano gestiti tramite Stripe Connect. Accetto che i compensi vengano accreditati sul conto associato al mio account Stripe, secondo le tempistiche previste. Prendo atto che ZeepUp potrà sospendere o ritardare i pagamenti in caso di reclami, rimborsi, chargeback, verifiche antifrode, violazioni dei
             <a href="https://www.zeepup.com/termini-e-condizioni/termini-e-condizioni-acquirenti">Termini e Condizioni</a>
@@ -672,7 +672,7 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="fiscal_responsibility_accepted" required>
           <div class="check-copy">
             Dichiaro di essere l'unico responsabile dell'emissione del documento fiscale previsto dalla normativa vigente (documento commerciale, ricevuta o fattura, ove applicabile) per tutte le prestazioni effettuate tramite ZeepUp e dell'adempimento dei relativi obblighi fiscali e tributari.
           </div>
@@ -683,12 +683,12 @@ input:focus,select:focus,textarea:focus{
           <div class="hint" style="margin:0 0 12px">Seleziona il regime attuale — determina come emetterai ricevuta o fattura ai tuoi clienti.</div>
           <div class="radio-grid">
             <label class="radio-card">
-              <input type="radio" name="regime">
+              <input type="radio" name="fiscal_regime" value="forfettario" required>
               <strong>Regime forfettario</strong>
               <span>Ricavi sotto €85.000 — ricevuta cartacea o PDF, nessun obbligo SDI sotto €25k.</span>
             </label>
             <label class="radio-card">
-              <input type="radio" name="regime">
+              <input type="radio" name="fiscal_regime" value="ordinario" required>
               <strong>Regime ordinario / semplificato</strong>
               <span>Fattura elettronica con IVA 22% tramite SDI.</span>
             </label>
@@ -706,7 +706,7 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="regulatory_declaration" required>
           <div class="check-copy">
             <strong>Dichiarazione 1 — Requisiti normativi</strong>
             Dichiaro, sotto la mia esclusiva responsabilità, di svolgere la mia attività nel pieno rispetto della normativa vigente e di essere in possesso di tutti i requisiti, autorizzazioni, comunicazioni, coperture assicurative e adempimenti previsti dalla legge per l'attività esercitata, inclusi, ove applicabili:
@@ -728,7 +728,7 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="fiscal_declaration" required>
           <div class="check-copy">
             <strong>Dichiarazione 2 — Obblighi fiscali</strong>
             Dichiaro di emettere regolarmente il documento fiscale previsto dalla normativa vigente per tutte le prestazioni effettuate tramite ZeepUp e di adempiere ai relativi obblighi fiscali e tributari.
@@ -736,7 +736,7 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="truthfulness_declaration" required>
           <div class="check-copy">
             <strong>Dichiarazione 3 — Veridicità</strong>
             Dichiaro che tutte le informazioni e i documenti forniti durante la registrazione sono completi, veritieri e aggiornati e mi impegno a comunicare tempestivamente qualsiasi variazione rilevante.
@@ -744,7 +744,7 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="verification_declaration" required>
           <div class="check-copy">
             <strong>Dichiarazione 4 — Diritto di verifica</strong>
             Prendo atto che ZeepUp potrà richiedere ulteriore documentazione, effettuare verifiche e sospendere o revocare il mio account in caso di dichiarazioni non veritiere, documentazione incompleta o mancato rispetto della normativa applicabile o dei Termini e Condizioni.
@@ -762,14 +762,14 @@ input:focus,select:focus,textarea:focus{
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="platform_role_accepted" required>
           <div class="check-copy">
             Dichiaro di essere consapevole che ZeepUp opera esclusivamente come piattaforma di intermediazione tra Host e Clienti e che rimango l'unico responsabile della conformità della mia attività alla normativa applicabile, nonché della qualità, sicurezza e liceità delle esperienze offerte tramite la piattaforma.
           </div>
         </div>
 
         <div class="check-card">
-          <input type="checkbox">
+          <input type="checkbox" name="terms_privacy_accepted" required>
           <div class="check-copy">
             Dichiaro di aver letto, compreso e accettato i
             <a href="https://www.zeepup.com/termini-e-condizioni/termini-e-condizioni-acquirenti">Termini e Condizioni</a>
@@ -826,6 +826,361 @@ input:focus,select:focus,textarea:focus{
     <span>Made for people who love good food.</span>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  /*
+   * Replace these two values with your Supabase details.
+   * Use the publishable key, never the secret/service-role key.
+   */
+
+  const SUPABASE_URL = "https://cyppsyjknrivohgqihpg.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1OPXPSLqAT5skMtKgxj3sA_7hFmLlI5";
+  const TABLE_NAME = "business_registration_italia";
+  const BUCKET_NAME = "business-registration-documents";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const form = document.getElementById("business-registration-form");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  /**
+   * Makes an uploaded filename safer for storage.
+   */
+  function safeFilename(filename) {
+    return filename
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9._-]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
+
+  /**
+   * Uploads one file to the private Supabase bucket.
+   */
+  async function uploadFile(
+    file,
+    userId,
+    applicationId,
+    category
+  ) {
+    if (!file) {
+      return null;
+    }
+
+    const filename =
+      `${crypto.randomUUID()}-${safeFilename(file.name)}`;
+
+    const filePath =
+      `${userId}/${applicationId}/${category}/${filename}`;
+
+    const { error } = await supabaseClient.storage
+      .from(BUCKET_NAME)
+      .upload(filePath, file, {
+        contentType: file.type,
+        cacheControl: "3600",
+        upsert: false
+      });
+
+    if (error) {
+      throw new Error(
+        `Errore durante il caricamento di ${file.name}: ${error.message}`
+      );
+    }
+
+    return filePath;
+  }
+
+  /**
+   * Returns the current user, creating an anonymous user when needed.
+   */
+  async function getApplicantUser() {
+    const {
+      data: { session },
+      error: sessionError
+    } = await supabaseClient.auth.getSession();
+
+    if (sessionError) {
+      throw sessionError;
+    }
+
+    if (session?.user) {
+      return session.user;
+    }
+
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.signInAnonymously();
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data?.user) {
+      throw new Error(
+        "Non è stato possibile creare la sessione di registrazione."
+      );
+    }
+
+    return data.user;
+  }
+
+  /**
+   * Validates the required uploaded files.
+   */
+  function validateFiles(
+    identityDocument,
+    haccpCertificate,
+    kitchenPhotos
+  ) {
+    if (!identityDocument) {
+      throw new Error(
+        "Carica il documento d’identità."
+      );
+    }
+
+    if (!haccpCertificate) {
+      throw new Error(
+        "Carica l’attestato HACCP."
+      );
+    }
+
+    if (kitchenPhotos.length < 3) {
+      throw new Error(
+        "Carica almeno 3 foto della cucina."
+      );
+    }
+
+    const maximumFileSize = 20 * 1024 * 1024;
+
+    const files = [
+      identityDocument,
+      haccpCertificate,
+      ...kitchenPhotos
+    ];
+
+    const haccpManual =
+      document.getElementById("haccp-manual").files[0];
+
+    if (haccpManual) {
+      files.push(haccpManual);
+    }
+
+    for (const file of files) {
+      if (file.size > maximumFileSize) {
+        throw new Error(
+          `Il file "${file.name}" supera il limite di 20 MB.`
+        );
+      }
+    }
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const originalButtonText = submitButton.textContent;
+
+    submitButton.disabled = true;
+    submitButton.textContent = "INVIO IN CORSO…";
+
+    try {
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+
+      const identityDocument =
+        document.getElementById("identity-document").files[0];
+
+      const haccpCertificate =
+        document.getElementById("haccp-certificate").files[0];
+
+      const haccpManual =
+        document.getElementById("haccp-manual").files[0];
+
+      const kitchenPhotos = Array.from(
+        document.getElementById("kitchen-photos").files
+      );
+
+      validateFiles(
+        identityDocument,
+        haccpCertificate,
+        kitchenPhotos
+      );
+
+      const user = await getApplicantUser();
+      const userId = user.id;
+      const applicationId = crypto.randomUUID();
+
+      /*
+       * Upload required documents.
+       */
+      const identityDocumentPath = await uploadFile(
+        identityDocument,
+        userId,
+        applicationId,
+        "identity-document"
+      );
+
+      const haccpCertificatePath = await uploadFile(
+        haccpCertificate,
+        userId,
+        applicationId,
+        "haccp-certificate"
+      );
+
+      /*
+       * Upload optional HACCP manual when supplied.
+       */
+      let haccpManualPath = null;
+
+      if (haccpManual) {
+        haccpManualPath = await uploadFile(
+          haccpManual,
+          userId,
+          applicationId,
+          "haccp-manual"
+        );
+      }
+
+      /*
+       * Upload all kitchen photographs.
+       */
+      const kitchenPhotoPaths = await Promise.all(
+        kitchenPhotos.map(function (file) {
+          return uploadFile(
+            file,
+            userId,
+            applicationId,
+            "kitchen-photos"
+          );
+        })
+      );
+
+      /*
+       * Prepare the database record.
+       *
+       * The property names must exactly match the column names
+       * in the Supabase table.
+       */
+      const registration = {
+        id: applicationId,
+        user_id: userId,
+        status: "submitted",
+
+        full_name:
+          formData.get("full_name")?.trim(),
+
+        business_name:
+          formData.get("business_name")?.trim() || null,
+
+        email:
+          formData.get("email")?.trim().toLowerCase(),
+
+        country_region:
+          formData.get("country_region")?.trim(),
+
+        address:
+          formData.get("address")?.trim(),
+
+        city:
+          formData.get("city")?.trim(),
+
+        postal_code:
+          formData.get("postal_code")?.trim(),
+
+        tax_code:
+          formData.get("tax_code")?.trim().toUpperCase(),
+
+        vat_number:
+          formData.get("vat_number")?.trim(),
+
+        sdi_code:
+          formData.get("sdi_code")?.trim().toUpperCase() || null,
+
+        pec:
+          formData.get("pec")?.trim().toLowerCase(),
+
+        fiscal_regime:
+          formData.get("fiscal_regime"),
+
+        stripe_payments_accepted:
+          formData.has("stripe_payments_accepted"),
+
+        fiscal_responsibility_accepted:
+          formData.has("fiscal_responsibility_accepted"),
+
+        regulatory_declaration:
+          formData.has("regulatory_declaration"),
+
+        fiscal_declaration:
+          formData.has("fiscal_declaration"),
+
+        truthfulness_declaration:
+          formData.has("truthfulness_declaration"),
+
+        verification_declaration:
+          formData.has("verification_declaration"),
+
+        platform_role_accepted:
+          formData.has("platform_role_accepted"),
+
+        terms_privacy_accepted:
+          formData.has("terms_privacy_accepted"),
+
+        identity_document_path:
+          identityDocumentPath,
+
+        haccp_certificate_path:
+          haccpCertificatePath,
+
+        haccp_manual_path:
+          haccpManualPath,
+
+        kitchen_photo_paths:
+          kitchenPhotoPaths
+      };
+
+      /*
+       * Save the registration in the renamed Supabase table.
+       */
+      const { error: insertError } = await supabaseClient
+        .from(TABLE_NAME)
+        .insert(registration);
+
+      if (insertError) {
+        throw new Error(
+          `Errore durante il salvataggio: ${insertError.message}`
+        );
+      }
+
+      form.reset();
+
+      alert(
+        "Candidatura inviata correttamente. Grazie!"
+      );
+    } catch (error) {
+      console.error("Registration error:", error);
+
+      alert(
+        error.message ||
+        "Non è stato possibile inviare la candidatura. Riprova."
+      );
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  });
+</script>
 
 </body>
 </html>
