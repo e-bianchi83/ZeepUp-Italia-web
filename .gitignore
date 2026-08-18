@@ -8,6 +8,7 @@ design-qa.md
 *.zip
 _archive/
 tmp/
+.sync-backups/
 
 # Superseded root-level working assets
 /hero-phone-transparent-v*.png
