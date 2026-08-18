@@ -328,6 +328,36 @@ input:focus,select:focus,textarea:focus{
   font-size:10px;
   line-height:1.4;
 }
+.field-error{
+  display:none;
+  margin:8px 0 0;
+  color:#b00045;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.4;
+}
+.field-error.is-visible{
+  display:flex;
+  align-items:flex-start;
+  gap:7px;
+}
+.field-error.is-visible::before{
+  content:"!";
+  flex:0 0 17px;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:var(--pink);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:10px;
+  line-height:1;
+}
+input[aria-invalid="true"]{
+  border-color:var(--pink);
+  box-shadow:3px 3px 0 var(--butter);
+}
 
 /* UPLOADS */
 .upload{
@@ -701,12 +731,16 @@ body.modal-open{overflow:hidden}
 
           <div class="field full">
             <label>Email <span class="required">*</span></label>
-            <input type="email" name="email" required>
+            <input type="email" id="email" name="email" required>
           </div>
 
           <div class="field">
             <label>Paese/Regione <span class="required">*</span></label>
-            <input type="text" name="country_region" required>
+            <select name="country_region" required>
+              <option value="" selected disabled>Seleziona una regione</option>
+              <option value="Lombardia">Lombardia</option>
+              <option value="Toscana">Toscana</option>
+            </select>
           </div>
 
           <div class="field">
@@ -726,22 +760,39 @@ body.modal-open{overflow:hidden}
 
           <div class="field">
             <label>Codice Fiscale <span class="required">*</span></label>
-            <input type="text" name="tax_code" required>
+            <input
+              type="text"
+              id="tax-code"
+              name="tax_code"
+              pattern="[A-Za-z0-9]{16}|[0-9]{11}"
+              maxlength="16"
+              title="Inserisci un Codice Fiscale di 16 caratteri oppure 11 cifre."
+              required
+            >
           </div>
 
           <div class="field">
             <label>Partita IVA <span class="required">*</span></label>
-            <input type="text" name="vat_number" required>
+            <input
+              type="text"
+              id="vat-number"
+              name="vat_number"
+              inputmode="numeric"
+              pattern="[0-9]{11}"
+              maxlength="11"
+              title="Inserisci una Partita IVA italiana di 11 cifre."
+              required
+            >
           </div>
 
           <div class="field">
             <label>Codice SDI</label>
-            <input type="text" name="sdi_code">
+            <input type="text" id="sdi-code" name="sdi_code">
           </div>
 
           <div class="field">
             <label>PEC <span class="required">*</span></label>
-            <input type="text" name="pec" required>
+            <input type="email" id="pec" name="pec" required>
           </div>
         </div>
       </section>
@@ -1179,6 +1230,201 @@ body.modal-open{overflow:hidden}
     }
   }
 
+  function showInlineFieldError(input, message) {
+    const errorId = `${input.id}-error`;
+    let error = document.getElementById(errorId);
+
+    if (!error) {
+      error = document.createElement("p");
+      error.id = errorId;
+      error.className = "field-error";
+      error.setAttribute("aria-live", "polite");
+      input.insertAdjacentElement("afterend", error);
+    }
+
+    error.textContent = message;
+    error.classList.toggle("is-visible", Boolean(message));
+
+    const describedBy = new Set(
+      (input.getAttribute("aria-describedby") || "")
+        .split(/\s+/)
+        .filter(Boolean)
+    );
+
+    if (message) {
+      describedBy.add(errorId);
+      input.setAttribute("aria-invalid", "true");
+    } else {
+      describedBy.delete(errorId);
+      input.removeAttribute("aria-invalid");
+    }
+
+    if (describedBy.size) {
+      input.setAttribute(
+        "aria-describedby",
+        Array.from(describedBy).join(" ")
+      );
+    } else {
+      input.removeAttribute("aria-describedby");
+    }
+  }
+
+  function setFieldValidity(input, message) {
+    input.setCustomValidity(message);
+    showInlineFieldError(input, message);
+  }
+
+  function isValidEmailFormat(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(
+      value.trim()
+    );
+  }
+
+  function configureEmailValidation(fieldId, label) {
+    const input = document.getElementById(fieldId);
+
+    function validate(showRequiredMessage = false) {
+      const value = input.value.trim();
+      let message = "";
+
+      if (!value && showRequiredMessage) {
+        message = `Inserisci un indirizzo ${label}.`;
+      } else if (value && !isValidEmailFormat(value)) {
+        message = `Inserisci un indirizzo ${label} valido.`;
+      }
+
+      setFieldValidity(input, message);
+      return !message;
+    }
+
+    input.addEventListener("input", function () {
+      validate(false);
+    });
+
+    input.addEventListener("blur", function () {
+      this.value = this.value.trim().toLowerCase();
+      validate(true);
+    });
+
+    return validate;
+  }
+
+  const validateEmail =
+    configureEmailValidation("email", "email");
+  const validatePec =
+    configureEmailValidation("pec", "PEC");
+
+  const sdiInput =
+    document.getElementById("sdi-code");
+
+  sdiInput.addEventListener("input", function () {
+    this.value = this.value
+      .replace(/[^a-z0-9]/gi, "")
+      .toUpperCase();
+  });
+
+  function isValidTaxCodeFormat(value) {
+    const taxCode = value
+      .replace(/\s/g, "")
+      .toUpperCase();
+
+    const individualFormat = /^[A-Z0-9]{16}$/;
+    const companyFormat = /^[0-9]{11}$/;
+
+    return (
+      individualFormat.test(taxCode) ||
+      companyFormat.test(taxCode)
+    );
+  }
+
+  const taxCodeInput =
+    document.getElementById("tax-code");
+
+  function validateTaxCode(showRequiredMessage = false) {
+    taxCodeInput.value = taxCodeInput.value
+      .replace(/\s/g, "")
+      .toUpperCase();
+    let message = "";
+
+    if (!taxCodeInput.value && showRequiredMessage) {
+      message = "Inserisci il Codice Fiscale.";
+    } else if (
+      taxCodeInput.value &&
+      !isValidTaxCodeFormat(taxCodeInput.value)
+    ) {
+      message =
+        "Inserisci un Codice Fiscale valido: 16 caratteri oppure 11 cifre.";
+    }
+
+    setFieldValidity(taxCodeInput, message);
+    return !message;
+  }
+
+  taxCodeInput.addEventListener("input", function () {
+    validateTaxCode(false);
+  });
+  taxCodeInput.addEventListener("blur", function () {
+    validateTaxCode(true);
+  });
+
+  function isValidItalianVatNumber(value) {
+    const vat = String(value).replace(/\s/g, "");
+
+    if (!/^[0-9]{11}$/.test(vat)) {
+      return false;
+    }
+
+    let sum = 0;
+
+    for (let index = 0; index < 11; index++) {
+      let digit = Number(vat[index]);
+
+      if (index % 2 === 1) {
+        digit *= 2;
+
+        if (digit > 9) {
+          digit -= 9;
+        }
+      }
+
+      sum += digit;
+    }
+
+    return sum % 10 === 0;
+  }
+
+  const vatInput =
+    document.getElementById("vat-number");
+
+  function validateVatNumber(showRequiredMessage = false) {
+    vatInput.value = vatInput.value.replace(/\D/g, "");
+    let message = "";
+
+    if (!vatInput.value && showRequiredMessage) {
+      message = "Inserisci la Partita IVA.";
+    } else if (
+      vatInput.value &&
+      vatInput.value.length !== 11
+    ) {
+      message = "La Partita IVA deve contenere esattamente 11 cifre.";
+    } else if (
+      vatInput.value.length === 11 &&
+      !isValidItalianVatNumber(vatInput.value)
+    ) {
+      message = "La Partita IVA non supera il controllo formale.";
+    }
+
+    setFieldValidity(vatInput, message);
+    return !message;
+  }
+
+  vatInput.addEventListener("input", function () {
+    validateVatNumber(false);
+  });
+  vatInput.addEventListener("blur", function () {
+    validateVatNumber(true);
+  });
+
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -1188,8 +1434,14 @@ body.modal-open{overflow:hidden}
     submitButton.textContent = "INVIO IN CORSO…";
 
     try {
+      validateEmail(true);
+      validatePec(true);
+      validateTaxCode(true);
+      validateVatNumber(true);
+
       if (!form.checkValidity()) {
         form.reportValidity();
+        form.querySelector(":invalid")?.focus();
         return;
       }
 
