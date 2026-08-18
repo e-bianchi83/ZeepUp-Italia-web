@@ -32,7 +32,7 @@ h1{font-size:clamp(54px,5.7vw,88px);line-height:.98;letter-spacing:-.058em;margi
 .note .phone{color:var(--pink);font-weight:900;margin-right:7px}
 .visual{position:relative;min-height:570px;display:flex;align-items:flex-end;justify-content:flex-end}
 .visual:before{content:none}
-.visual img{position:relative;z-index:1;width:min(650px,108%);max-height:650px;object-fit:contain;object-position:center bottom;background:transparent;mix-blend-mode:multiply;filter:drop-shadow(0 18px 24px rgba(0,0,0,.06))}
+.visual img{position:relative;z-index:1;width:min(650px,108%);max-height:650px;object-fit:contain;object-position:center bottom;background:#fff;mix-blend-mode:multiply;filter:brightness(1.025) contrast(1.015)}
 
 .utility-wrap{position:absolute;left:6vw;right:6vw;bottom:-190px;width:auto;transform:none;z-index:5}
 .utility{position:relative;background:var(--butter);color:var(--ink);border:1px solid var(--ink);box-shadow:14px 14px 0 var(--ink)}
