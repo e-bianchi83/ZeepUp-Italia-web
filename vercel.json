@@ -22,11 +22,19 @@
     },
     {
       "source": "/business-registration",
-      "destination": "/business-registration.html"
+      "destination": "/store-registration.html"
+    },
+    {
+      "source": "/store-registration",
+      "destination": "/store-registration.html"
     },
     {
       "source": "/homechef-registration",
-      "destination": "/HomeChef-registration.html"
+      "destination": "/home-chef-registration.html"
+    },
+    {
+      "source": "/home-chef-registration",
+      "destination": "/home-chef-registration.html"
     },
     {
       "source": "/corporate-dinner",

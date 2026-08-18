@@ -14,8 +14,8 @@ Then open `http://localhost:4173`.
 
 - `index.html` — consumer homepage
 - `business-italia.html` — Italian business and HomeChef page
-- `business-registration.html` — food-business registration page
-- `HomeChef-registration.html` — HomeChef registration page
+- `store-registration.html` — food-business and store registration page
+- `home-chef-registration.html` — HomeChef registration page
 - `corporate-dinner.html` — corporate dining and events page
 - `faq-italia.html` — Italian FAQ and support page
 - `vendor-Documentation.html` — vendor documentation page
@@ -40,8 +40,10 @@ Then open `http://localhost:4173`.
 - `/` — consumer homepage
 - `/business` — stable business-page URL
 - `/business-italia` — Italian business-page alias
-- `/business-registration` — food-business registration
-- `/homechef-registration` — HomeChef registration
+- `/store-registration` — food-business and store registration
+- `/business-registration` — legacy alias for store registration
+- `/home-chef-registration` — HomeChef registration
+- `/homechef-registration` — legacy alias for HomeChef registration
 - `/corporate-dinner` — corporate dining and events
 - `/faq-italia` — Italian FAQ page
 - `/vendor-documentation` — vendor documentation
