@@ -59,6 +59,8 @@ a{color:inherit}
 .legal-table th{background:#111;color:#fff;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
 .legal-callout{margin:22px 0 38px;padding:24px 26px;background:var(--soft);border-left:5px solid var(--pink)}
 .legal-callout p:last-child{margin-bottom:0}
+.legal-signoff{margin-top:42px;padding-top:24px;border-top:1px solid var(--line);font:inherit;color:inherit}
+.legal-signoff p:last-child{margin-bottom:0}
 .site-footer{background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}
 .footer-inner{max-width:1575px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,1.5fr) repeat(3,minmax(150px,1fr));gap:64px;padding-bottom:62px}
 .footer-logo{display:block;position:relative;width:186px;height:47px;overflow:hidden;background:transparent;text-decoration:none;margin-bottom:27px}
