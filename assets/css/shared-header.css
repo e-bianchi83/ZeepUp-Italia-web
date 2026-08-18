@@ -1,0 +1,70 @@
+/* Shared ZeepUp header alignment for every page. */
+.shared-site-header,
+.site-top,
+.legal-top {
+  position: relative;
+  width: 100% !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.shared-site-header {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0;
+  z-index: 50;
+}
+
+.top-pill {
+  position: absolute !important;
+  top: 19px !important;
+  right: 4.5vw !important;
+  left: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px !important;
+  padding: 15px 16px 15px 26px !important;
+  background: #fff !important;
+  border: 1px solid #111 !important;
+  border-radius: 0 !important;
+  box-shadow: 12px 13px 0 #111 !important;
+  flex-wrap: nowrap !important;
+  z-index: 20 !important;
+}
+
+.top-pill > a:first-child {
+  display: block;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.top-pill img {
+  width: 181px !important;
+  height: auto !important;
+  display: block;
+}
+
+@media (max-width: 1050px) {
+  .top-pill {
+    right: 5vw !important;
+    left: 5vw !important;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 650px) {
+  .top-pill {
+    top: 16px !important;
+    right: 16px !important;
+    left: 16px !important;
+    gap: 8px !important;
+    padding: 10px 10px 10px 14px !important;
+    box-shadow: 7px 8px 0 #111 !important;
+  }
+
+  .top-pill img {
+    width: 105px !important;
+  }
+}

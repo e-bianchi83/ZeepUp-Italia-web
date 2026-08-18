@@ -1,6 +1,6 @@
 # ZeepUp website
 
-Responsive ZeepUp website with a consumer homepage, an Italian business landing page, an interactive Milan restaurant map, app download links, FAQ content and responsive desktop/mobile layouts.
+Responsive ZeepUp Italia website with consumer, business, registration, event, referral, support and legal pages. It includes an interactive Milan restaurant map and shared responsive header and footer components.
 
 ## Run locally
 
@@ -14,12 +14,20 @@ Then open `http://localhost:4173`.
 
 - `index.html` — consumer homepage
 - `business-italia.html` — Italian business and HomeChef page
+- `business-registration.html` — food-business registration page
+- `HomeChef-registration.html` — HomeChef registration page
+- `corporate-dinner.html` — corporate dining and events page
 - `faq-italia.html` — Italian FAQ and support page
 - `vendor-Documentation.html` — vendor documentation page
 - `scarica-app.html` — app download page
 - `slowfood.html` — ZeepUp × Slow Food Italia page
 - `referral-italia.html` — Italian referral page
+- `privacy-policy-italia.html` — privacy policy
+- `termini-e-condizioni*.html` — general, customer and vendor terms
+- `Favicon.png` — shared browser favicon
 - `assets/css/site.css` — homepage styles and responsive rules
+- `assets/css/shared-header.css` — shared header positioning and responsive rules
+- `assets/css/legal-pages.css` — shared legal-page styles
 - `assets/js/site.js` — carousel and interactive map behaviour
 - `assets/data/shops-map-data.js` — restaurant marker data
 - `assets/images/` — shared brand, store, business and editorial imagery
@@ -32,10 +40,17 @@ Then open `http://localhost:4173`.
 - `/` — consumer homepage
 - `/business` — stable business-page URL
 - `/business-italia` — Italian business-page alias
+- `/business-registration` — food-business registration
+- `/homechef-registration` — HomeChef registration
+- `/corporate-dinner` — corporate dining and events
 - `/faq-italia` — Italian FAQ page
 - `/vendor-documentation` — vendor documentation
 - `/scarica-app` — app download page
 - `/slowfood` — ZeepUp × Slow Food Italia page
 - `/referral-italia` — Italian referral page
+- `/privacy-policy-italia` — privacy policy
+- `/termini-e-condizioni` — general terms and conditions
+- `/termini-e-condizioni-clienti` — customer terms and conditions
+- `/termini-e-condizioni-venditori` — vendor terms and conditions
 
 The map uses OpenStreetMap/CARTO tiles and therefore requires an internet connection for its basemap.

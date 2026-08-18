@@ -22,11 +22,18 @@ const routes = {
   '/business': 'business-italia.html',
   '/business-italia': 'business-italia.html',
   '/business.html': 'business-italia.html',
+  '/business-registration': 'business-registration.html',
+  '/homechef-registration': 'HomeChef-registration.html',
+  '/corporate-dinner': 'corporate-dinner.html',
   '/faq-italia': 'faq-italia.html',
   '/vendor-documentation': 'vendor-Documentation.html',
   '/scarica-app': 'scarica-app.html',
   '/slowfood': 'slowfood.html',
-  '/referral-italia': 'referral-italia.html'
+  '/referral-italia': 'referral-italia.html',
+  '/privacy-policy-italia': 'privacy-policy-italia.html',
+  '/termini-e-condizioni': 'termini-e-condizioni.html',
+  '/termini-e-condizioni-clienti': 'termini-e-condizioni-clienti.html',
+  '/termini-e-condizioni-venditori': 'termini-e-condizioni-venditori.html'
 };
 
 http.createServer((request, response) => {

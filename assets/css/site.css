@@ -129,21 +129,21 @@ h2{font-size:clamp(44px,4.5vw,68px);line-height:1.02;letter-spacing:-.048em;marg
 @media(prefers-reduced-motion:reduce){.golden-z-cta,.golden-z-cta .material-symbols-outlined{transition:none!important}}
 
 /* OCCASIONS / EDITORIAL CAROUSEL */
-.occasions{padding:105px 2.3vw 120px;background:#fff;border-top:1px solid var(--line)}
+.occasions{padding:78px 2.3vw 82px;background:#fff;border-top:1px solid var(--line)}
 .occasions-inner{max-width:1640px;margin:0 auto}
 .occasions-kicker{color:var(--pink);font-size:13px;text-transform:uppercase;letter-spacing:.075em;font-weight:850;margin:0 0 18px 3vw}
-.occasions-intro{display:flex;justify-content:space-between;align-items:end;gap:40px;margin:0 3vw 42px}
+.occasions-intro{display:flex;justify-content:space-between;align-items:end;gap:40px;margin:0 3vw 28px}
 .occasions-intro h2{max-width:780px;margin:0;font-size:clamp(42px,4vw,66px)}
 .occasions-intro p{max-width:500px;margin:0;font-size:18px;line-height:1.5;color:#333}
 .occasion-viewport{overflow:hidden;background:#fff}
 .occasion-track{display:flex;transition:transform .55s cubic-bezier(.22,.8,.2,1);will-change:transform}
-.occasion-slide{min-width:100%;display:grid;grid-template-columns:minmax(360px,34%) minmax(0,66%);min-height:500px;padding:0 1vw}
-.occasion-copy{background:#111;color:#fff;padding:70px 54px 64px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.occasion-slide{min-width:100%;display:grid;grid-template-columns:minmax(360px,34%) minmax(0,66%);min-height:410px;padding:0 1vw}
+.occasion-copy{background:#111;color:#fff;padding:48px 42px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
 .occasion-label{font-size:12px;color:var(--pink);text-transform:uppercase;letter-spacing:.08em;font-weight:850;margin-bottom:18px}
-.occasion-copy h3{font-size:clamp(38px,3.4vw,56px);line-height:1.02;letter-spacing:-.045em;margin:0 0 26px;font-weight:760;max-width:430px}
-.occasion-copy p{font-size:17px;line-height:1.52;color:#f1f1f1;max-width:440px;margin:0 0 30px}
+.occasion-copy h3{font-size:clamp(34px,3vw,48px);line-height:1.02;letter-spacing:-.045em;margin:0 0 18px;font-weight:760;max-width:430px}
+.occasion-copy p{font-size:16px;line-height:1.48;color:#f1f1f1;max-width:440px;margin:0 0 22px}
 .occasion-btn{background:var(--pink);color:#fff;text-decoration:none;font-weight:850;padding:14px 18px;border-radius:5px;display:inline-flex;align-items:center;gap:12px;font-size:13px}
-.occasion-media{min-height:500px;overflow:hidden;background:#eee}
+.occasion-media{min-height:410px;overflow:hidden;background:#eee}
 .occasion-media img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.92) contrast(.97) brightness(1.04)}
 .occasion-slide:nth-child(1) .occasion-media img{object-position:center 46%;transform:scale(1.03)}
 .occasion-slide:nth-child(2) .occasion-media img{object-position:center 44%}
@@ -154,8 +154,8 @@ h2{font-size:clamp(44px,4.5vw,68px);line-height:1.02;letter-spacing:-.048em;marg
 .occasion-arrow.prev{grid-column:1;justify-self:start}
 
 @media(max-width:900px){
-  .occasions{padding:80px 16px 90px}.occasions-intro{margin:0 0 30px;display:block}.occasions-intro p{margin-top:18px}.occasions-kicker{margin-left:0}
-  .occasion-slide{grid-template-columns:1fr;padding:0}.occasion-copy{padding:46px 30px}.occasion-media{min-height:360px;order:-1}.occasion-slide{min-height:auto}.occasion-controls{padding:16px 0 0}
+  .occasions{padding:58px 16px 64px}.occasions-intro{margin:0 0 24px;display:block}.occasions-intro p{margin-top:18px}.occasions-kicker{margin-left:0}
+  .occasion-slide{grid-template-columns:1fr;padding:0}.occasion-copy{padding:34px 24px}.occasion-media{min-height:280px;order:-1}.occasion-slide{min-height:auto}.occasion-controls{padding:12px 0 0}
 }
 
 @media(max-width:1050px){
