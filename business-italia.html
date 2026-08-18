@@ -555,22 +555,26 @@ strong,b{
 @media(max-width:1050px){.top-pill{left:5vw;right:5vw;justify-content:center}.footer-inner{grid-template-columns:1.4fr 1fr;gap:50px 40px}}
 @media(max-width:650px){.top-pill{top:16px;left:16px;right:16px;padding:10px 10px 10px 14px;gap:8px;box-shadow:7px 8px 0 #111}.top-pill img{width:105px}.kitchen-btn,.download-btn{min-width:0;min-height:0;font-size:10px;padding:10px 9px}.kitchen-btn:after{right:8px;bottom:6px;height:6px}.download-btn .material-symbols-outlined{font-size:15px}.site-footer{padding:58px 22px 24px}.footer-inner{grid-template-columns:1fr;gap:40px;padding-bottom:46px}.footer-bottom{flex-direction:column;gap:8px}}
 @media(prefers-reduced-motion:reduce){.kitchen-btn,.kitchen-btn:after,.kitchen-icon,.download-btn,.download-btn .material-symbols-outlined{transition:none!important}}
-</style></head>
+</style>
+<link rel="stylesheet" href="assets/css/shared-header.css?v=20260818-1">
+</head>
 <body>
+<header class="shared-site-header">
+  <div class="top-pill">
+  <a href="index.html" aria-label="Torna alla homepage ZeepUp"><img src="assets/images/embedded/header-logo-black.png" alt="ZeepUp"/></a>
+  <span class="top-divider"></span>
+  <a class="kitchen-btn" href="business-italia.html"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
+  <a class="download-btn" href="scarica-app.html">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+  </div>
+</header>
 <main>
 <section class="wrap hero">
-<div class="top-pill">
-  <img src="assets/images/embedded/header-logo-black.png" alt="ZeepUp"/>
-  <span class="top-divider"></span>
-  <a class="kitchen-btn" href="#percorsi"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
-  <a class="download-btn" href="scarica-app.html">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-</div>
 <div>
 <div class="eyebrow">ZeepUp Business · Italia</div>
 <h1>Fai scoprire <em>la tua cucina.</em></h1>
 <p>Mostra cosa prepari oggi, racconta chi c’è dietro e rendi semplice capire quando scegliere la tua proposta — che tu abbia un’attività food o cucini da casa.</p>
 <div class="hero-ctas route-links">
-<a class="route-link" href="https://www.zeepup.com/registrazione">ATTIVITÀ FOOD ↗</a>
+<a class="route-link" href="business-registration.html">ATTIVITÀ FOOD ↗</a>
 <a class="route-link" href="HomeChef-registration.html">HOMECHEF ↗</a>
 </div>
 <div class="hero-proof">
@@ -614,7 +618,7 @@ strong,b{
 <h3>Ristoranti, Farm Shop &amp; attività food</h3>
 <p>Metti in primo piano piatti, menù, esperienze e ciò che rende riconoscibile la tua attività. Non soltanto dove sei: soprattutto cosa vale la pena scoprire oggi.</p>
 </div>
-<a class="pill primary" href="https://www.zeepup.com/registrazione">INIZIA COME ATTIVITÀ →</a>
+<a class="pill primary" href="business-registration.html">INIZIA COME ATTIVITÀ →</a>
 </div>
 </article>
 <article class="path" id="homechef">
@@ -732,7 +736,7 @@ strong,b{
 <p>Scegli il percorso che corrisponde al modo in cui lavori e parti da lì.</p>
 <div class="hero-ctas final-links">
 <a class="final-text-link" href="HomeChef-registration.html">PERCORSO HOMECHEF ↗</a>
-<a class="final-text-link" href="https://www.zeepup.com/registrazione">PERCORSO ATTIVITÀ FOOD ↗</a>
+<a class="final-text-link" href="business-registration.html">PERCORSO ATTIVITÀ FOOD ↗</a>
 </div>
 </div>
 </div>
@@ -741,7 +745,7 @@ strong,b{
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a class="footer-logo" href="index.html" aria-label="ZeepUp"><img src="assets/images/brand/zeepup-logo.png" alt="ZeepUp"/></a>
+      <a class="footer-logo" href="https://www.zeepup.com/" aria-label="ZeepUp"><img src="assets/images/brand/zeepup-logo.png" alt="ZeepUp"></a>
       <p>Scopri chi cucina vicino a te, guarda cosa prepara oggi e scegli tra Eat-In e To-Go.</p>
       <div class="footer-social" aria-label="ZeepUp sui social media">
         <a href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Instagram</a>
@@ -757,9 +761,9 @@ strong,b{
     </nav>
     <nav class="footer-column" aria-label="Informazioni utili">
       <h2>Info Utili</h2>
-      <a href="https://www.zeepup.com/chi-siamo">Chi siamo</a>
+
       <a href="mailto:info@zeepup.com">Contattaci</a>
-      <a href="faq-italia.html">FAQ</a>
+      <a href="/faq-italia">FAQ</a>
     </nav>
     <nav class="footer-column" aria-label="Community ZeepUp">
       <h2>Community</h2>

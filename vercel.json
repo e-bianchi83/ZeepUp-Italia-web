@@ -21,6 +21,18 @@
       "destination": "/business-italia.html"
     },
     {
+      "source": "/business-registration",
+      "destination": "/business-registration.html"
+    },
+    {
+      "source": "/homechef-registration",
+      "destination": "/HomeChef-registration.html"
+    },
+    {
+      "source": "/corporate-dinner",
+      "destination": "/corporate-dinner.html"
+    },
+    {
       "source": "/faq-italia",
       "destination": "/faq-italia.html"
     },
@@ -39,6 +51,22 @@
     {
       "source": "/referral-italia",
       "destination": "/referral-italia.html"
+    },
+    {
+      "source": "/privacy-policy-italia",
+      "destination": "/privacy-policy-italia.html"
+    },
+    {
+      "source": "/termini-e-condizioni",
+      "destination": "/termini-e-condizioni.html"
+    },
+    {
+      "source": "/termini-e-condizioni-clienti",
+      "destination": "/termini-e-condizioni-clienti.html"
+    },
+    {
+      "source": "/termini-e-condizioni-venditori",
+      "destination": "/termini-e-condizioni-venditori.html"
     }
   ]
 }
