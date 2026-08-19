@@ -106,6 +106,15 @@ button,input{font:inherit}
 .form-note.is-error{color:#9d1735}
 .form-note.is-success{color:#17613b}
 .referral-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.referral-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:rgba(17,17,17,.84)}
+.referral-modal[hidden]{display:none}
+.referral-modal-card{width:min(520px,100%);background:var(--butter);color:#111;border:1px solid #fff;padding:38px;text-align:center;box-shadow:12px 12px 0 #fff}
+.referral-modal-mark{width:62px;height:62px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:#111;color:var(--butter);font-size:30px;font-weight:900}
+.referral-modal h2{font-size:clamp(34px,6vw,52px);line-height:.95;letter-spacing:-.055em;margin:0 0 18px}
+.referral-modal p{max-width:390px;margin:0 auto 26px;color:#333;font-size:16px;line-height:1.55}
+.referral-modal-close{width:100%;border:0;background:var(--pink);color:#fff;padding:16px;font-weight:900;cursor:pointer}
+.referral-modal-close:focus-visible{outline:3px solid #111;outline-offset:4px}
+body.referral-modal-open{overflow:hidden}
 
 /* WHY SHARE */
 .share{padding:92px 0;background:#fff}
@@ -286,6 +295,15 @@ button,input{font:inherit}
   </div>
 </section>
 
+<div class="referral-modal" id="referralSuccessModal" hidden>
+  <div class="referral-modal-card" role="dialog" aria-modal="true" aria-labelledby="referralSuccessTitle" aria-describedby="referralSuccessText">
+    <div class="referral-modal-mark" aria-hidden="true">✓</div>
+    <h2 id="referralSuccessTitle">Invito registrato<span class="pink-dot"></span></h2>
+    <p id="referralSuccessText">Grazie! Il tuo invito è stato registrato.</p>
+    <button class="referral-modal-close" id="referralModalClose" type="button">CHIUDI</button>
+  </div>
+</div>
+
 <section class="share">
   <div class="wrap share-grid">
     <div class="share-photo-wrap">
@@ -374,7 +392,10 @@ button,input{font:inherit}
   const honeypotInput = document.getElementById("referralWebsite");
   const submitButton = document.getElementById("referralSubmit");
   const message = document.getElementById("formMsg");
+  const successModal = document.getElementById("referralSuccessModal");
+  const modalCloseButton = document.getElementById("referralModalClose");
   const defaultButtonText = submitButton.textContent;
+  let elementFocusedBeforeModal = null;
 
   const messages = {
     loading: "INVIO IN CORSO…",
@@ -393,6 +414,37 @@ button,input{font:inherit}
   function setInvalid(input, invalid) {
     input.setAttribute("aria-invalid", String(invalid));
   }
+
+  function openSuccessModal() {
+    elementFocusedBeforeModal = document.activeElement;
+    successModal.hidden = false;
+    document.body.classList.add("referral-modal-open");
+    modalCloseButton.focus();
+  }
+
+  function closeSuccessModal() {
+    successModal.hidden = true;
+    document.body.classList.remove("referral-modal-open");
+    if (elementFocusedBeforeModal) {
+      elementFocusedBeforeModal.focus();
+    }
+  }
+
+  modalCloseButton.addEventListener("click", closeSuccessModal);
+  successModal.addEventListener("click", (event) => {
+    if (event.target === successModal) {
+      closeSuccessModal();
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !successModal.hidden) {
+      closeSuccessModal();
+    }
+    if (event.key === "Tab" && !successModal.hidden) {
+      event.preventDefault();
+      modalCloseButton.focus();
+    }
+  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -458,6 +510,7 @@ button,input{font:inherit}
       form.reset();
       [nameInput, emailInput, friendInput].forEach((input) => setInvalid(input, false));
       showMessage(messages.success, "success");
+      openSuccessModal();
     } catch (error) {
       console.error("Referral submission failed:", error);
       showMessage(messages.error, "error");
