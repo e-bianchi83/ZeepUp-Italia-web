@@ -93,9 +93,9 @@ body.modal-open{overflow:hidden}
 <div class="fields">
 <div class="field"><label>Indirizzo <span class="req">*</span></label><input type="text" name="address" placeholder="Via, piazza..." required></div>
 <div class="field"><label for="street-number">Numero <span class="req">*</span></label><input type="text" id="street-number" name="street_number" maxlength="12" placeholder="12/A" required></div>
-<div class="field"><label>Città <span class="req">*</span></label><select name="city" required><option value="">Seleziona città</option><option>Milano</option><option>Firenze</option></select></div>
+<div class="field"><label for="store-region">Regione <span class="req">*</span></label><select id="store-region" name="region" required><option value="" selected disabled>Seleziona una regione</option><option>Abruzzo</option><option>Basilicata</option><option>Calabria</option><option>Campania</option><option>Emilia-Romagna</option><option>Friuli Venezia Giulia</option><option>Lazio</option><option>Liguria</option><option>Lombardia</option><option>Marche</option><option>Molise</option><option>Piemonte</option><option>Puglia</option><option>Sardegna</option><option>Sicilia</option><option>Toscana</option><option>Trentino-Alto Adige/Südtirol</option><option>Umbria</option><option>Valle d’Aosta/Vallée d’Aoste</option><option>Veneto</option></select></div>
+<div class="field"><label for="store-city">Città <span class="req">*</span></label><input type="text" id="store-city" name="city" list="store-city-options" autocomplete="address-level2" placeholder="Seleziona prima una regione" aria-describedby="store-city-hint" disabled required><datalist id="store-city-options"></datalist><div class="hint" id="store-city-hint">Seleziona una regione, poi scegli oppure digita la città.</div></div>
 <div class="field"><label>Codice Postale <span class="req">*</span></label><input type="text" name="postal_code" inputmode="numeric" pattern="[0-9]{5}" minlength="5" maxlength="5" placeholder="20121" required></div>
-<div class="field"><label>Regione <span class="req">*</span></label><select name="region" required><option value="" selected disabled>Seleziona una regione</option><option>Abruzzo</option><option>Basilicata</option><option>Calabria</option><option>Campania</option><option>Emilia-Romagna</option><option>Friuli Venezia Giulia</option><option>Lazio</option><option>Liguria</option><option>Lombardia</option><option>Marche</option><option>Molise</option><option>Piemonte</option><option>Puglia</option><option>Sardegna</option><option>Sicilia</option><option>Toscana</option><option>Trentino-Alto Adige/Südtirol</option><option>Umbria</option><option>Valle d’Aosta/Vallée d’Aoste</option><option>Veneto</option></select></div>
 <div class="field"><label>Paese <span class="req">*</span></label><select name="country" required><option value="Italia">Italia</option></select></div>
 </div>
 </section>
@@ -190,6 +190,7 @@ body.modal-open{overflow:hidden}
 </div>
 </div>
 </div>
+<script src="assets/data/italian-municipalities-by-region.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function () {
@@ -207,7 +208,32 @@ body.modal-open{overflow:hidden}
   const successModal = document.getElementById("registration-success-modal");
   const successModalClose = document.getElementById("registration-success-close");
   const successModalDismiss = document.getElementById("registration-success-dismiss");
+  const regionSelect = document.getElementById("store-region");
+  const cityInput = document.getElementById("store-city");
+  const cityOptions = document.getElementById("store-city-options");
   let successModalTrigger = null;
+
+  function updateCityOptions() {
+    const municipalities = window.ZEEPUP_MUNICIPALITIES_BY_REGION || {};
+    const cities = municipalities[regionSelect.value] || [];
+    const options = document.createDocumentFragment();
+
+    cities.forEach(function (city) {
+      const option = document.createElement("option");
+      option.value = city;
+      options.appendChild(option);
+    });
+
+    cityOptions.replaceChildren(options);
+    cityInput.value = "";
+    cityInput.disabled = !regionSelect.value;
+    cityInput.placeholder = regionSelect.value
+      ? "Scegli o digita la città"
+      : "Seleziona prima una regione";
+  }
+
+  regionSelect.addEventListener("change", updateCityOptions);
+  updateCityOptions();
 
   function showSuccessModal() {
     successModalTrigger = document.activeElement;
@@ -258,6 +284,7 @@ body.modal-open{overflow:hidden}
   form.addEventListener("reset", function () {
     requestAnimationFrame(function () {
       fileInputs.forEach(updateFileSelection);
+      updateCityOptions();
     });
   });
 
