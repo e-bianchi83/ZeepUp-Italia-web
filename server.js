@@ -34,6 +34,8 @@ const routes = {
   '/corporate-dinner': 'corporate-dinner.html',
   '/faq-italia': 'faq-italia.html',
   '/vendor-documentation': 'vendor-documentation.html',
+  '/brand-assets': 'brand-assets.html',
+  '/post-builder': 'post-builder.html',
   '/scarica-app': 'scarica-app.html',
   '/slowfood': 'slowfood.html',
   '/referral-italia': 'referral-italia.html',

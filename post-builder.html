@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZeepUp Post Builder — MVP V10 Logo Scale + Top Left + Outline Headline</title>
+<meta name="description" content="ZeepUp browser-based post builder for preparing branded image and video posts." />
+<link rel="icon" type="image/png" href="/Favicon.png" />
+<link rel="canonical" href="https://www.zeepup.com/post-builder" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&family=Kalam:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --pink:#FF0066;
+    --butter:#FFF493;
+    --green:#2F6E46;
+    --paper:#F6F2EA;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Instrument Sans",Arial,sans-serif}
+  .app{min-height:100vh;display:grid;grid-template-columns:390px minmax(560px,1fr)}
+  .panel{padding:26px 24px 40px;background:#fff;border-right:1.5px solid var(--ink);overflow:auto;height:100vh}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+  .wordmark{font-size:28px;font-weight:600;letter-spacing:-1.6px}
+  .dot{width:10px;height:10px;background:var(--pink);border-radius:50%;display:inline-block;margin-left:2px;vertical-align:6px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  h1{font-size:27px;line-height:1.02;letter-spacing:-.04em;margin:6px 0 22px}
+  .group{border-top:1px solid #d9d5cd;padding-top:17px;margin-top:18px}
+  label{font-size:12px;font-weight:700;display:block;margin:0 0 7px}
+  input[type="text"],textarea,select{width:100%;border:1.2px solid var(--ink);background:#fff;padding:11px 12px;font:500 14px/1.25 "Instrument Sans",Arial,sans-serif;border-radius:0;outline:none}
+  textarea{min-height:78px;resize:vertical}
+  input:focus,textarea:focus,select:focus{box-shadow:4px 4px 0 var(--butter)}
+  .upload{border:1.5px dashed var(--ink);background:var(--butter);padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer}
+  .upload.secondary{background:#fff;padding:11px 12px}
+  .upload b{font-size:13px}.upload span{font:500 10px "IBM Plex Mono",monospace}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{position:relative}
+  .chip input{position:absolute;opacity:0;pointer-events:none}
+  .chip label{margin:0;border:1.2px solid var(--ink);padding:8px 10px;font:600 10px "IBM Plex Mono",monospace;cursor:pointer;background:#fff}
+  .chip input:checked+label{background:var(--ink);color:#fff}
+  .chip.green input:checked+label{background:#fff;color:var(--green);border-color:var(--green)}
+  .filterPicker{margin-top:12px}
+  .filterPicker .filterLabel{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:8px}
+  .filterPicker .filterLabel span:last-child{font:500 9px "IBM Plex Mono",monospace;color:#716d66}
+  .filterChoices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .filterChoice{position:relative}
+  .filterChoice input{position:absolute;opacity:0;pointer-events:none}
+  .filterChoice label{height:54px;margin:0;border:1.2px solid var(--ink);padding:7px 5px;display:flex;align-items:flex-end;justify-content:center;text-align:center;font:600 8.5px/1.1 "IBM Plex Mono",monospace;cursor:pointer;background:#fff;position:relative;overflow:hidden}
+  .filterChoice label::before{content:"";position:absolute;inset:0 0 20px 0;background:linear-gradient(135deg,#d9d2c6,#f4eee4);opacity:.9}
+  .filterChoice[data-filter="original"] label::before{background:linear-gradient(135deg,#dadada,#f5f5f5)}
+  .filterChoice[data-filter="zeepup"] label::before{background:linear-gradient(135deg,#c9934c 0%,#f2d7a0 46%,#a98958 100%)}
+  .filterChoice[data-filter="pop"] label::before{background:linear-gradient(135deg,#ffbf9d,#ed5f7f 55%,#7e84d9)}
+  .filterChoice[data-filter="retro"] label::before{background:linear-gradient(135deg,#b28a61,#e0c592 52%,#806953)}
+  .filterChoice[data-filter="sunbeam"] label::before{background:linear-gradient(135deg,#fff3b0,#ffc778 52%,#f0a97b)}
+  .filterChoice[data-filter="modern"] label::before{background:linear-gradient(135deg,#d8cbbd,#f3e8da 55%,#b7b3aa)}
+  .filterChoice label span{position:relative;z-index:1;background:rgba(255,255,255,.9);padding:2px 3px}
+  .filterChoice input:checked+label{box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px);border-color:var(--pink)}
+  .filterChoice input:checked+label span{background:var(--pink);color:#fff}
+  .headlineStylePicker{margin-top:11px}
+  .headlineStyleChoices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .headlineStyleChoice{position:relative}
+  .headlineStyleChoice input{position:absolute;opacity:0;pointer-events:none}
+  .headlineStyleChoice label{margin:0;border:1.2px solid var(--ink);background:#fff;min-height:62px;padding:9px 10px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:3px}
+  .headlineStyleChoice label b{font-size:13px;line-height:1}
+  .headlineStyleChoice label span{font:600 8.5px/1.1 "IBM Plex Mono",monospace;color:#746f67;letter-spacing:.06em}
+  .headlineStyleChoice[data-style="editorial"] label b{font-family:"Instrument Sans",Arial,sans-serif;font-weight:700;letter-spacing:-.03em}
+  .headlineStyleChoice[data-style="handmade"] label b{font-family:"Kalam",cursive;font-weight:600;font-size:17px;letter-spacing:-.015em}
+  .headlineStyleChoice input:checked+label{background:var(--butter);box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+  .headlineStyleChoice input:checked+label span{color:var(--pink)}
+  .colorPicker{margin-top:11px}
+  .colorChoices{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+  .colorChoice{position:relative}
+  .colorChoice input{position:absolute;opacity:0;pointer-events:none}
+  .colorChoice label{margin:0;height:48px;border:1.2px solid var(--ink);background:#fff;display:flex;align-items:flex-end;justify-content:center;padding:5px;cursor:pointer;position:relative;overflow:hidden}
+  .colorChoice label::before{content:"";position:absolute;inset:0 0 18px;background:var(--swatch,#111)}
+  .colorChoice label span{position:relative;z-index:1;font:600 7.8px/1 "IBM Plex Mono",monospace;letter-spacing:.04em;background:#fff;color:var(--ink);padding:2px 3px}
+  .colorChoice input:checked+label{box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px);border-color:var(--pink)}
+  .colorChoice input:checked+label span{background:var(--pink);color:#fff}
+  .switchline{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;margin-top:11px}
+  .switch{width:44px;height:24px;border:1.2px solid var(--ink);background:var(--ink);position:relative;cursor:pointer;flex:0 0 auto}
+  .switch::after{content:"";width:18px;height:18px;background:var(--pink);position:absolute;top:2px;right:2px;transition:.2s}
+  .switch.off{background:#fff}.switch.off::after{right:22px;background:#aaa}
+  .small{font-size:11px;line-height:1.35;color:#615e58}
+  .note{font-size:11px;line-height:1.45;color:#4e4a44;background:#fffdf0;border:1px solid #d9d5cd;padding:10px 11px;margin-top:10px}
+  .note b{color:var(--ink)}
+  .slider{width:100%;accent-color:var(--pink)}
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  button{border:1.4px solid var(--ink);background:#fff;padding:12px 14px;font:700 12px "Instrument Sans",Arial,sans-serif;cursor:pointer;box-shadow:5px 5px 0 var(--ink)}
+  button.primary{background:var(--pink);color:#fff}
+  button:active{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+  button:disabled{opacity:.42;cursor:not-allowed;box-shadow:none;transform:none}
+  .stage{padding:28px;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:auto}
+  .previewWrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .previewTop{width:min(540px,90vw);display:flex;align-items:center;justify-content:space-between}
+  .previewTop .counter{font:600 10px "IBM Plex Mono",monospace}
+  canvas{width:min(540px,90vw);height:auto;background:#eee;box-shadow:12px 12px 0 var(--ink);border:1.5px solid var(--ink);display:block}
+  .filterNote{width:min(540px,90vw);font-size:11px;color:#5a5751;display:flex;justify-content:space-between;gap:16px}
+  .kbd{font:600 9px "IBM Plex Mono",monospace;border:1px solid #aaa;padding:2px 5px;background:#fff}
+  .safeKey{display:inline-flex;align-items:center;gap:6px}.safeSwatch{width:18px;height:10px;border:1.5px dashed var(--pink);display:inline-block}
+  @media(max-width:980px){.app{grid-template-columns:1fr}.panel{height:auto;border-right:0;border-bottom:1.5px solid var(--ink)}.stage{min-height:auto;padding:26px 18px 50px}}
+  @media(max-width:460px){.filterChoices{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <div class="brand"><div class="wordmark">zeepup<span class="dot"></span></div><div class="eyebrow">POST BUILDER · MVP V12</div></div>
+    <div class="eyebrow">UN POST ALLA VOLTA</div>
+    <h1>Foto o video reali.<br>Stesso linguaggio ZeepUp.</h1>
+
+    <div class="group" style="border-top:0;margin-top:0;padding-top:0">
+      <label>1. FOTO / VIDEO</label>
+      <label class="upload" for="mediaInput"><b>CARICA FOTO / VIDEO</b><span>JPG · PNG · WEBP · MP4</span></label>
+      <input id="mediaInput" type="file" accept="image/jpeg,image/png,image/webp,video/mp4" hidden>
+      <video id="sourceVideo" playsinline preload="metadata" style="display:none"></video>
+      <div id="videoControls" style="display:none;margin-top:11px;border:1.2px solid var(--ink);padding:10px;background:#fff">
+        <div style="display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center">
+          <button id="playPauseBtn" type="button" style="padding:7px 9px;box-shadow:none;font-size:10px">PLAY</button>
+          <input id="videoSeek" class="slider" type="range" min="0" max="1000" value="0">
+          <span id="videoTime" class="eyebrow" style="white-space:nowrap">00:00 / 00:00</span>
+        </div>
+        <div class="small" style="margin-top:7px">Il filtro e tutti gli elementi ZeepUp vengono applicati frame per frame anche al video.</div>
+      </div>
+      <div class="filterPicker">
+        <div class="filterLabel"><label style="margin:0">FILTRO FOTO / VIDEO</label><span>SELECTED FILMS</span></div>
+        <div class="filterChoices" role="radiogroup" aria-label="Filtro foto e video">
+          <span class="filterChoice" data-filter="original"><input id="filterOriginal" name="mediaFilter" type="radio" value="original"><label for="filterOriginal"><span>ORIGINAL</span></label></span>
+          <span class="filterChoice" data-filter="zeepup"><input id="filterZeepup" name="mediaFilter" type="radio" value="zeepup" checked><label for="filterZeepup"><span>ZEEPUP</span></label></span>
+          <span class="filterChoice" data-filter="pop"><input id="filterPop" name="mediaFilter" type="radio" value="pop"><label for="filterPop"><span>POP FILM</span></label></span>
+          <span class="filterChoice" data-filter="retro"><input id="filterRetro" name="mediaFilter" type="radio" value="retro"><label for="filterRetro"><span>RETRO FILM</span></label></span>
+          <span class="filterChoice" data-filter="sunbeam"><input id="filterSunbeam" name="mediaFilter" type="radio" value="sunbeam"><label for="filterSunbeam"><span>SUNBEAM</span></label></span>
+          <span class="filterChoice" data-filter="modern"><input id="filterModern" name="mediaFilter" type="radio" value="modern"><label for="filterModern"><span>MODERN FILM</span></label></span>
+        </div>
+        <div class="small" id="filterDescription" style="margin-top:7px">ZeepUp · golden warm: luce più calda, miele e crema, verdi smorzati e neri morbidi.</div>
+        <div class="note" style="margin-top:8px"><b>PRESET ZEEPUP</b><br>Calibrato sul riferimento fotografico AutoCamp con una resa più calda e dorata: highlights miele, crema più presente, verdi meno saturi, contrasto morbido e atmosfera filmica. È un'interpretazione ZeepUp del riferimento visivo, non un filtro ufficiale AutoCamp.</div>
+      </div>
+      <div style="margin-top:12px">
+        <label>Posizione verticale foto</label>
+        <input id="focusY" class="slider" type="range" min="0" max="100" value="50">
+      </div>
+      <div style="margin-top:8px">
+        <label>Posizione orizzontale foto</label>
+        <input id="focusX" class="slider" type="range" min="0" max="100" value="50">
+      </div>
+    </div>
+
+    <div class="group">
+      <label>2. TEMPLATE</label>
+      <select id="template">
+        <option value="floating">PHOTO + FLOATING CARD</option>
+        <option value="availability">FOOD / AVAILABILITY</option>
+        <option value="discovery">DISCOVERY</option>
+        <option value="detail">PHOTO + DETAIL</option>
+        <option value="justtext">JUST TEXT · BOTTOM RIGHT</option>
+        <option value="justtextTopLeft">JUST TEXT · TOP LEFT</option>
+        <option value="statement">STATEMENT</option>
+      </select>
+    </div>
+
+    <div class="group">
+      <label>3. CHI / DOVE</label>
+      <div class="row">
+        <div><label class="small">TIPO</label><select id="kind"><option>CHEF</option><option>HOMECHEF</option><option>LOCALE</option><option>ZEEP</option></select></div>
+        <div><label class="small">NOME</label><input id="name" type="text" value="Chef Alessandro"></div>
+      </div>
+      <div style="margin-top:10px"><label class="small">LUOGO / MICRO-LABEL</label><input id="place" type="text" value="OGGI · VICINO A TE"></div>
+    </div>
+
+    <div class="group">
+      <label>4. TESTO SUL POST</label>
+      <div><label class="small">HEADLINE</label><textarea id="headline">Ho appena preparato 10 porzioni di ravioli.</textarea></div>
+      <div class="headlineStylePicker">
+        <label class="small">STILE HEADLINE</label>
+        <div class="headlineStyleChoices" role="radiogroup" aria-label="Stile headline">
+          <span class="headlineStyleChoice" data-style="editorial"><input id="headlineEditorial" name="headlineStyle" type="radio" value="editorial" checked><label for="headlineEditorial"><b>Editorial</b><span>INSTRUMENT SANS</span></label></span>
+          <span class="headlineStyleChoice" data-style="handmade"><input id="headlineHandmade" name="headlineStyle" type="radio" value="handmade"><label for="headlineHandmade"><b>Handmade</b><span>KALAM · ZEEPUP PICK</span></label></span>
+        </div>
+        <div class="small" style="margin-top:7px">Handmade è più umano e gestuale, ma resta leggibile e pulito: pensato per convivere con il nuovo logo rounded senza sembrare craft o infantile.</div>
+      </div>
+      <div class="colorPicker">
+        <label class="small">COLORE HEADLINE</label>
+        <div class="colorChoices" role="radiogroup" aria-label="Colore headline">
+          <span class="colorChoice" style="--swatch:#111111"><input id="headlineBlack" name="headlineColor" type="radio" value="black" checked><label for="headlineBlack"><span>NERO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FFFFFF"><input id="headlineWhite" name="headlineColor" type="radio" value="white"><label for="headlineWhite"><span>BIANCO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FFFFFF"><input id="headlineWhiteOutline" name="headlineColor" type="radio" value="whiteOutline"><label for="headlineWhiteOutline"><span>BIANCO + BORDO NERO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FF0066"><input id="headlinePink" name="headlineColor" type="radio" value="pink"><label for="headlinePink"><span>ROSA</span></label></span>
+          <span class="colorChoice" style="--swatch:#77736B"><input id="headlineGray" name="headlineColor" type="radio" value="gray"><label for="headlineGray"><span>GRIGIO</span></label></span>
+          <span class="colorChoice" style="--swatch:#F1CF00"><input id="headlineYellow" name="headlineColor" type="radio" value="yellow"><label for="headlineYellow"><span>GIALLO</span></label></span>
+        </div>
+      </div>
+      <div style="margin-top:10px"><label class="small">RIGA DI DETTAGLIO</label><input id="detail" type="text" value="Ricotta, erbette e burro alla salvia. Disponibili stasera."></div>
+      <div class="colorPicker">
+        <label class="small">COLORE RIGA DI DETTAGLIO</label>
+        <div class="colorChoices" role="radiogroup" aria-label="Colore riga di dettaglio">
+          <span class="colorChoice" style="--swatch:#111111"><input id="detailBlack" name="detailColor" type="radio" value="black"><label for="detailBlack"><span>NERO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FFFFFF"><input id="detailWhite" name="detailColor" type="radio" value="white"><label for="detailWhite"><span>BIANCO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FF0066"><input id="detailPink" name="detailColor" type="radio" value="pink"><label for="detailPink"><span>ROSA</span></label></span>
+          <span class="colorChoice" style="--swatch:#77736B"><input id="detailGray" name="detailColor" type="radio" value="gray" checked><label for="detailGray"><span>GRIGIO</span></label></span>
+          <span class="colorChoice" style="--swatch:#F1CF00"><input id="detailYellow" name="detailColor" type="radio" value="yellow"><label for="detailYellow"><span>GIALLO</span></label></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <label>5. DETTAGLI</label>
+      <div class="tags">
+        <span class="chip"><input id="tagOggi" type="checkbox" checked><label for="tagOggi">OGGI</label></span>
+        <span class="chip"><input id="tagEat" type="checkbox"><label for="tagEat">EAT-IN</label></span>
+        <span class="chip"><input id="tagToGo" type="checkbox" checked><label for="tagToGo">TO-GO</label></span>
+        <span class="chip"><input id="tagUnder" type="checkbox"><label for="tagUnder">SOTTO I 20€</label></span>
+        <span class="chip green"><input id="tagGreen" type="checkbox"><label for="tagGreen">GREEN Z</label></span>
+        <span class="chip"><input id="tagLast" type="checkbox"><label for="tagLast">ULTIME PORZIONI</label></span>
+      </div>
+      <div class="colorPicker">
+        <label class="small">COLORE DETTAGLI</label>
+        <div class="colorChoices" role="radiogroup" aria-label="Colore dettagli">
+          <span class="colorChoice" style="--swatch:#111111"><input id="tagsBlack" name="tagsColor" type="radio" value="black" checked><label for="tagsBlack"><span>NERO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FFFFFF"><input id="tagsWhite" name="tagsColor" type="radio" value="white"><label for="tagsWhite"><span>BIANCO</span></label></span>
+          <span class="colorChoice" style="--swatch:#FF0066"><input id="tagsPink" name="tagsColor" type="radio" value="pink"><label for="tagsPink"><span>ROSA</span></label></span>
+          <span class="colorChoice" style="--swatch:#77736B"><input id="tagsGray" name="tagsColor" type="radio" value="gray"><label for="tagsGray"><span>GRIGIO</span></label></span>
+          <span class="colorChoice" style="--swatch:#F1CF00"><input id="tagsYellow" name="tagsColor" type="radio" value="yellow"><label for="tagsYellow"><span>GIALLO</span></label></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <label>6. LOGO / SEGNO ZEEPUP</label>
+      <div class="row">
+        <div>
+          <label class="small">ELEMENTO</label>
+          <select id="brandType">
+            <option value="dot">PALLINO ROSA</option>
+            <option value="logo">LOGO</option>
+            <option value="logoDot">LOGO + PALLINO</option>
+            <option value="none">NESSUNO</option>
+          </select>
+        </div>
+        <div>
+          <label class="small">POSIZIONE</label>
+          <select id="brandPosition">
+            <option value="top-left">ALTO · SINISTRA</option>
+            <option value="top-center">ALTO · CENTRO</option>
+            <option value="top-right" selected>ALTO · DESTRA</option>
+            <option value="mid-left">LATERALE · SINISTRA</option>
+            <option value="mid-right">LATERALE · DESTRA</option>
+            <option value="bottom-left">BASSO · SINISTRA</option>
+            <option value="bottom-center">BASSO · CENTRO</option>
+            <option value="bottom-right">BASSO · DESTRA</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <label class="upload secondary" for="logoInput"><b>CARICA LOGO UFFICIALE</b><span>PNG / SVG</span></label>
+        <input id="logoInput" type="file" accept="image/png,image/webp,image/svg+xml" hidden>
+        <div class="small" id="logoStatus" style="margin-top:6px">Se non carichi un file, viene usato un wordmark di anteprima.</div>
+      </div>
+      <div style="margin-top:11px"><label>Dimensione segno</label><input id="brandSize" class="slider" type="range" min="70" max="450" value="100"><div class="small" style="margin-top:6px">Range esteso fino al 450%. La posizione scelta resta bloccata anche quando aumenti la size: il segno cresce verso l’interno della safe area, senza slittare verso il centro. Alle dimensioni estreme viene limitato solo quanto basta per restare dentro la zona sicura.</div></div>
+    </div>
+
+    <div class="group">
+      <label>7. AREA SICURA INSTAGRAM</label>
+      <div class="switchline"><span><b>Mostra guide in anteprima</b><br><span class="small">non vengono esportate nel PNG</span></span><div id="safeSwitch" class="switch" role="switch" aria-checked="true"></div></div>
+      <div class="note"><b>SAFE ZONE ZEEPUP: 128 px</b> su sinistra/destra e 120 px sopra/sotto. Testi e template restano dentro questa zona. Logo e segno hanno inoltre <b>18 px di respiro interno aggiuntivo</b>. La posizione selezionata è un vero ancoraggio: per esempio ALTO · DESTRA mantiene sempre bordo alto e bordo destro fissi, e aumentando la size il logo cresce verso sinistra e verso il basso, mai verso il centro in modo arbitrario. JUST TEXT · BOTTOM RIGHT resta alzato di altri 70 px dal limite inferiore; JUST TEXT · TOP LEFT parte più internamente rispetto al limite superiore.</div>
+    </div>
+
+    <div class="actions">
+      <button id="randomBtn">VARIA LAYOUT</button>
+      <button id="downloadPngBtn">SCARICA PNG</button>
+      <button id="downloadMp4Btn" class="primary" style="grid-column:1/-1" disabled>SCARICA MP4</button>
+    </div>
+    <div id="exportStatus" class="note" style="display:none;margin-top:14px"></div>
+    <p class="small" style="margin-top:17px">Il filtro selezionato viene applicato in modo uniforme a foto e video e viene mantenuto anche nell’esportazione. I file originali non vengono modificati. Con un video, il PNG salva il frame visualizzato; MP4 esporta l’intero video con grafica e filtro.</p>
+  </aside>
+
+  <main class="stage">
+    <div class="previewWrap">
+      <div class="previewTop"><div class="eyebrow">ANTEPRIMA · 1080 × 1350</div><div class="counter">POST 01</div></div>
+      <canvas id="postCanvas" width="1080" height="1350"></canvas>
+      <div class="filterNote"><span>PRESET: <b id="activeFilterName">ZEEPUP</b></span><span class="safeKey"><i class="safeSwatch"></i> SAFE 128 / 120 px · <span class="kbd">4:5</span></span></div>
+    </div>
+  </main>
+</div>
+<script>
+const C=document.getElementById('postCanvas'), ctx=C.getContext('2d');
+const el=id=>document.getElementById(id);
+let img=null, logoImg=null, activeFilter='zeepup', safeGuideOn=true, variation=0;
+let mediaType='image', mediaFile=null, mediaObjectUrl=null, renderRAF=null, isExporting=false;
+const sourceVideo=el('sourceVideo');
+let audioCtx=null, audioSourceNode=null, audioDestNode=null, ffmpegInstance=null;
+const P={ink:'#111111', pink:'#FF0066', butter:'#FFF493', green:'#2F6E46', white:'#FFFFFF', paper:'#F6F2EA', gray:'#77736B', yellow:'#F1CF00'};
+const SAFE={x:128,y:120};
+const BRAND_SAFE_PAD=18; // extra breathing room: brand elements never touch the safe-zone line
+const GRID_CROP=34; // approximate side crop when a 4:5 cover is shown as a 3:4 profile-grid tile
+
+function fitImage(image,x,y,w,h,fx=.5,fy=.5,filter=true){
+  const iw=image.videoWidth||image.naturalWidth||image.width, ih=image.videoHeight||image.naturalHeight||image.height;
+  if(!iw||!ih)return;
+  const ir=iw/ih, rr=w/h; let sw,sh,sx,sy;
+  if(ir>rr){sh=ih; sw=sh*rr; sx=(iw-sw)*fx; sy=0}else{sw=iw; sh=sw/rr; sx=0; sy=(ih-sh)*fy}
+  ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();
+  if(filter){
+    const cssFilters={
+      original:'none',
+      zeepup:'brightness(1.055) contrast(.895) saturate(.90) sepia(.115) hue-rotate(-3deg)',
+      pop:'brightness(1.045) contrast(1.08) saturate(1.18) sepia(.018)',
+      retro:'brightness(1.015) contrast(.90) saturate(.82) sepia(.16)',
+      sunbeam:'brightness(1.075) contrast(.94) saturate(1.02) sepia(.075)',
+      modern:'brightness(1.045) contrast(.92) saturate(.90) sepia(.045)'
+    };
+    ctx.filter=cssFilters[activeFilter]||'none';
+  }
+  ctx.drawImage(image,sx,sy,sw,sh,x,y,w,h);ctx.filter='none';
+  if(filter && activeFilter!=='original'){
+    if(activeFilter==='zeepup'){
+      // ZeepUp Golden: warmer honey highlights, cream whites, muted foliage and soft lifted blacks.
+      // Visual calibration inspired by public AutoCamp imagery; not an official/proprietary AutoCamp preset.
+      ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(255,232,190,.105)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle='rgba(197,139,61,.125)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle='rgba(109,104,73,.028)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(251,239,213,.055)';ctx.fillRect(x,y,w,h);
+      const glow=ctx.createLinearGradient(x,y,x+w,y+h);
+      glow.addColorStop(0,'rgba(255,205,124,.115)');
+      glow.addColorStop(.48,'rgba(255,239,204,.035)');
+      glow.addColorStop(1,'rgba(95,67,35,.022)');
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle=glow;ctx.fillRect(x,y,w,h);
+    }else if(activeFilter==='pop'){
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle='rgba(255,94,116,.075)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(255,224,186,.035)';ctx.fillRect(x,y,w,h);
+    }else if(activeFilter==='retro'){
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle='rgba(154,105,64,.15)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(245,222,176,.075)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='source-over';ctx.fillStyle='rgba(45,32,25,.035)';ctx.fillRect(x,y,w,h);
+    }else if(activeFilter==='sunbeam'){
+      ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(255,218,139,.115)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle='rgba(255,176,92,.075)';ctx.fillRect(x,y,w,h);
+    }else if(activeFilter==='modern'){
+      ctx.globalCompositeOperation='soft-light';ctx.fillStyle='rgba(255,222,177,.13)';ctx.fillRect(x,y,w,h);
+      ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(247,239,221,.055)';ctx.fillRect(x,y,w,h);
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+  ctx.restore();
+}
+function font(size,weight=600,mono=false,family=null){
+  const fam=family||(mono?'"IBM Plex Mono", monospace':'"Instrument Sans", Arial, sans-serif');
+  ctx.font=`${weight} ${size}px ${fam}`
+}
+function text(t,x,y,size=28,weight=600,color=P.ink,mono=false,align='left'){
+  ctx.fillStyle=color;font(size,weight,mono);ctx.textAlign=align;ctx.fillText(t,x,y);ctx.textAlign='left';
+}
+function wrapText(t,x,y,maxW,lineH,size=72,weight=700,color=P.ink,maxLines=4,family=null){
+  ctx.fillStyle=color;font(size,weight,false,family); const words=t.trim().split(/\s+/); let line='', lines=[];
+  for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW && line){lines.push(line);line=word}else line=test}
+  if(line) lines.push(line); lines=lines.slice(0,maxLines);
+  lines.forEach((ln,i)=>ctx.fillText(ln,x,y+i*lineH)); return y+lines.length*lineH;
+}
+function headlineTypography(){
+  const handmade=el('headlineHandmade')&&el('headlineHandmade').checked;
+  return handmade
+    ? {family:'"Kalam", cursive',weight:600,sizeScale:1.055,lineScale:1.035}
+    : {family:'"Instrument Sans", Arial, sans-serif',weight:700,sizeScale:1,lineScale:1};
+}
+function headlineColorMode(){
+  const picked=document.querySelector('input[name="headlineColor"]:checked');
+  return picked?picked.value:'black';
+}
+function isHeadlineOutlined(){return headlineColorMode()==='whiteOutline'}
+function wrapHeadline(t,x,y,maxW,lineH,size,color=P.ink,maxLines=4){
+  const h=headlineTypography();
+  const actualSize=size*h.sizeScale, actualLineH=lineH*h.lineScale;
+  font(actualSize,h.weight,false,h.family);
+  const words=(t||'').trim().split(/\s+/).filter(Boolean); let line='', lines=[];
+  for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW && line){lines.push(line);line=word}else line=test}
+  if(line) lines.push(line); lines=lines.slice(0,maxLines);
+  ctx.save();ctx.textAlign='left';ctx.textBaseline='alphabetic';font(actualSize,h.weight,false,h.family);
+  lines.forEach((ln,i)=>{
+    const yy=y+i*actualLineH;
+    if(isHeadlineOutlined()){ctx.lineJoin='round';ctx.miterLimit=2;ctx.strokeStyle=P.ink;ctx.lineWidth=Math.max(4,actualSize*.085);ctx.strokeText(ln,x,yy);ctx.fillStyle=P.white;ctx.fillText(ln,x,yy)}
+    else{ctx.fillStyle=color;ctx.fillText(ln,x,yy)}
+  });
+  ctx.restore();
+  return y+lines.length*actualLineH;
+}
+function chosenColor(group, fallback=P.ink){
+  const picked=document.querySelector(`input[name="${group}"]:checked`);
+  const map={black:P.ink,white:P.white,whiteOutline:P.white,pink:P.pink,gray:P.gray,yellow:P.yellow};
+  return picked?(map[picked.value]||fallback):fallback;
+}
+function headlineColor(){return chosenColor('headlineColor',P.ink)}
+function detailColor(){return chosenColor('detailColor',P.gray)}
+function tagsColor(){return chosenColor('tagsColor',P.ink)}
+function chip(label,x,y,color=P.ink){
+  font(21,700,true);const w=ctx.measureText(label).width+34;
+  const whiteText=color===P.white;
+  ctx.fillStyle=whiteText?P.ink:P.white;ctx.strokeStyle=color;ctx.lineWidth=2.4;ctx.fillRect(x,y,w,46);ctx.strokeRect(x,y,w,46);
+  text(label,x+17,y+30,20,700,color,true);return w
+}
+function logoDot(x,y,r=14){ctx.fillStyle=P.pink;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
+function placeholder(){
+  ctx.fillStyle='#ded8ce';ctx.fillRect(0,0,1080,1350);
+  ctx.fillStyle='#c9c1b4';for(let i=0;i<12;i++){ctx.fillRect((i%4)*300-40,Math.floor(i/4)*430+80,230,300)}
+  text('CARICA UNA FOTO',SAFE.x,1350-SAFE.y,27,700,P.ink,true)
+}
+function activeMedia(){return mediaType==='video'?sourceVideo:img}
+function basePhoto(){const m=activeMedia();if(m && (mediaType!=='video'||sourceVideo.readyState>=2))fitImage(m,0,0,1080,1350,el('focusX').value/100,el('focusY').value/100,true);else placeholder()}
+function bottomBar(){
+  const y=1178,h=172, baseline=1350-SAFE.y-10;
+  ctx.fillStyle=P.white;ctx.fillRect(0,y,1080,h);
+  ctx.fillStyle=P.ink;ctx.fillRect(0,y,270,h);
+  text('ZEEPUP',SAFE.x,baseline,23,700,P.white,true);
+  ctx.fillStyle=P.butter;ctx.fillRect(270,y,810,h);
+  text('TROVA QUELLO CHE TI VA. POI GUARDA CHI LO STA PREPARANDO.',310,baseline,18,600,P.ink,true);
+}
+function fallbackWordmark(x,y,w,withDot=true){
+  ctx.save();
+  font(Math.max(26,w*.22),600,false);ctx.fillStyle=P.ink;ctx.textAlign='left';ctx.fillText('zeepup',x,y);
+  if(withDot){const r=Math.max(7,w*.035);logoDot(x+w*.61,y-w*.17,r)}
+  ctx.restore();
+}
+function safeBrandBox(){
+  return {
+    left:SAFE.x+BRAND_SAFE_PAD,
+    right:1080-SAFE.x-BRAND_SAFE_PAD,
+    top:SAFE.y+BRAND_SAFE_PAD,
+    bottom:1350-SAFE.y-BRAND_SAFE_PAD
+  };
+}
+
+// Measure the REAL rendered footprint first. Positioning must use this footprint,
+// otherwise an uploaded logo with a different aspect ratio can appear to drift
+// when the size slider changes.
+function measureBrand(type,scale){
+  if(type==='dot') return {w:34*scale,h:34*scale};
+  const targetW=220*scale;
+  let ratio=2.9; // fallback wordmark footprint
+  if(logoImg && logoImg.width && logoImg.height) ratio=logoImg.width/logoImg.height;
+  let w=targetW, h=w/ratio;
+  // LOGO + PALLINO reserves a little vertical room INSIDE the same footprint.
+  if(type==='logoDot') h=Math.max(h,56*scale);
+  return {w,h};
+}
+
+function fitBrandToSafe(size){
+  const b=safeBrandBox(), availW=b.right-b.left, availH=b.bottom-b.top;
+  const f=Math.min(1,availW/size.w,availH/size.h);
+  return {w:size.w*f,h:size.h*f,fit:f};
+}
+
+// The selected position is a LOCKED attachment point. Increasing size grows
+// inward from that point instead of changing the perceived position.
+function brandRect(position,w,h){
+  const b=safeBrandBox();
+  const cx=(b.left+b.right)/2, cy=(b.top+b.bottom)/2;
+  let x=b.left, y=b.top;
+
+  if(position.includes('right')) x=b.right-w;
+  else if(position.includes('center')) x=cx-w/2;
+
+  if(position.startsWith('bottom')) y=b.bottom-h;
+  else if(position.startsWith('mid')) y=cy-h/2;
+
+  // final numerical guard: never cross the brand-safe box
+  x=Math.max(b.left,Math.min(x,b.right-w));
+  y=Math.max(b.top,Math.min(y,b.bottom-h));
+  return {x,y,w,h};
+}
+
+function drawLogoInRect(rect,withDot=false){
+  const {x,y,w,h}=rect;
+  if(logoImg){
+    const ir=logoImg.width/logoImg.height;
+    let dw=w, dh=dw/ir;
+    if(dh>h){dh=h;dw=dh*ir}
+
+    // Preserve the chosen anchor INSIDE rect even when aspect ratio leaves spare room.
+    // Actual image follows the same locked edge as the selected position.
+    const pos=el('brandPosition').value;
+    let dx=x,dy=y;
+    if(pos.includes('right')) dx=x+w-dw;
+    else if(pos.includes('center')) dx=x+(w-dw)/2;
+    if(pos.startsWith('bottom')) dy=y+h-dh;
+    else if(pos.startsWith('mid')) dy=y+(h-dh)/2;
+
+    ctx.drawImage(logoImg,dx,dy,dw,dh);
+    if(withDot){
+      const r=Math.max(8,Math.min(28,dh*.13));
+      // dot is explicitly kept inside the rendered logo footprint
+      logoDot(dx+dw-r*.78,dy+r*.9,r);
+    }
+  }else{
+    // Fallback is drawn from the same locked rectangle.
+    const fw=w*.96;
+    const pos=el('brandPosition').value;
+    let fx=x;
+    if(pos.includes('right')) fx=x+w-fw;
+    else if(pos.includes('center')) fx=x+(w-fw)/2;
+    const baseline=y+h*.72;
+    fallbackWordmark(fx,baseline,fw,withDot);
+  }
+}
+
+function drawBrandMarker(){
+  const type=el('brandType').value;if(type==='none')return;
+  const scale=Number(el('brandSize').value)/100, pos=el('brandPosition').value;
+  const size=fitBrandToSafe(measureBrand(type,scale));
+  const rect=brandRect(pos,size.w,size.h);
+  if(type==='dot'){
+    logoDot(rect.x+rect.w/2,rect.y+rect.h/2,rect.w/2);
+    return;
+  }
+  drawLogoInRect(rect,type==='logoDot');
+}
+function drawSafeGuides(){
+  if(!safeGuideOn)return;
+  ctx.save();
+  ctx.fillStyle='rgba(255,0,102,.055)';ctx.fillRect(0,0,GRID_CROP,1350);ctx.fillRect(1080-GRID_CROP,0,GRID_CROP,1350);
+  ctx.strokeStyle='rgba(255,0,102,.88)';ctx.lineWidth=2;ctx.setLineDash([13,10]);ctx.strokeRect(SAFE.x,SAFE.y,1080-SAFE.x*2,1350-SAFE.y*2);
+  ctx.setLineDash([]);ctx.fillStyle='rgba(255,255,255,.92)';ctx.fillRect(SAFE.x+10,SAFE.y+10,270,32);
+  text('AREA SICURA 128 / 120 px',SAFE.x+20,SAFE.y+33,15,700,P.pink,true);
+  ctx.restore();
+}
+function drawFloating(){basePhoto();
+  const w=470,h=250;const x=variation%2===0?SAFE.x:1080-SAFE.x-w, y=variation%3===0?855:815;
+  ctx.fillStyle=P.butter;ctx.fillRect(x+13,y+13,w,h);ctx.strokeStyle=P.ink;ctx.lineWidth=3;ctx.fillStyle=P.butter;ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);
+  text(`${el('kind').value} · ${el('place').value}`,x+28,y+40,18,700,P.ink,true);
+  wrapHeadline(el('headline').value,x+28,y+92,w-56,54,43,headlineColor(),3);
+  bottomBar();
+}
+function drawAvailability(){
+  ctx.fillStyle=P.white;ctx.fillRect(0,0,1080,1350);
+  const photoH=700;const m=activeMedia();if(m && (mediaType!=='video'||sourceVideo.readyState>=2))fitImage(m,0,0,1080,photoH,el('focusX').value/100,el('focusY').value/100,true);else{ctx.save();ctx.beginPath();ctx.rect(0,0,1080,photoH);ctx.clip();placeholder();ctx.restore()}
+  ctx.fillStyle=P.white;ctx.fillRect(0,photoH,1080,650);ctx.fillStyle=P.pink;ctx.fillRect(0,photoH,18,650);
+  text(`${el('kind').value} ${el('name').value.toUpperCase()} · ${el('place').value.toUpperCase()}`,SAFE.x,770,19,700,'#5d5953',true);
+  let end=wrapHeadline(el('headline').value,SAFE.x,840,1080-SAFE.x*2,72,64,headlineColor(),4);
+  wrapText(el('detail').value,SAFE.x,end+15,1080-SAFE.x*2,35,26,400,detailColor(),2);
+  const ids=[['tagOggi','OGGI'],['tagEat','EAT-IN'],['tagToGo','TO-GO'],['tagUnder','SOTTO I 20€'],['tagGreen','GREEN Z'],['tagLast','ULTIME PORZIONI']];let x=SAFE.x,y=1135;
+  const tc=tagsColor();
+  ids.forEach(([id,l])=>{if(el(id).checked){const w=chip(l,x,y,tc);x+=w+14;if(x>1080-SAFE.x-180){x=SAFE.x;y+=58}}});
+}
+function drawDiscovery(){basePhoto();
+  ctx.fillStyle='rgba(17,17,17,.12)';ctx.fillRect(0,0,1080,1350);
+  const w=418,h=330;const x=variation%2===0?SAFE.x:1080-SAFE.x-w,y=variation%3===0?SAFE.y:820;
+  ctx.fillStyle=P.pink;ctx.fillRect(x+12,y+12,w,h);ctx.fillStyle=P.white;ctx.strokeStyle=P.ink;ctx.lineWidth=3;ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);
+  text(el('place').value.toUpperCase(),x+32,y+52,18,700,'#5e5b56',true);
+  wrapHeadline(el('headline').value,x+32,y+118,w-64,63,56,headlineColor(),4);bottomBar();
+}
+function drawDetail(){basePhoto();
+  ctx.fillStyle='rgba(0,0,0,.20)';ctx.fillRect(0,0,1080,1350);
+  const x=SAFE.x,y=910,w=1080-SAFE.x*2,h=300;
+  ctx.fillStyle=P.white;ctx.fillRect(x,y,w,h);ctx.strokeStyle=P.ink;ctx.lineWidth=3;ctx.strokeRect(x,y,w,h);
+  text(`${el('kind').value} · ${el('name').value.toUpperCase()}`,x+30,y+55,19,700,'#5c5954',true);
+  wrapHeadline(el('headline').value,x+30,y+120,w-60,60,52,headlineColor(),2);
+  wrapText(el('detail').value,x+30,y+248,w-60,30,23,400,detailColor(),2);
+}
+function headlineLines(t,maxW,size,weight,family,maxLines=5){
+  font(size,weight,false,family);
+  const words=(t||'').trim().split(/\s+/).filter(Boolean);
+  let line='',lines=[];
+  for(const word of words){
+    const test=line?line+' '+word:word;
+    if(ctx.measureText(test).width>maxW && line){lines.push(line);line=word}else line=test;
+  }
+  if(line) lines.push(line);
+  return lines.slice(0,maxLines);
+}
+function drawJustText(){
+  basePhoto();
+  const h=headlineTypography();
+  const maxW=Math.min(720,1080-SAFE.x*2);
+  const size=68*h.sizeScale, lineH=76*h.lineScale;
+  const lines=headlineLines(el('headline').value,maxW,size,h.weight,h.family,5);
+  const right=1080-SAFE.x, bottom=1350-SAFE.y-70;
+  const firstY=bottom-Math.max(0,lines.length-1)*lineH;
+
+  // Legibility only: a soft photographic falloff, never a card or box.
+  ctx.save();
+  const hc=headlineColor(), outlined=isHeadlineOutlined(), darkText=!outlined&&(hc===P.ink||hc===P.gray);
+  const glow=ctx.createRadialGradient(right,bottom,40,right,bottom,620);
+  glow.addColorStop(0,darkText?'rgba(255,255,255,.56)':'rgba(0,0,0,.40)');
+  glow.addColorStop(.48,darkText?'rgba(255,255,255,.24)':'rgba(0,0,0,.18)');
+  glow.addColorStop(1,darkText?'rgba(255,255,255,0)':'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,1080,1350);
+
+  ctx.textAlign='right';ctx.textBaseline='alphabetic';font(size,h.weight,false,h.family);
+  ctx.shadowColor=outlined?'rgba(0,0,0,.10)':(darkText?'rgba(255,255,255,.32)':'rgba(0,0,0,.34)');ctx.shadowBlur=outlined?7:18;ctx.shadowOffsetY=3;
+  lines.forEach((ln,i)=>{const yy=firstY+i*lineH;if(outlined){ctx.lineJoin='round';ctx.strokeStyle=P.ink;ctx.lineWidth=Math.max(4,size*.085);ctx.strokeText(ln,right,yy);ctx.fillStyle=P.white;ctx.fillText(ln,right,yy)}else{ctx.fillStyle=hc;ctx.fillText(ln,right,yy)}});
+  ctx.restore();
+}
+function drawJustTextTopLeft(){
+  basePhoto();
+  const h=headlineTypography();
+  const maxW=Math.min(720,1080-SAFE.x*2);
+  const size=68*h.sizeScale, lineH=76*h.lineScale;
+  const lines=headlineLines(el('headline').value,maxW,size,h.weight,h.family,5);
+  const left=SAFE.x, firstY=SAFE.y+95;
+
+  ctx.save();
+  const hc=headlineColor(), outlined=isHeadlineOutlined(), darkText=!outlined&&(hc===P.ink||hc===P.gray);
+  const glow=ctx.createRadialGradient(left,firstY,35,left,firstY,620);
+  glow.addColorStop(0,darkText?'rgba(255,255,255,.56)':'rgba(0,0,0,.40)');
+  glow.addColorStop(.48,darkText?'rgba(255,255,255,.24)':'rgba(0,0,0,.18)');
+  glow.addColorStop(1,darkText?'rgba(255,255,255,0)':'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,1080,1350);
+
+  ctx.textAlign='left';ctx.textBaseline='alphabetic';font(size,h.weight,false,h.family);
+  ctx.shadowColor=outlined?'rgba(0,0,0,.10)':(darkText?'rgba(255,255,255,.32)':'rgba(0,0,0,.34)');ctx.shadowBlur=outlined?7:18;ctx.shadowOffsetY=3;
+  lines.forEach((ln,i)=>{const yy=firstY+i*lineH;if(outlined){ctx.lineJoin='round';ctx.strokeStyle=P.ink;ctx.lineWidth=Math.max(4,size*.085);ctx.strokeText(ln,left,yy);ctx.fillStyle=P.white;ctx.fillText(ln,left,yy)}else{ctx.fillStyle=hc;ctx.fillText(ln,left,yy)}});
+  ctx.restore();
+}
+function drawStatement(){
+  const bg=variation%3===0?P.ink:(variation%3===1?P.butter:P.white);
+  ctx.fillStyle=bg;ctx.fillRect(0,0,1080,1350);
+  text('ZEEPUP · '+el('place').value.toUpperCase(),SAFE.x,SAFE.y+6,20,700,bg===P.ink?P.butter:'#5d5953',true);
+  wrapHeadline(el('headline').value,SAFE.x,300,1080-SAFE.x*2,105,88,headlineColor(),6);
+  wrapText(el('detail').value,SAFE.x,1150,1080-SAFE.x*2,38,28,500,detailColor(),2);
+}
+function draw(includeGuides=true){
+  ctx.clearRect(0,0,1080,1350);const t=el('template').value;
+  if(t==='floating')drawFloating();else if(t==='availability')drawAvailability();else if(t==='discovery')drawDiscovery();else if(t==='detail')drawDetail();else if(t==='justtext')drawJustText();else if(t==='justtextTopLeft')drawJustTextTopLeft();else drawStatement();
+  drawBrandMarker();if(includeGuides)drawSafeGuides();
+}
+
+function fmtTime(sec){
+  if(!Number.isFinite(sec))return '00:00';
+  const m=Math.floor(sec/60), ss=Math.floor(sec%60);return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');
+}
+function updateVideoUI(){
+  if(mediaType!=='video')return;
+  const dur=sourceVideo.duration||0, cur=sourceVideo.currentTime||0;
+  el('videoSeek').value=dur?Math.round(cur/dur*1000):0;
+  el('videoTime').textContent=`${fmtTime(cur)} / ${fmtTime(dur)}`;
+  el('playPauseBtn').textContent=sourceVideo.paused?'PLAY':'PAUSA';
+}
+function stopRenderLoop(){if(renderRAF){cancelAnimationFrame(renderRAF);renderRAF=null}}
+function startRenderLoop(){
+  stopRenderLoop();
+  const tick=()=>{
+    if(mediaType==='video' && !sourceVideo.paused && !sourceVideo.ended){draw(!isExporting);updateVideoUI();renderRAF=requestAnimationFrame(tick)}
+  };
+  renderRAF=requestAnimationFrame(tick);
+}
+function clearMediaUrl(){if(mediaObjectUrl){URL.revokeObjectURL(mediaObjectUrl);mediaObjectUrl=null}}
+el('mediaInput').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  mediaFile=f;clearMediaUrl();mediaObjectUrl=URL.createObjectURL(f);
+  if(f.type==='video/mp4' || f.name.toLowerCase().endsWith('.mp4')){
+    mediaType='video';img=null;sourceVideo.pause();sourceVideo.src=mediaObjectUrl;sourceVideo.load();
+    el('videoControls').style.display='block';el('downloadMp4Btn').disabled=false;
+    sourceVideo.onloadeddata=()=>{sourceVideo.currentTime=0;updateVideoUI();draw()};
+  }else{
+    mediaType='image';sourceVideo.pause();sourceVideo.removeAttribute('src');sourceVideo.load();stopRenderLoop();
+    el('videoControls').style.display='none';el('downloadMp4Btn').disabled=true;
+    const im=new Image();im.onload=()=>{img=im;draw()};im.src=mediaObjectUrl;
+  }
+});
+sourceVideo.addEventListener('play',()=>{startRenderLoop();updateVideoUI()});
+sourceVideo.addEventListener('pause',()=>{stopRenderLoop();updateVideoUI();draw(!isExporting)});
+sourceVideo.addEventListener('ended',()=>{stopRenderLoop();updateVideoUI();draw(!isExporting)});
+sourceVideo.addEventListener('timeupdate',()=>{if(sourceVideo.paused){updateVideoUI();draw(!isExporting)}});
+sourceVideo.addEventListener('seeked',()=>{updateVideoUI();draw(!isExporting)});
+el('playPauseBtn').addEventListener('click',async()=>{if(mediaType!=='video')return;if(sourceVideo.paused)await sourceVideo.play();else sourceVideo.pause()});
+el('videoSeek').addEventListener('input',()=>{if(mediaType!=='video'||!sourceVideo.duration)return;sourceVideo.currentTime=sourceVideo.duration*(Number(el('videoSeek').value)/1000)});
+el('logoInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const im=new Image();im.onload=()=>{logoImg=im;el('logoStatus').textContent='Logo caricato: '+f.name;draw()};im.src=ev.target.result};r.readAsDataURL(f)});
+['template','kind','name','place','headline','detail','focusX','focusY','tagOggi','tagEat','tagToGo','tagUnder','tagGreen','tagLast','brandType','brandPosition','brandSize'].forEach(id=>el(id).addEventListener('input',()=>draw(!isExporting)));
+document.querySelectorAll('input[name="headlineStyle"]').forEach(radio=>radio.addEventListener('change',()=>document.fonts.ready.then(()=>draw(!isExporting))));
+document.querySelectorAll('input[name="headlineColor"],input[name="detailColor"],input[name="tagsColor"]').forEach(radio=>radio.addEventListener('change',()=>draw(!isExporting)));
+const FILTER_META={
+  original:{name:'ORIGINAL',desc:'Original · nessun trattamento colore.'},
+  zeepup:{name:'ZEEPUP',desc:'ZeepUp · golden warm: luce più calda, miele e crema, verdi smorzati e neri morbidi.'},
+  pop:{name:'POP FILM',desc:'Pop Film · più colore, contrasto e presenza.'},
+  retro:{name:'RETRO FILM',desc:'Retro Film · caldo, desaturato, morbido e leggermente vintage.'},
+  sunbeam:{name:'SUNBEAM',desc:'Sunbeam · luminoso, dorato e solare.'},
+  modern:{name:'MODERN FILM',desc:'Modern Film · caldo, crema, contrasto morbido e saturazione controllata.'}
+};
+document.querySelectorAll('input[name="mediaFilter"]').forEach(radio=>radio.addEventListener('change',()=>{
+  if(!radio.checked)return;activeFilter=radio.value;
+  const meta=FILTER_META[activeFilter]||FILTER_META.zeepup;
+  el('filterDescription').textContent=meta.desc;el('activeFilterName').textContent=meta.name;draw(!isExporting);
+}));
+el('safeSwitch').addEventListener('click',()=>{safeGuideOn=!safeGuideOn;el('safeSwitch').classList.toggle('off',!safeGuideOn);el('safeSwitch').setAttribute('aria-checked',safeGuideOn?'true':'false');draw(!isExporting)});
+el('randomBtn').addEventListener('click',()=>{variation++;draw(!isExporting)});
+function setExportStatus(msg,show=true){const box=el('exportStatus');box.style.display=show?'block':'none';box.innerHTML=msg}
+function downloadBlob(blob,name){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),3000)}
+el('downloadPngBtn').addEventListener('click',()=>{draw(false);C.toBlob(blob=>{if(blob)downloadBlob(blob,`ZeepUp_Post_${Date.now()}.png`);draw(true)},'image/png',1)});
+function waitEvent(target,event){return new Promise((resolve,reject)=>{const ok=()=>{cleanup();resolve()};const err=()=>{cleanup();reject(new Error(event+' failed'))};const cleanup=()=>{target.removeEventListener(event,ok);target.removeEventListener('error',err)};target.addEventListener(event,ok,{once:true});target.addEventListener('error',err,{once:true})})}
+async function seekVideo(t){
+  if(Math.abs(sourceVideo.currentTime-t)<0.02)return;
+  const p=waitEvent(sourceVideo,'seeked');sourceVideo.currentTime=t;await p;
+}
+async function getAudioTracks(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return [];
+    if(!audioCtx){audioCtx=new AC();audioSourceNode=audioCtx.createMediaElementSource(sourceVideo);audioDestNode=audioCtx.createMediaStreamDestination();audioSourceNode.connect(audioDestNode)}
+    if(audioCtx.state==='suspended')await audioCtx.resume();return audioDestNode.stream.getAudioTracks();
+  }catch(e){console.warn('Audio capture unavailable',e);return []}
+}
+function bestRecorderMime(){
+  const candidates=['video/mp4;codecs=avc1.42E01E,mp4a.40.2','video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+  return candidates.find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';
+}
+function loadScript(src){return new Promise((resolve,reject)=>{if([...document.scripts].some(s=>s.src===src)){resolve();return}const sc=document.createElement('script');sc.src=src;sc.onload=resolve;sc.onerror=reject;document.head.appendChild(sc)})}
+async function webmToMp4(blob){
+  setExportStatus('<b>CONVERSIONE MP4</b><br>Il browser non registra MP4 nativamente: carico il convertitore locale nel browser…');
+  if(!window.FFmpeg)await loadScript('https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js');
+  if(!ffmpegInstance){
+    const {createFFmpeg,fetchFile}=FFmpeg;
+    ffmpegInstance=createFFmpeg({log:false,progress:({ratio})=>setExportStatus(`<b>CONVERSIONE MP4</b><br>${Math.max(0,Math.min(100,Math.round((ratio||0)*100)))}%`) });
+    await ffmpegInstance.load();ffmpegInstance._fetchFile=fetchFile;
+  }
+  const ff=ffmpegInstance, stamp=Date.now(), input=`in_${stamp}.webm`, output=`out_${stamp}.mp4`;
+  ff.FS('writeFile',input,await ff._fetchFile(blob));
+  await ff.run('-i',input,'-c:v','libx264','-preset','ultrafast','-crf','22','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',output);
+  const data=ff.FS('readFile',output);const mp4=new Blob([data.buffer],{type:'video/mp4'});
+  try{ff.FS('unlink',input);ff.FS('unlink',output)}catch(e){}
+  return mp4;
+}
+async function exportMp4(){
+  if(mediaType!=='video'||!mediaFile){setExportStatus('<b>CARICA UN VIDEO MP4</b><br>Il download MP4 si attiva quando il media sorgente è un video.');return}
+  if(!window.MediaRecorder||!C.captureStream){setExportStatus('<b>BROWSER NON SUPPORTATO</b><br>Per esportare il video usa una versione recente di Chrome, Edge o Safari.');return}
+  const btn=el('downloadMp4Btn');btn.disabled=true;isExporting=true;
+  const prevTime=sourceVideo.currentTime, wasPaused=sourceVideo.paused, prevRate=sourceVideo.playbackRate;
+  try{
+    setExportStatus('<b>PREPARO IL VIDEO</b><br>L’esportazione avviene in tempo reale per mantenere filtro e grafica perfettamente sincronizzati.');
+    sourceVideo.pause();sourceVideo.playbackRate=1;await seekVideo(0);draw(false);
+    const canvasStream=C.captureStream(30), audioTracks=await getAudioTracks();
+    const combined=new MediaStream([...canvasStream.getVideoTracks(),...audioTracks]);
+    const mime=bestRecorderMime();if(!mime)throw new Error('Nessun codec MediaRecorder supportato');
+    const chunks=[];const rec=new MediaRecorder(combined,{mimeType:mime,videoBitsPerSecond:8000000});
+    rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+    const stopped=new Promise((resolve,reject)=>{rec.onstop=resolve;rec.onerror=e=>reject(e.error||new Error('MediaRecorder error'))});
+    const ended=new Promise(resolve=>sourceVideo.addEventListener('ended',resolve,{once:true}));
+    rec.start(500);await sourceVideo.play();startRenderLoop();
+    const progressTimer=setInterval(()=>{const p=sourceVideo.duration?Math.round(sourceVideo.currentTime/sourceVideo.duration*100):0;setExportStatus(`<b>ESPORTAZIONE VIDEO</b><br>${p}% · ${fmtTime(sourceVideo.currentTime)} / ${fmtTime(sourceVideo.duration)}`)},350);
+    await ended;clearInterval(progressTimer);draw(false);if(rec.state!=='inactive')rec.stop();await stopped;stopRenderLoop();
+    let blob=new Blob(chunks,{type:mime});
+    if(!mime.startsWith('video/mp4'))blob=await webmToMp4(blob);
+    downloadBlob(blob,`ZeepUp_Post_${Date.now()}.mp4`);setExportStatus('<b>MP4 PRONTO ✓</b><br>Video esportato con filtro, testi e grafica ZeepUp.');
+  }catch(err){console.error(err);setExportStatus(`<b>ESPORTAZIONE NON RIUSCITA</b><br>${err.message||err}. Se il browser non registra MP4 nativamente, serve connessione internet per caricare il convertitore.`)}
+  finally{
+    isExporting=false;sourceVideo.pause();sourceVideo.playbackRate=prevRate;try{await seekVideo(Math.min(prevTime,sourceVideo.duration||prevTime))}catch(e){};if(!wasPaused){try{await sourceVideo.play()}catch(e){}};btn.disabled=false;draw(true);updateVideoUI();
+  }
+}
+el('downloadMp4Btn').addEventListener('click',exportMp4);
+window.addEventListener('load',()=>document.fonts.ready.then(()=>draw()));draw();
+</script>
+</body>
+</html>
