@@ -3,78 +3,19 @@
   "framework": null,
   "buildCommand": null,
   "outputDirectory": ".",
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
       "source": "/business",
-      "destination": "/business-italia.html"
-    },
-    {
-      "source": "/business-italia",
-      "destination": "/business-italia.html"
-    },
-    {
-      "source": "/business.html",
-      "destination": "/business-italia.html"
+      "destination": "/business-italia"
     },
     {
       "source": "/business-registration",
-      "destination": "/store-registration.html"
-    },
-    {
-      "source": "/store-registration",
-      "destination": "/store-registration.html"
+      "destination": "/store-registration"
     },
     {
       "source": "/homechef-registration",
-      "destination": "/home-chef-registration.html"
-    },
-    {
-      "source": "/home-chef-registration",
-      "destination": "/home-chef-registration.html"
-    },
-    {
-      "source": "/corporate-dinner",
-      "destination": "/corporate-dinner.html"
-    },
-    {
-      "source": "/faq-italia",
-      "destination": "/faq-italia.html"
-    },
-    {
-      "source": "/vendor-documentation",
-      "destination": "/vendor-Documentation.html"
-    },
-    {
-      "source": "/scarica-app",
-      "destination": "/scarica-app.html"
-    },
-    {
-      "source": "/slowfood",
-      "destination": "/slowfood.html"
-    },
-    {
-      "source": "/referral-italia",
-      "destination": "/referral-italia.html"
-    },
-    {
-      "source": "/privacy-policy-italia",
-      "destination": "/privacy-policy-italia.html"
-    },
-    {
-      "source": "/termini-e-condizioni",
-      "destination": "/termini-e-condizioni.html"
-    },
-    {
-      "source": "/termini-e-condizioni-clienti",
-      "destination": "/termini-e-condizioni-clienti.html"
-    },
-    {
-      "source": "/termini-e-condizioni-venditori",
-      "destination": "/termini-e-condizioni-venditori.html"
+      "destination": "/home-chef-registration"
     }
   ]
 }

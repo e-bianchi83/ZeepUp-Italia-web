@@ -21,12 +21,13 @@ const routes = {
   '/': 'index.html',
   '/business': 'business-italia.html',
   '/business-italia': 'business-italia.html',
-  '/business.html': 'business-italia.html',
-  '/business-registration': 'business-registration.html',
-  '/homechef-registration': 'HomeChef-registration.html',
+  '/business-registration': 'store-registration.html',
+  '/store-registration': 'store-registration.html',
+  '/homechef-registration': 'home-chef-registration.html',
+  '/home-chef-registration': 'home-chef-registration.html',
   '/corporate-dinner': 'corporate-dinner.html',
   '/faq-italia': 'faq-italia.html',
-  '/vendor-documentation': 'vendor-Documentation.html',
+  '/vendor-documentation': 'vendor-documentation.html',
   '/scarica-app': 'scarica-app.html',
   '/slowfood': 'slowfood.html',
   '/referral-italia': 'referral-italia.html',
@@ -38,6 +39,15 @@ const routes = {
 
 http.createServer((request, response) => {
   const requestPath = decodeURIComponent(request.url.split('?')[0]);
+
+  if (requestPath.toLowerCase().endsWith('.html')) {
+    const cleanPath = requestPath.toLowerCase() === '/index.html'
+      ? '/'
+      : requestPath.slice(0, -'.html'.length);
+    response.writeHead(308, { Location: cleanPath }).end();
+    return;
+  }
+
   const relativePath = routes[requestPath] || requestPath.replace(/^\/+/, '');
   const filePath = path.resolve(root, relativePath);
 
