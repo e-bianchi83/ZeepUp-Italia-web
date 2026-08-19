@@ -52,7 +52,7 @@ Then open `http://localhost:4173`.
 - `/referral-italia` — Italian referral page
 - `/privacy-policy-italia` — privacy policy
 - `/termini-e-condizioni` — general terms and conditions
-- `/termini-e-condizioni-clienti` — customer terms and conditions
+- `/termini-e-condizioni/termini-e-condizioni-acquirenti` — customer terms and conditions
 - `/termini-e-condizioni-venditori` — vendor terms and conditions
 
 The map uses OpenStreetMap/CARTO tiles and therefore requires an internet connection for its basemap.
