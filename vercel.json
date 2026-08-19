@@ -32,6 +32,10 @@
     {
       "source": "/termini-e-condizioni/termini-e-condizioni-acquirenti",
       "destination": "/termini-e-condizioni-acquirenti"
+    },
+    {
+      "source": "/privacy-policy-italia/accountrimuovi",
+      "destination": "/accountrimuovi"
     }
   ]
 }

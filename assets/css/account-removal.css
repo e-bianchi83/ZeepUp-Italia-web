@@ -1,0 +1,34 @@
+.account-page{font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif;background:#fff;color:#111}
+.account-wrap{width:min(1280px,calc(100% - 48px));margin:0 auto}
+.account-hero{padding:178px 0 90px;background:#fff493;border-bottom:1px solid #111;overflow:hidden}
+.account-hero .account-wrap{position:relative}
+.account-hero .account-wrap:after{content:"";position:absolute;right:3%;bottom:-132px;width:190px;height:190px;border-radius:50%;background:#ff0066;box-shadow:28px 28px 0 #111}
+.account-kicker{display:inline-block;margin-bottom:28px;padding:9px 12px;background:#111;color:#fff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.account-hero h1{position:relative;z-index:1;max-width:980px;margin:0;font-size:clamp(58px,8vw,112px);line-height:.9;letter-spacing:-.07em;font-weight:800}
+.account-dot{color:#ff0066}
+.account-hero p{position:relative;z-index:1;max-width:680px;margin:34px 0 0;font-size:clamp(18px,1.55vw,23px);line-height:1.5;color:#2b2b2b}
+.account-instructions{padding:96px 0 120px}
+.instructions-layout{display:grid;grid-template-columns:minmax(270px,.72fr) minmax(0,1.55fr);gap:64px;align-items:start}
+.account-summary{position:sticky;top:30px;padding:38px 34px 34px;background:#111;color:#fff;box-shadow:12px 12px 0 #ff0066}
+.summary-number{display:block;margin-bottom:56px;color:#fff493;font-size:13px;font-weight:800;letter-spacing:.12em}
+.account-summary h2{margin:0;font-size:clamp(32px,3vw,48px);line-height:.98;letter-spacing:-.045em}
+.account-summary p{margin:24px 0 32px;color:#cfcfcf;font-size:15px;line-height:1.6}
+.account-summary a{display:inline-flex;align-items:center;gap:9px;color:#fff493;font-size:13px;font-weight:800;text-underline-offset:4px}
+.instruction-stack{display:grid;gap:34px}
+.instruction-card{padding:44px;border:1px solid #111;background:#fff;box-shadow:12px 12px 0 #111}
+.instruction-card.app-card{border-top:10px solid #ff0066}
+.instruction-card.web-card{background:#fff493;box-shadow:12px 12px 0 #ff0066}
+.card-label{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:#ff0066;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.web-card .card-label{color:#111}
+.card-label .material-symbols-outlined{font-size:20px}
+.instruction-card>h2{margin:0 0 34px;font-size:clamp(38px,4vw,62px);line-height:.96;letter-spacing:-.05em}
+.platform-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px}
+.platform-grid section{padding:28px;background:#f7f7f4;border-left:5px solid #ff0066}
+.instruction-card h3{margin:0 0 18px;font-size:24px;letter-spacing:-.025em}
+.instruction-card ol{margin:0;padding-left:28px;font-size:17px;line-height:1.55}
+.instruction-card li{padding:5px 0 5px 5px}
+.instruction-card li::marker{color:#ff0066;font-weight:800}
+.web-card ol{max-width:760px;font-size:18px}
+@media(max-width:900px){.account-hero{padding-top:158px}.account-hero .account-wrap:after{right:-70px;opacity:.85}.instructions-layout{grid-template-columns:1fr;gap:48px}.account-summary{position:relative;top:auto;max-width:650px}.summary-number{margin-bottom:28px}}
+@media(max-width:680px){.account-wrap{width:min(100% - 30px,1280px)}.account-hero{padding:132px 0 64px}.account-hero .account-wrap:after{width:110px;height:110px;right:-35px;bottom:-92px;box-shadow:16px 16px 0 #111}.account-hero h1{font-size:clamp(50px,15vw,72px)}.account-hero p{margin-top:26px;font-size:17px}.account-instructions{padding:64px 0 84px}.account-summary{padding:30px 26px}.instruction-card{padding:30px 24px;box-shadow:8px 8px 0 #111}.web-card{box-shadow:8px 8px 0 #ff0066}.platform-grid{grid-template-columns:1fr}.instruction-card>h2{margin-bottom:26px}.instruction-card ol,.web-card ol{font-size:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

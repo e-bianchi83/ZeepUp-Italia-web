@@ -32,6 +32,7 @@ const routes = {
   '/slowfood': 'slowfood.html',
   '/referral-italia': 'referral-italia.html',
   '/privacy-policy-italia': 'privacy-policy-italia.html',
+  '/privacy-policy-italia/accountrimuovi': 'accountrimuovi.html',
   '/termini-e-condizioni': 'termini-e-condizioni.html',
   '/termini-e-condizioni/termini-e-condizioni-acquirenti': 'termini-e-condizioni-acquirenti.html',
   '/termini-e-condizioni-venditori': 'termini-e-condizioni-venditori.html'

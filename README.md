@@ -51,6 +51,7 @@ Then open `http://localhost:4173`.
 - `/slowfood` — ZeepUp × Slow Food Italia page
 - `/referral-italia` — Italian referral page
 - `/privacy-policy-italia` — privacy policy
+- `/privacy-policy-italia/accountrimuovi` — account removal instructions
 - `/termini-e-condizioni` — general terms and conditions
 - `/termini-e-condizioni/termini-e-condizioni-acquirenti` — customer terms and conditions
 - `/termini-e-condizioni-venditori` — vendor terms and conditions
