@@ -10,6 +10,9 @@ _archive/
 tmp/
 .sync-backups/
 
+# Supabase CLI cache
+/supabase/.temp/
+
 # Superseded root-level working assets
 /hero-phone-transparent-v*.png
 /segui-profile-crop*.png

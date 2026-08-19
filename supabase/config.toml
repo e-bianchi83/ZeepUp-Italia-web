@@ -1,0 +1,4 @@
+[functions.uk-early-signup]
+# This endpoint accepts public website submissions. Origin, method, content type,
+# body size, honeypot and email validation are enforced inside the function.
+verify_jwt = false
