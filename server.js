@@ -23,6 +23,7 @@ const routes = {
   '/it/': 'it/index.html',
   '/uk': 'uk/index.html',
   '/uk/': 'uk/index.html',
+  '/uk/terms-and-conditions': 'uk/terms-and-conditions.html',
   '/business': 'business-italia.html',
   '/business-italia': 'business-italia.html',
   '/business-registration': 'store-registration.html',
