@@ -1,0 +1,38 @@
+.country-switcher {
+  position: absolute;
+  top: 28px;
+  left: 4.5vw;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #111;
+  background: #fff;
+  box-shadow: 4px 4px 0 #fff493;
+  color: #111;
+  font: 700 10px/1 "Instrument Sans", Arial, sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.country-switcher a {
+  color: inherit;
+  text-decoration: none;
+}
+.country-switcher a:hover,
+.country-switcher a[aria-current="page"] {
+  color: #ff0066;
+}
+.country-switcher a[aria-current="page"] {
+  border-bottom: 2px solid currentColor;
+}
+.country-switcher a:focus-visible {
+  outline: 3px solid #ff0066;
+  outline-offset: 3px;
+}
+@media (max-width: 650px) {
+  .country-switcher {
+    top: 88px;
+    left: 16px;
+  }
+}

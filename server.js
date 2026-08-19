@@ -19,6 +19,10 @@ const types = {
 
 const routes = {
   '/': 'index.html',
+  '/it': 'it/index.html',
+  '/it/': 'it/index.html',
+  '/uk': 'uk/index.html',
+  '/uk/': 'uk/index.html',
   '/business': 'business-italia.html',
   '/business-italia': 'business-italia.html',
   '/business-registration': 'store-registration.html',
@@ -43,8 +47,38 @@ const redirects = {
   '/termini-e-condizioni-acquirenti': '/termini-e-condizioni/termini-e-condizioni-acquirenti'
 };
 
+function countryFromHeader(countryCode) {
+  switch (String(countryCode || '').toUpperCase()) {
+    case 'IT': return 'it';
+    case 'GB': return 'uk';
+    default: return 'uk';
+  }
+}
+
 http.createServer((request, response) => {
-  const requestPath = decodeURIComponent(request.url.split('?')[0]);
+  const requestUrl = new URL(request.url, `http://${request.headers.host || 'localhost'}`);
+  const requestPath = decodeURIComponent(requestUrl.pathname);
+
+  if (requestPath === '/') {
+    const requestedCountry = requestUrl.searchParams.get('country');
+    const validQueryCountry = requestedCountry === 'it' || requestedCountry === 'uk';
+    const cookieMatch = String(request.headers.cookie || '').match(/(?:^|;\s*)zeepup_country=(it|uk)(?:;|$)/);
+    const savedCountry = cookieMatch ? cookieMatch[1] : null;
+    const detectedCountry = String(request.headers['x-vercel-ip-country'] || '').toUpperCase();
+    const country = validQueryCountry
+      ? requestedCountry
+      : savedCountry || countryFromHeader(detectedCountry);
+    const headers = {
+      Location: `/${country}`,
+      'Cache-Control': 'private, no-store',
+      Vary: 'Cookie, X-Vercel-IP-Country'
+    };
+    if (validQueryCountry) {
+      headers['Set-Cookie'] = `zeepup_country=${country}; Max-Age=31536000; Path=/; SameSite=Lax; Secure`;
+    }
+    response.writeHead(307, headers).end();
+    return;
+  }
 
   if (redirects[requestPath]) {
     response.writeHead(308, { Location: redirects[requestPath] }).end();
