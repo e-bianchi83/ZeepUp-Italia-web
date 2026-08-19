@@ -4,6 +4,18 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/termini-e-condizioni-clienti",
+      "destination": "/termini-e-condizioni/termini-e-condizioni-acquirenti",
+      "permanent": true
+    },
+    {
+      "source": "/termini-e-condizioni-acquirenti",
+      "destination": "/termini-e-condizioni/termini-e-condizioni-acquirenti",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/business",
@@ -16,6 +28,10 @@
     {
       "source": "/homechef-registration",
       "destination": "/home-chef-registration"
+    },
+    {
+      "source": "/termini-e-condizioni/termini-e-condizioni-acquirenti",
+      "destination": "/termini-e-condizioni-acquirenti"
     }
   ]
 }

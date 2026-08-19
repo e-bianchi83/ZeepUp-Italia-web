@@ -33,12 +33,22 @@ const routes = {
   '/referral-italia': 'referral-italia.html',
   '/privacy-policy-italia': 'privacy-policy-italia.html',
   '/termini-e-condizioni': 'termini-e-condizioni.html',
-  '/termini-e-condizioni-clienti': 'termini-e-condizioni-clienti.html',
+  '/termini-e-condizioni/termini-e-condizioni-acquirenti': 'termini-e-condizioni-acquirenti.html',
   '/termini-e-condizioni-venditori': 'termini-e-condizioni-venditori.html'
+};
+
+const redirects = {
+  '/termini-e-condizioni-clienti': '/termini-e-condizioni/termini-e-condizioni-acquirenti',
+  '/termini-e-condizioni-acquirenti': '/termini-e-condizioni/termini-e-condizioni-acquirenti'
 };
 
 http.createServer((request, response) => {
   const requestPath = decodeURIComponent(request.url.split('?')[0]);
+
+  if (redirects[requestPath]) {
+    response.writeHead(308, { Location: redirects[requestPath] }).end();
+    return;
+  }
 
   if (requestPath.toLowerCase().endsWith('.html')) {
     const cleanPath = requestPath.toLowerCase() === '/index.html'
