@@ -16,6 +16,8 @@
 .stack{display:grid;gap:16px}.section{background:#fff;border:1px solid #111;box-shadow:6px 6px 0 #111;padding:30px;scroll-margin-top:130px}.shead{display:grid;grid-template-columns:50px 1fr;gap:15px;padding-bottom:23px;margin-bottom:25px;border-bottom:1px solid var(--line)}.num{width:46px;height:46px;display:grid;place-items:center;background:var(--butter);border:1px solid #111;font-weight:700}.shead h2{margin:0;font-size:31px;line-height:1;letter-spacing:-.045em}.shead p{margin:7px 0 0;color:#777;font-size:12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field.full{grid-column:1/-1}label{display:block;margin-bottom:7px;font-size:12px;font-weight:700}.req{color:var(--pink)}input[type=text],input[type=email],input[type=tel],input[type=password],select,textarea{width:100%;min-height:48px;padding:11px 12px;border:1px solid #bbb;background:#fff;border-radius:0;outline:0}textarea{min-height:108px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#111;box-shadow:3px 3px 0 var(--butter)}.hint{margin-top:6px;color:#777;font-size:10px;line-height:1.4}
 .field-error{display:none;margin-top:7px;color:#b0003a;font-size:11px;font-weight:700;line-height:1.4}.field-error.visible{display:block}.field input[aria-invalid="true"]{border-color:#b0003a;box-shadow:3px 3px 0 #ffd5e4}.password-control{position:relative}.password-control input{padding-right:52px}.password-toggle{position:absolute;top:1px;right:1px;width:46px;height:46px;border:0;border-left:1px solid #bbb;background:#fff;color:#111;display:grid;place-items:center;cursor:pointer}.password-toggle:hover{background:var(--butter)}.password-toggle:focus-visible{outline:3px solid var(--pink);outline-offset:2px}.password-toggle .material-symbols-outlined{font-size:21px}.form-status{display:none;grid-column:1/-1;margin:0;padding:12px 14px;border:1px solid #111;background:#fff;font-size:12px;font-weight:700}.form-status.visible{display:block}
 .address-tip,.account-tip{margin-bottom:18px;padding:15px 16px;background:#111;color:#fff;font-size:12px;line-height:1.45}.account-tip{background:var(--butter);color:#111}.uploads{display:grid;grid-template-columns:1fr 1fr;gap:16px}.upload{min-height:175px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;background:#fbfbf7;border:1px dashed #777}.upload-head{display:flex;justify-content:space-between;gap:15px}.upload h3{margin:0 0 6px;font-size:20px}.upload p{margin:0;color:#777;font-size:10px;line-height:1.4}.plus{width:38px;height:38px;display:grid;place-items:center;background:var(--pink);color:#fff;border:1px solid #111;font-size:23px}.upload input{font-size:11px}
+.file-picker{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;margin-top:22px}.file-input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.file-button{min-height:43px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 14px;background:#111;color:#fff;border:1px solid #111;font-size:11px;font-weight:700;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}.file-button svg{width:17px;height:17px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.file-button:hover{background:var(--pink);border-color:var(--pink);transform:translate(-1px,-1px);box-shadow:3px 3px 0 #111}.file-button:active{transform:translate(0);box-shadow:none}.file-input:focus-visible+.file-button{outline:3px solid var(--pink);outline-offset:3px}.file-input:disabled+.file-button{background:#d7d7d1;color:#777;border-color:#aaa;box-shadow:none;cursor:not-allowed;transform:none}.file-name{min-width:0;color:#555;font-size:10px;line-height:1.35;overflow-wrap:anywhere}
+@media(max-width:480px){.file-picker{grid-template-columns:1fr}.file-button{width:100%}.file-name{text-align:center}}
 .consent{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}.consent input{width:18px;height:18px;accent-color:var(--pink);margin-top:2px}.consent label{font-weight:400;line-height:1.55;color:#444}.consent a{font-weight:700;border-bottom:2px solid var(--butter)}.submitbox{background:var(--butter);border:1px solid #111;box-shadow:8px 8px 0 #111;padding:27px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}.submitbox h2{margin:0 0 6px;font-size:30px;letter-spacing:-.045em}.submitbox p{margin:0;color:#555;font-size:11px;line-height:1.45;max-width:560px}.submit{min-height:52px;padding:0 22px;border:1px solid var(--pink);background:var(--pink);color:#fff;border-radius:3px;font-weight:700}.submit:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #111}.backend{grid-column:1/-1;border-top:1px solid #c9c173;padding-top:10px;color:#777;font-size:8px}
 .site-footer{background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}.footer-inner{max-width:1575px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,1.5fr) repeat(3,minmax(150px,1fr));gap:64px;padding-bottom:62px}.footer-logo{display:block;position:relative;width:186px;height:47px;overflow:hidden;background:transparent;margin-bottom:27px}.footer-logo img{position:absolute;display:block;width:200px;max-width:none;height:200px;left:-7px;top:-78px;filter:brightness(0) invert(1)}.footer-logo:after{content:"";position:absolute;left:113px;top:1px;width:14px;height:14px;border-radius:50%;background:var(--pink)}.footer-brand p{max-width:350px;margin:0;color:#bdbdbd;font-size:14px;line-height:1.55}.footer-social{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:28px}.footer-social a{color:#fff;font-size:12px;font-weight:800;border-bottom:1px solid transparent;padding-bottom:3px}.footer-social a:hover{color:var(--pink);border-color:var(--pink)}.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:13px}.footer-column h2{margin:0 0 12px;color:#fff;font-size:15px;line-height:1.2}.footer-column a{color:#fff;font-size:14px;line-height:1.4}.footer-column a:hover{text-decoration:underline;text-underline-offset:4px}.footer-bottom{max-width:1575px;margin:0 auto;padding-top:22px;border-top:1px solid #353535;display:flex;justify-content:space-between;gap:24px;color:#8f8f8f;font-size:11px;letter-spacing:.02em}.site-footer a:focus-visible{outline:3px solid var(--butter);outline-offset:4px}
 @media(max-width:1050px){.top-pill{left:5vw;right:5vw;justify-content:center}.footer-inner{grid-template-columns:1.4fr 1fr;gap:50px 40px}}
@@ -93,7 +95,7 @@ body.modal-open{overflow:hidden}
 <div class="field"><label for="street-number">Numero <span class="req">*</span></label><input type="text" id="street-number" name="street_number" maxlength="12" placeholder="12/A" required></div>
 <div class="field"><label>Città <span class="req">*</span></label><select name="city" required><option value="">Seleziona città</option><option>Milano</option><option>Firenze</option></select></div>
 <div class="field"><label>Codice Postale <span class="req">*</span></label><input type="text" name="postal_code" inputmode="numeric" pattern="[0-9]{5}" minlength="5" maxlength="5" placeholder="20121" required></div>
-<div class="field"><label>Regione <span class="req">*</span></label><select name="region" required><option value="">Seleziona regione</option><option>Lombardia</option><option>Toscana</option></select></div>
+<div class="field"><label>Regione <span class="req">*</span></label><select name="region" required><option value="" selected disabled>Seleziona una regione</option><option>Abruzzo</option><option>Basilicata</option><option>Calabria</option><option>Campania</option><option>Emilia-Romagna</option><option>Friuli Venezia Giulia</option><option>Lazio</option><option>Liguria</option><option>Lombardia</option><option>Marche</option><option>Molise</option><option>Piemonte</option><option>Puglia</option><option>Sardegna</option><option>Sicilia</option><option>Toscana</option><option>Trentino-Alto Adige/Südtirol</option><option>Umbria</option><option>Valle d’Aosta/Vallée d’Aoste</option><option>Veneto</option></select></div>
 <div class="field"><label>Paese <span class="req">*</span></label><select name="country" required><option value="Italia">Italia</option></select></div>
 </div>
 </section>
@@ -112,8 +114,8 @@ body.modal-open{overflow:hidden}
 <section class="section" id="media">
 <div class="shead"><div class="num">04</div><div><h2>Logo & banner</h2><p>Due immagini per rendere il profilo immediatamente riconoscibile.</p></div></div>
 <div class="uploads">
-<div class="upload"><div class="upload-head"><div><h3>Logo</h3><p>Opzionale · preferibilmente quadrato.</p></div><div class="plus">+</div></div><input type="file" id="store-logo" name="logo" accept=".jpg,.jpeg,.png,.webp"></div>
-<div class="upload"><div class="upload-head"><div><h3>Banner</h3><p>Opzionale · immagine orizzontale del locale o della cucina.</p></div><div class="plus">+</div></div><input type="file" id="store-banner" name="banner" accept=".jpg,.jpeg,.png,.webp"></div>
+<div class="upload"><div class="upload-head"><div><h3>Logo</h3><p>Opzionale · preferibilmente quadrato.</p></div><div class="plus" aria-hidden="true">+</div></div><div class="file-picker"><input class="file-input" type="file" id="store-logo" name="logo" accept=".jpg,.jpeg,.png,.webp" aria-describedby="store-logo-filename"><label class="file-button" for="store-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v5h14v-5"/></svg><span>Scegli file</span></label><span class="file-name" id="store-logo-filename" aria-live="polite">Nessun file selezionato</span></div></div>
+<div class="upload"><div class="upload-head"><div><h3>Banner</h3><p>Opzionale · immagine orizzontale del locale o della cucina.</p></div><div class="plus" aria-hidden="true">+</div></div><div class="file-picker"><input class="file-input" type="file" id="store-banner" name="banner" accept=".jpg,.jpeg,.png,.webp" aria-describedby="store-banner-filename"><label class="file-button" for="store-banner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v5h14v-5"/></svg><span>Scegli file</span></label><span class="file-name" id="store-banner-filename" aria-live="polite">Nessun file selezionato</span></div></div>
 </div>
 </section>
 
@@ -227,6 +229,36 @@ body.modal-open{overflow:hidden}
   });
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !successModal.hidden) hideSuccessModal();
+  });
+
+  const fileInputs = Array.from(form.querySelectorAll('input[type="file"]'));
+
+  function updateFileSelection(input) {
+    const filename = document.getElementById(`${input.id}-filename`);
+    if (!filename) return;
+    if (!input.files || input.files.length === 0) {
+      filename.textContent = "Nessun file selezionato";
+      filename.removeAttribute("title");
+      return;
+    }
+    const selection = input.multiple && input.files.length > 1
+      ? `${input.files.length} file selezionati`
+      : input.files[0].name;
+    filename.textContent = selection;
+    filename.title = selection;
+  }
+
+  fileInputs.forEach(function (input) {
+    input.addEventListener("change", function () {
+      updateFileSelection(input);
+    });
+    updateFileSelection(input);
+  });
+
+  form.addEventListener("reset", function () {
+    requestAnimationFrame(function () {
+      fileInputs.forEach(updateFileSelection);
+    });
   });
 
   function errorElement(input) {
@@ -481,6 +513,7 @@ body.modal-open{overflow:hidden}
       status.hidden = true;
       showSuccessModal();
     } catch (error) {
+      fileInputs.forEach(updateFileSelection);
       console.error("Store registration error:", error);
       showStatus(error.message || "Non è stato possibile inviare la registrazione.", true);
     } finally {
