@@ -101,7 +101,11 @@ button,input{font:inherit}
 .field input{width:100%;background:#fff;border:1px solid #111;padding:15px 14px;outline:none}
 .field input:focus{box-shadow:4px 4px 0 #111}
 .submit{width:100%;border:0;background:var(--pink);color:#fff;padding:16px;font-weight:900;cursor:pointer;margin-top:4px}
+.submit:disabled{cursor:wait;opacity:.72}
 .form-note{font-size:11px;line-height:1.45;color:#555;margin-top:12px}
+.form-note.is-error{color:#9d1735}
+.form-note.is-success{color:#17613b}
+.referral-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
 
 /* WHY SHARE */
 .share{padding:92px 0;background:#fff}
@@ -256,24 +260,28 @@ button,input{font:inherit}
       <p>Bastano pochi secondi. Inserisci i tuoi dati e l’email del tuo amico: al resto pensa ZeepUp.</p>
     </div>
 
-    <form class="form-card" onsubmit="event.preventDefault(); document.getElementById('formMsg').textContent='Invito pronto — in questa demo il form non invia email.';">
+    <form class="form-card" id="referralForm" novalidate>
       <h3>Invita il tuo amico<span class="pink-dot"></span></h3>
       <div class="form-row">
         <div class="field">
           <label for="name">Il tuo nome</label>
-          <input id="name" type="text" placeholder="Elisa" required>
+          <input id="name" name="referrer_name" type="text" placeholder="Elisa" autocomplete="name" minlength="2" aria-describedby="formMsg" required>
         </div>
         <div class="field">
           <label for="email">La tua email</label>
-          <input id="email" type="email" placeholder="tu@email.com" required>
+          <input id="email" name="referrer_email" type="email" placeholder="tu@email.com" autocomplete="email" aria-describedby="formMsg" required>
         </div>
       </div>
       <div class="field">
         <label for="friend">Email del tuo amico</label>
-        <input id="friend" type="email" placeholder="amico@email.com" required>
+        <input id="friend" name="friend_email" type="email" placeholder="amico@email.com" autocomplete="off" aria-describedby="formMsg" required>
       </div>
-      <button class="submit" type="submit">INVIA L’INVITO →</button>
-      <div class="form-note" id="formMsg" aria-live="polite"></div>
+      <div class="referral-honeypot" aria-hidden="true">
+        <label for="referralWebsite">Lascia vuoto questo campo</label>
+        <input id="referralWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="submit" id="referralSubmit" type="submit">INVIA L’INVITO →</button>
+      <div class="form-note" id="formMsg" role="status" aria-live="polite" aria-atomic="true"></div>
     </form>
   </div>
 </section>
@@ -348,6 +356,118 @@ button,input{font:inherit}
     <span>Made for people who love good food.</span>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+  const SUPABASE_URL = "https://cyppsyjknrivohgqihpg.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1OPXPSLqAT5skMtKgxj3sA_7hFmLlI5";
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const form = document.getElementById("referralForm");
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const friendInput = document.getElementById("friend");
+  const honeypotInput = document.getElementById("referralWebsite");
+  const submitButton = document.getElementById("referralSubmit");
+  const message = document.getElementById("formMsg");
+  const defaultButtonText = submitButton.textContent;
+
+  const messages = {
+    loading: "INVIO IN CORSO…",
+    success: "Grazie! Il tuo invito è stato registrato.",
+    duplicate: "Hai già invitato questa persona.",
+    sameEmail: "Inserisci un’email diversa dalla tua.",
+    invalid: "Controlla i campi e inserisci indirizzi email validi.",
+    error: "Non è stato possibile registrare l’invito. Riprova."
+  };
+
+  function showMessage(text, state = "") {
+    message.textContent = text;
+    message.className = `form-note${state ? ` is-${state}` : ""}`;
+  }
+
+  function setInvalid(input, invalid) {
+    input.setAttribute("aria-invalid", String(invalid));
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const referrerName = nameInput.value.trim();
+    const referrerEmail = emailInput.value.trim().toLowerCase();
+    const friendEmail = friendInput.value.trim().toLowerCase();
+
+    nameInput.value = referrerName;
+    emailInput.value = referrerEmail;
+    friendInput.value = friendEmail;
+
+    const nameIsValid = referrerName.length >= 2;
+    const referrerEmailIsValid = emailInput.validity.valid && referrerEmail !== "";
+    const friendEmailIsValid = friendInput.validity.valid && friendEmail !== "";
+
+    setInvalid(nameInput, !nameIsValid);
+    setInvalid(emailInput, !referrerEmailIsValid);
+    setInvalid(friendInput, !friendEmailIsValid);
+
+    if (!nameIsValid || !referrerEmailIsValid || !friendEmailIsValid) {
+      showMessage(messages.invalid, "error");
+      (!nameIsValid ? nameInput : !referrerEmailIsValid ? emailInput : friendInput).focus();
+      return;
+    }
+
+    if (referrerEmail === friendEmail) {
+      setInvalid(friendInput, true);
+      showMessage(messages.sameEmail, "error");
+      friendInput.focus();
+      return;
+    }
+
+    if (honeypotInput.value.trim() !== "") {
+      form.reset();
+      showMessage(messages.success, "success");
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = messages.loading;
+    showMessage(messages.loading);
+
+    try {
+      const { error } = await supabaseClient
+        .from("referral_signups")
+        .insert({
+          referrer_name: referrerName,
+          referrer_email: referrerEmail,
+          friend_email: friendEmail
+        });
+
+      if (error) {
+        if (error.code === "23505") {
+          showMessage(messages.duplicate, "error");
+        } else {
+          console.error("Referral submission failed:", error);
+          showMessage(messages.error, "error");
+        }
+        return;
+      }
+
+      form.reset();
+      [nameInput, emailInput, friendInput].forEach((input) => setInvalid(input, false));
+      showMessage(messages.success, "success");
+    } catch (error) {
+      console.error("Referral submission failed:", error);
+      showMessage(messages.error, "error");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = defaultButtonText;
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
