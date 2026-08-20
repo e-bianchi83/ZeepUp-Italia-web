@@ -2,3 +2,10 @@
 # This endpoint accepts public website submissions. Origin, method, content type,
 # body size, honeypot and email validation are enforced inside the function.
 verify_jwt = false
+
+[functions.home-chef-registration-alert]
+# Only the anonymous applicant session that created a registration may request
+# its notification. Legacy gateway verification is disabled because this site
+# uses Supabase's current publishable keys; the function validates the user's
+# access token and checks row ownership before sending.
+verify_jwt = false

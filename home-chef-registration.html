@@ -1901,6 +1901,24 @@ body.modal-open{overflow:hidden}
         );
       }
 
+      /*
+       * Ask the server to notify the ZeepUp team about the saved application.
+       * The function verifies the signed-in applicant and reads the record from
+       * the database, so no email-service credentials or trusted registration
+       * details are exposed in the browser.
+       *
+       * A temporary notification failure must not discard an application that
+       * has already been saved successfully.
+       */
+      const { error: notificationError } = await supabaseClient.functions.invoke(
+        "home-chef-registration-alert",
+        { body: { applicationId } }
+      );
+
+      if (notificationError) {
+        console.error("Registration notification error:", notificationError);
+      }
+
       form.reset();
       showSuccessModal();
     } catch (error) {
