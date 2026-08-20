@@ -373,20 +373,101 @@ input[aria-invalid="true"]{
 
 /* UPLOADS */
 .upload{
-  border:1px dashed #777;
-  padding:18px;
-  background:#fbfbf8;
+  border:1px solid #111;
+  padding:16px;
+  background:var(--soft);
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
 }
-.upload input{width:100%}
+.upload:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:5px 5px 0 var(--butter);
+  background:#fff;
+}
+.upload:focus-within{
+  border-color:var(--pink);
+  box-shadow:5px 5px 0 var(--butter);
+  background:#fff;
+}
+.upload-picker{display:flex;align-items:center;gap:13px;min-width:0}
+.upload-input{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+.upload-button{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  margin:0;
+  padding:11px 16px;
+  border:1px solid var(--pink);
+  border-radius:3px;
+  background:var(--pink);
+  color:#fff;
+  box-shadow:3px 3px 0 #111;
+  font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+}
+.upload-button:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:5px 5px 0 #111;
+  filter:brightness(1.04);
+}
+.upload-button:active{
+  transform:translate(2px,2px);
+  box-shadow:0 0 0 #111;
+}
+.upload-input:focus-visible + .upload-button{outline:3px solid var(--pink);outline-offset:4px}
+.upload-filename{
+  min-width:0;
+  overflow:hidden;
+  color:#555;
+  font-size:11px;
+  font-weight:600;
+  line-height:1.35;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 .upload-title{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  margin-bottom:7px;
+  margin-bottom:13px;
 }
-.upload-title b{font-size:12px}
-.upload-title span{color:var(--pink);font-size:18px}
+.upload-title b{
+  font-family:"IBM Plex Mono","Courier New",monospace;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.upload-title span{
+  flex:0 0 32px;
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--pink);
+  border-radius:3px;
+  background:var(--pink);
+  color:#fff;
+  font-size:17px;
+}
+.upload .hint{margin-top:13px;padding-top:11px;border-top:1px solid var(--line)}
 
 /* CHECK / DECLARATIONS */
 .check-card{
@@ -851,24 +932,36 @@ body.modal-open{overflow:hidden}
           <div class="field">
             <label>Documento d'identità <span class="required">*</span></label>
             <div class="upload">
-              <div class="upload-title"><b>Carica documento</b><span>＋</span></div>
-              <input type="file" id="identity-document" accept=".pdf,.jpg,.jpeg,.png" required>
+              <div class="upload-title"><b>Carica documento</b><span class="material-symbols-outlined" aria-hidden="true">upload_file</span></div>
+              <div class="upload-picker">
+                <input class="upload-input" type="file" id="identity-document" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="identity-document-name" required>
+                <label class="upload-button" for="identity-document">Scegli file</label>
+                <span class="upload-filename" id="identity-document-name">Nessun file selezionato</span>
+              </div>
             </div>
           </div>
 
           <div class="field">
             <label>Attestato HACCP <span class="required">*</span></label>
             <div class="upload">
-              <div class="upload-title"><b>Carica attestato HACCP</b><span>＋</span></div>
-              <input type="file" id="haccp-certificate" accept=".pdf,.jpg,.jpeg,.png" required>
+              <div class="upload-title"><b>Carica attestato HACCP</b><span class="material-symbols-outlined" aria-hidden="true">upload_file</span></div>
+              <div class="upload-picker">
+                <input class="upload-input" type="file" id="haccp-certificate" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="haccp-certificate-name" required>
+                <label class="upload-button" for="haccp-certificate">Scegli file</label>
+                <span class="upload-filename" id="haccp-certificate-name">Nessun file selezionato</span>
+              </div>
             </div>
           </div>
 
           <div class="field full">
             <label>Manuale di autocontrollo HACCP</label>
             <div class="upload">
-              <div class="upload-title"><b>Carica manuale HACCP</b><span>＋</span></div>
-              <input type="file" id="haccp-manual" accept=".pdf">
+              <div class="upload-title"><b>Carica manuale HACCP</b><span class="material-symbols-outlined" aria-hidden="true">upload_file</span></div>
+              <div class="upload-picker">
+                <input class="upload-input" type="file" id="haccp-manual" accept=".pdf" aria-describedby="haccp-manual-name">
+                <label class="upload-button" for="haccp-manual">Scegli file</label>
+                <span class="upload-filename" id="haccp-manual-name">Nessun file selezionato</span>
+              </div>
               <div class="hint">PDF — max 20MB. Se disponibile caricalo; altrimenti puoi autocertificare.</div>
             </div>
           </div>
@@ -876,8 +969,12 @@ body.modal-open{overflow:hidden}
           <div class="field full">
             <label>Requisiti del locale + foto cucina <span class="required">*</span></label>
             <div class="upload">
-              <div class="upload-title"><b>Carica foto cucina</b><span>＋</span></div>
-              <input type="file" id="kitchen-photos" accept=".jpg,.jpeg,.png" multiple required>
+              <div class="upload-title"><b>Carica foto cucina</b><span class="material-symbols-outlined" aria-hidden="true">upload_file</span></div>
+              <div class="upload-picker">
+                <input class="upload-input" type="file" id="kitchen-photos" accept=".jpg,.jpeg,.png" aria-describedby="kitchen-photos-name" multiple required>
+                <label class="upload-button" for="kitchen-photos">Scegli file</label>
+                <span class="upload-filename" id="kitchen-photos-name">Nessun file selezionato</span>
+              </div>
               <div class="hint">Almeno 3 foto — piano cottura, lavello, zona preparazione (JPG/PNG).</div>
             </div>
           </div>
@@ -1245,6 +1342,20 @@ body.modal-open{overflow:hidden}
     if (!event.target.closest(".city-combobox")) closeCityMenu();
   });
   updateCityOptions();
+
+  document.querySelectorAll(".upload-input").forEach(function (input) {
+    const filename = document.getElementById(`${input.id}-name`);
+
+    input.addEventListener("change", function () {
+      if (!input.files.length) {
+        filename.textContent = "Nessun file selezionato";
+      } else if (input.files.length === 1) {
+        filename.textContent = input.files[0].name;
+      } else {
+        filename.textContent = `${input.files.length} file selezionati`;
+      }
+    });
+  });
 
   function showSuccessModal() {
     successModalTrigger = document.activeElement;
