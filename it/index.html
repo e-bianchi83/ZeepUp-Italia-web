@@ -15,6 +15,29 @@
 <link rel="stylesheet" href="/assets/css/site.css?v=20260818-8">
 <link rel="stylesheet" href="/assets/css/shared-header.css?v=20260818-1">
 <link rel="stylesheet" href="/assets/css/country-selector.css?v=1">
+<style>
+  .top-pill .italy-header-logo {
+    height: 42px !important;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 650px) {
+    .top-pill .italy-header-logo {
+      height: 24px !important;
+    }
+  }
+
+  .footer-logo.footer-logo-white svg {
+    display: block;
+    width: 186px;
+    height: 47px;
+  }
+
+  .footer-logo.footer-logo-white::after {
+    display: none;
+  }
+</style>
 </head>
 <body>
 <nav class="country-switcher" aria-label="Seleziona il paese">
@@ -24,7 +47,7 @@
 </nav>
 <header class="shared-site-header">
   <div class="top-pill">
-    <a href="/it" aria-label="Torna alla homepage ZeepUp"><img src="/assets/images/embedded/header-logo-black.png" alt="ZeepUp" /></a>
+    <a href="/it" aria-label="Torna alla homepage ZeepUp"><img class="italy-header-logo" src="/assets/images/brand/zeepup-header-new.png?v=20260820-3" alt="ZeepUp" /></a>
     <span class="top-divider"></span>
     <a class="kitchen-btn" href="/business-italia"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
     <a class="download-btn" href="/scarica-app">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
@@ -285,7 +308,20 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a class="footer-logo" href="/it" aria-label="ZeepUp"><img src="/assets/images/brand/zeepup-logo.png" alt="ZeepUp"></a>
+      <a class="footer-logo footer-logo-white" href="/it" aria-label="ZeepUp">
+        <svg viewBox="0 100 1600 404" role="img" aria-label="ZeepUp" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <filter id="footer-logo-white-filter" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  20 20 20 0 -58.35" />
+            </filter>
+            <filter id="footer-logo-pink-filter" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 0  0 0 0 0 .4  3 -3 1 0 -2" />
+            </filter>
+          </defs>
+          <image href="/assets/images/brand/zeepup-footer-white.jpeg?v=20260820-1" width="1600" height="604" filter="url(#footer-logo-white-filter)" />
+          <image href="/assets/images/brand/zeepup-footer-white.jpeg?v=20260820-1" width="1600" height="604" filter="url(#footer-logo-pink-filter)" />
+        </svg>
+      </a>
       <p>Scopri chi cucina vicino a te, guarda cosa prepara oggi e scegli tra Eat-In e To-Go.</p>
       <div class="footer-social" aria-label="ZeepUp sui social media">
         <a href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Instagram</a>
