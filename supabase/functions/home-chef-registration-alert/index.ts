@@ -113,40 +113,86 @@ function buildNotificationHtml(registration: Registration): string {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New ZeepUp store registration</title>
+    <title>New Chef registration</title>
   </head>
-  <body style="margin:0;padding:0;background:#f4f4f0;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#f4f4f0;">
+  <body style="margin:0;padding:0;background:#f0ede7;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">A new chef has applied to join ZeepUp. Open for the key details.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#f0ede7;">
       <tr>
-        <td align="center" style="padding:32px 16px;">
-          <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border:2px solid #111111;box-shadow:10px 10px 0 #111111;">
-            <tr><td style="height:10px;background:#ff0066;font-size:0;line-height:0;">&nbsp;</td></tr>
+        <td align="center" style="padding:40px 16px;">
+          <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border:2px solid #111111;box-shadow:12px 12px 0 #ff0066;">
             <tr>
-              <td style="padding:28px 32px 20px;">
-                <img src="https://www.zeepup.com/assets/images/brand/zeepup-logo.png" width="132" alt="ZeepUp" style="display:block;width:132px;max-width:100%;height:auto;border:0;">
+              <td style="height:12px;background:#ff0066;font-size:0;line-height:0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="padding:28px 32px 18px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td valign="middle">
+                      <img src="https://www.zeepup.com/assets/images/brand/zeepup-logo.png" width="132" alt="ZeepUp" style="display:block;width:132px;max-width:100%;height:auto;border:0;">
+                    </td>
+                    <td align="right" valign="middle">
+                      <span style="display:inline-block;padding:8px 12px;background:#fff493;border:2px solid #111111;font-size:11px;line-height:1;font-weight:800;letter-spacing:1px;text-transform:uppercase;">New application</span>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
             <tr>
-              <td style="padding:0 32px 26px;">
-                <p style="margin:0 0 14px;color:#ff0066;font-size:12px;line-height:1.4;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Italy partner registration</p>
-                <h1 style="margin:0;font-size:34px;line-height:1.08;letter-spacing:-1px;font-weight:800;">New store registered<span style="color:#ff0066;">.</span></h1>
-                <p style="margin:16px 0 0;color:#4c4c4c;font-size:16px;line-height:1.55;">A new partner application has been saved on ZeepUp.</p>
+              <td style="padding:8px 32px 28px;">
+                <p style="margin:0 0 12px;color:#ff0066;font-size:12px;line-height:1.4;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;">🧑‍🍳 Chef network · Italy</p>
+                <h1 style="margin:0;font-size:38px;line-height:1.05;letter-spacing:-1.3px;font-weight:900;">A new chef just joined the table<span style="color:#ff0066;">.</span></h1>
+                <p style="margin:17px 0 0;color:#4c4c4c;font-size:16px;line-height:1.6;">Their application is ready for the ZeepUp team to review. Here&rsquo;s the quick view.</p>
               </td>
             </tr>
             <tr>
               <td style="padding:0 32px 32px;">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border:2px solid #111111;">
-                  <tr><td style="padding:18px 22px;background:#fff493;border-bottom:2px solid #111111;"><strong>Store</strong><br>${escapeHtml(storeName)}</td></tr>
-                  <tr><td style="padding:18px 22px;border-bottom:1px solid #dddddd;"><strong>Contact</strong><br>${escapeHtml(registration.full_name)}</td></tr>
-                  <tr><td style="padding:18px 22px;border-bottom:1px solid #dddddd;"><strong>Email</strong><br><a href="mailto:${escapeHtml(registration.email)}" style="color:#111111;text-decoration-color:#ff0066;">${escapeHtml(registration.email)}</a></td></tr>
-                  <tr><td style="padding:18px 22px;border-bottom:1px solid #dddddd;"><strong>Location</strong><br>${escapeHtml(location)}</td></tr>
-                  <tr><td style="padding:18px 22px;"><strong>Submitted</strong><br>${escapeHtml(formatSubmittedAt(registration.created_at))}</td></tr>
+                  <tr>
+                    <td colspan="2" style="padding:22px 24px;background:#fff493;border-bottom:2px solid #111111;">
+                      <p style="margin:0 0 7px;color:#555000;font-size:10px;line-height:1.3;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Chef / store</p>
+                      <p style="margin:0;font-size:23px;line-height:1.3;font-weight:900;">${escapeHtml(storeName)}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" width="50%" style="padding:20px 24px;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;">
+                      <p style="margin:0 0 6px;color:#777777;font-size:10px;line-height:1.3;font-weight:800;letter-spacing:.9px;text-transform:uppercase;">Contact</p>
+                      <p style="margin:0;font-size:15px;line-height:1.5;font-weight:700;">${escapeHtml(registration.full_name)}</p>
+                    </td>
+                    <td valign="top" width="50%" style="padding:20px 24px;border-bottom:1px solid #dddddd;">
+                      <p style="margin:0 0 6px;color:#777777;font-size:10px;line-height:1.3;font-weight:800;letter-spacing:.9px;text-transform:uppercase;">Location</p>
+                      <p style="margin:0;font-size:15px;line-height:1.5;font-weight:700;">${escapeHtml(location)}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding:20px 24px;border-bottom:1px solid #dddddd;">
+                      <p style="margin:0 0 6px;color:#777777;font-size:10px;line-height:1.3;font-weight:800;letter-spacing:.9px;text-transform:uppercase;">Email</p>
+                      <p style="margin:0;font-size:16px;line-height:1.5;font-weight:800;word-break:break-word;"><a href="mailto:${escapeHtml(registration.email)}" style="color:#111111;text-decoration:underline;text-decoration-color:#ff0066;text-decoration-thickness:2px;">${escapeHtml(registration.email)}</a></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding:18px 24px;background:#fafafa;">
+                      <p style="margin:0;color:#777777;font-size:10px;line-height:1.3;font-weight:800;letter-spacing:.9px;text-transform:uppercase;">Submitted</p>
+                      <p style="margin:5px 0 0;font-size:14px;line-height:1.5;font-weight:700;">${escapeHtml(formatSubmittedAt(registration.created_at))}</p>
+                    </td>
+                  </tr>
                 </table>
               </td>
             </tr>
             <tr>
-              <td style="padding:22px 32px;background:#111111;color:#ffffff;">
-                <p style="margin:0;color:#bdbdbd;font-size:11px;line-height:1.5;">Application ID: ${escapeHtml(registration.id)}. This automated alert contains no tax details or uploaded documents.</p>
+              <td style="padding:24px 32px;background:#111111;color:#ffffff;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td valign="middle">
+                      <p style="margin:0 0 5px;color:#ffffff;font-size:13px;line-height:1.4;font-weight:800;">Ready for review →</p>
+                      <p style="margin:0;color:#a9a9a9;font-size:10px;line-height:1.5;">ID: ${escapeHtml(registration.id)}</p>
+                    </td>
+                    <td align="right" valign="middle">
+                      <span style="display:inline-block;padding:7px 10px;border:1px solid #555555;color:#bdbdbd;font-size:9px;line-height:1.2;font-weight:700;letter-spacing:.7px;text-transform:uppercase;">Secure alert</span>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:16px 0 0;padding-top:14px;border-top:1px solid #333333;color:#8d8d8d;font-size:10px;line-height:1.5;">No tax details or uploaded documents are included in this email.</p>
               </td>
             </tr>
           </table>
@@ -284,8 +330,8 @@ Deno.serve(async (request) => {
       body: JSON.stringify({
         from: "ZeepUp Registrations <notifications@updates.zeepup.com>",
         to: [ALERT_EMAIL],
-        subject: `New ZeepUp store registration: ${storeName}`,
-        text: `New ZeepUp store registration\n\nStore: ${storeName}\nContact: ${registration.full_name}\nEmail: ${registration.email}\nLocation: ${location}\nSubmitted: ${submittedAt}\nApplication ID: ${registration.id}\n\nNo tax details or uploaded documents are included in this alert.`,
+        subject: `🧑‍🍳 New Chef registration — ${storeName}`,
+        text: `🧑‍🍳 New Chef registration\n\nA new chef just joined the table.\n\nChef / store: ${storeName}\nContact: ${registration.full_name}\nEmail: ${registration.email}\nLocation: ${location}\nSubmitted: ${submittedAt}\nApplication ID: ${registration.id}\n\nReady for review. No tax details or uploaded documents are included in this alert.`,
         html: buildNotificationHtml(registration),
       }),
     });
