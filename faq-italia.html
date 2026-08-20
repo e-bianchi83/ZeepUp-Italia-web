@@ -66,7 +66,19 @@ button,input{font:inherit}
 .faq-side .eyebrow{color:var(--butter)}
 .faq-side h3{font-size:27px;line-height:1.05;letter-spacing:-.035em;margin:10px 0 14px}
 .faq-side p{font-size:14px;line-height:1.55;color:#d4d4d4;margin:0 0 22px}
-.faq-side a{display:inline-flex;background:var(--pink);padding:12px 14px;font-size:11px;font-weight:850}
+.faq-side .support-email{
+  display:grid;grid-template-columns:minmax(0,1fr) 34px;align-items:center;gap:12px;
+  width:100%;background:var(--pink);padding:13px 14px 13px 15px;color:#fff
+}
+.support-email-copy{display:flex;min-width:0;flex-direction:column;gap:3px}
+.support-email-label{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.support-email-address{display:flex;flex-direction:column;font-size:13px;font-weight:800;line-height:1.08}
+.support-email-arrow{
+  display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
+  background:#fff;color:var(--pink);font-size:18px;font-weight:900;transition:transform .18s ease
+}
+.support-email:hover .support-email-arrow{transform:translateX(2px)}
+.support-email:focus-visible{outline:3px solid var(--butter);outline-offset:4px}
 
 .faq-list{border-top:1px solid #111;background:#fff}
 details{border-bottom:1px solid #111;background:#fff}
@@ -212,7 +224,16 @@ details[open] .summary-icon{background:var(--pink);color:#fff;border-color:var(-
         <div class="eyebrow">Non la trovi?</div>
         <h3>Scrivici. Ti aiutiamo noi.</h3>
         <p>Per problemi con account, ordini o accesso puoi contattare direttamente il team ZeepUp.</p>
-        <a href="mailto:customerservice@zeepup.com">CUSTOMERSERVICE@ZEEPUP.COM →</a>
+        <a class="support-email" href="mailto:customerservice@zeepup.com" aria-label="Scrivi a customerservice@zeepup.com">
+          <span class="support-email-copy">
+            <span class="support-email-label">Scrivici via email</span>
+            <span class="support-email-address">
+              <span>customerservice</span>
+              <span>@zeepup.com</span>
+            </span>
+          </span>
+          <span class="support-email-arrow" aria-hidden="true">→</span>
+        </a>
       </aside>
 
       <div>
