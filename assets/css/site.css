@@ -203,9 +203,9 @@ h2{font-size:clamp(44px,4.5vw,68px);line-height:1.02;letter-spacing:-.048em;marg
 .faq-kicker{color:var(--pink);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;margin-bottom:18px}
 .faq-left h2{font-size:clamp(44px,4.3vw,68px);line-height:1.01;letter-spacing:-.05em;margin:0 0 22px;color:#fff;max-width:560px}
 .faq-left h2 .accent{color:var(--pink)}
-.faq-left h2 .question-mark{display:inline-block;width:auto;height:auto;margin-left:.04em;color:var(--pink);font:inherit;line-height:.88;letter-spacing:0;vertical-align:-.035em;text-decoration:none;border:0}
-.faq-left h2 .question-mark:before{content:'?';display:block;position:static;line-height:.88;color:inherit;clip-path:none}
-.faq-left h2 .question-mark:after{content:none;display:none}
+.faq-left h2 .question-mark{position:relative;display:inline-block;width:.58em;height:.92em;margin-left:.04em;color:var(--pink);font:inherit;line-height:1;letter-spacing:0;vertical-align:-.035em;text-decoration:none;border:0}
+.faq-left h2 .question-mark:before{content:'?';position:absolute;inset:-.08em 0 0;z-index:0;display:block;line-height:1;color:inherit;clip-path:none}
+.faq-left h2 .question-mark:after{content:'';position:absolute;left:50%;bottom:-.015em;z-index:1;width:.34em;height:.28em;transform:translateX(-50%);background:radial-gradient(circle at 50% 50%,var(--pink) 0 .08em,#0b0b0b .085em 100%)}
 .faq-left p{font-size:18px;line-height:1.55;color:#d7d7d7;max-width:520px;margin:0 0 32px}
 .store-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:center}
 .store-badge-link{display:inline-flex;align-items:center;justify-content:center;width:188px;height:56px;overflow:hidden;text-decoration:none;transition:.2s ease}

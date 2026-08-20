@@ -1,6 +1,13 @@
 # Local editor state
 .vscode/
 debug.log
+.DS_Store
+Thumbs.db
+
+# Local environment variables and secrets
+.env
+.env.*
+!.env.example
 
 # Design QA and handoff archives
 qa-*.png

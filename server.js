@@ -33,6 +33,7 @@ const routes = {
   '/home-chef-registration': 'home-chef-registration.html',
   '/corporate-dinner': 'corporate-dinner.html',
   '/faq-italia': 'faq-italia.html',
+  '/novita-italia': 'novita-italia.html',
   '/vendor-documentation': 'vendor-documentation.html',
   '/brand-assets': 'brand-assets.html',
   '/post-builder': 'post-builder.html',

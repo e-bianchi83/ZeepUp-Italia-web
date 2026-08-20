@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/assets/images/brand/favicon.png">
+  <title>Novità Italia | ZeepUp</title>
+  <meta name="description" content="Instagram, notizie e aggiornamenti LinkedIn dal mondo ZeepUp Italia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/shared-header.css?v=20260818-1">
+  <link rel="stylesheet" href="/assets/css/country-selector.css?v=1">
+  <style>
+    :root{--pink:#ff0066;--butter:#fff493;--ink:#111;--muted:#626262;--line:#d9d9d9;--white:#fff}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#fff;color:var(--ink);font-family:Inter,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .shell{width:min(1420px,calc(100% - 64px));margin:0 auto}
+    .material-symbols-outlined{font-size:20px;line-height:1;font-variation-settings:'FILL' 0,'wght' 700,'GRAD' 0,'opsz' 24}
+    .kitchen-btn,.download-btn,.hero-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+    .kitchen-btn{min-width:197px;border:0;color:#111;background:transparent;padding:15px 0 12px;border-radius:0;font-size:15px;gap:0;position:relative;isolation:isolate;cursor:pointer}
+    .kitchen-btn:after{content:'';position:absolute;left:0;right:17px;bottom:7px;height:8px;background:var(--butter);z-index:-1}
+    .kitchen-icon{width:0;opacity:0;overflow:hidden;margin-right:0;color:var(--pink);font-size:16px!important}
+    .download-btn{min-width:190px;min-height:57px;background:var(--pink);color:#fff;padding:18px 20px;border:1px solid var(--pink);border-radius:4px;font-size:15px;cursor:pointer}
+    .download-btn .material-symbols-outlined{font-size:18px}
+    .top-divider{display:none}
+    .kitchen-btn:hover{transform:translateY(-1px)}.download-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111}
+    main{padding-top:106px}
+    .live-line i{font-size:9px}
+    .hero{padding:35px 0 80px}
+    .hero-top{display:block}
+    .kicker{color:var(--pink);font-size:12px;font-weight:900;letter-spacing:.075em;text-transform:uppercase;margin-bottom:12px}
+    h1{max-width:900px;margin:0;font-size:clamp(62px,6.5vw,98px);line-height:.9;letter-spacing:-.07em;font-weight:900}
+    .pink-stop{color:var(--pink)}
+    .live-line{display:flex;align-items:center;gap:10px;margin:22px 0 0;font-size:14px;color:#303030}
+    .live-line i{color:var(--pink)}
+    .live-line span{color:var(--muted)}
+    .newsroom{display:grid;grid-template-columns:1.38fr .86fr .78fr;margin-top:24px;border-top:1px solid #111;border-bottom:1px solid #111}
+    .stream{min-width:0;padding:24px 24px 28px}
+    .stream:first-child{padding-left:0}
+    .stream:last-child{padding-right:0}
+    .stream+.stream{border-left:1px solid var(--line)}
+    .stream-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px}
+    .stream-title{display:flex;align-items:center;gap:10px;margin:0;font-size:24px;letter-spacing:-.035em}
+    .stream-title i{color:var(--pink);font-size:22px}
+    .stream-link{color:var(--pink);font-size:11px;font-weight:850;white-space:nowrap}
+    .instagram-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr;grid-template-rows:260px 205px;gap:8px}
+    .social-post{position:relative;overflow:hidden;background:#111;color:#fff}
+    .social-post:first-child{grid-row:1/3}
+    .social-post:nth-child(2){grid-column:2/4}
+    .social-post img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+    .social-post:hover img{transform:scale(1.025)}
+    .social-post:after{content:"";position:absolute;inset:28% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.86))}
+    .post-copy{position:absolute;z-index:2;left:18px;right:18px;bottom:17px}
+    .post-account{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:850;margin-bottom:7px}
+    .post-copy p{margin:0;font-size:13px;line-height:1.4}
+    .social-post:nth-child(n+3) .post-copy p{display:none}
+    .post-meta{display:flex;justify-content:space-between;gap:10px;margin-top:9px;color:#ddd;font-size:10px}
+    .live-badge{position:absolute;z-index:3;left:14px;top:14px;background:var(--pink);padding:7px 9px;font-size:9px;font-weight:900;letter-spacing:.07em}
+    .news-list,.linkedin-list{border-top:1px solid var(--line)}
+    .news-item,.linkedin-item{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:17px 0;border-bottom:1px solid var(--line)}
+    .news-item img{width:76px;height:76px;object-fit:cover}
+    .news-copy h3{font-size:14px;line-height:1.25;margin:0 0 7px;letter-spacing:-.02em}
+    .news-copy p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}
+    .date{display:block;color:var(--pink);font-size:9px;font-weight:800;margin-top:8px}
+    .linkedin-item{grid-template-columns:34px 1fr}
+    .linkedin-icon{width:30px;height:30px;display:grid;place-items:center;background:#0a66c2;color:#fff;font-size:17px}
+    .linkedin-copy strong{font-size:12px}
+    .linkedin-copy small{display:block;color:#777;margin:3px 0 8px;font-size:9px}
+    .linkedin-copy p{margin:0;font-size:11px;line-height:1.45;color:#333}
+    .linkedin-copy a{display:inline-flex;gap:8px;align-items:center;margin-top:9px;color:var(--pink);font-size:10px;font-weight:800}
+    .stream-footer{display:inline-flex;align-items:center;gap:10px;color:var(--pink);font-size:12px;font-weight:850;margin-top:18px}
+    .site-footer{background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}
+    .footer-inner{max-width:1575px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,1.5fr) repeat(3,minmax(150px,1fr));gap:64px;padding-bottom:62px}
+    .footer-logo{display:block;position:relative;width:186px;height:47px;overflow:hidden;background:transparent;text-decoration:none;margin-bottom:27px}
+    .footer-logo img{position:absolute;display:block;width:200px;max-width:none;height:200px;left:-7px;top:-78px;filter:brightness(0) invert(1)}
+    .footer-logo:after{content:'';position:absolute;left:113px;top:1px;width:14px;height:14px;border-radius:50%;background:var(--pink)}
+    .footer-brand p{max-width:350px;margin:0;color:#bdbdbd;font-size:14px;line-height:1.55}
+    .footer-social{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:28px}
+    .footer-social a{color:#fff;text-decoration:none;font-size:12px;font-weight:800;border-bottom:1px solid transparent;padding-bottom:3px}
+    .footer-social a:hover{color:var(--pink);border-color:var(--pink)}
+    .footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+    .footer-column h2{margin:0 0 12px;color:#fff;font-size:15px;line-height:1.2;text-transform:none;letter-spacing:0}
+    .footer-column a{color:#fff;text-decoration:none;font-size:14px;line-height:1.4}
+    .footer-column a:hover{text-decoration:underline;text-underline-offset:4px}
+    .footer-bottom{max-width:1575px;margin:0 auto;padding-top:22px;border-top:1px solid #353535;display:flex;justify-content:space-between;gap:24px;color:#8f8f8f;font-size:11px;letter-spacing:.02em}
+    .site-footer a:focus-visible{outline:3px solid var(--butter);outline-offset:4px}
+    [hidden]{display:none!important}
+    a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--butter);outline-offset:3px}
+    @media(max-width:1050px){
+      .newsroom{grid-template-columns:1fr 1fr}.stream:first-child{grid-column:1/-1;padding-right:0}.stream:nth-child(2){border-left:0;padding-left:0}.footer-inner{grid-template-columns:1.4fr 1fr;gap:50px 40px}
+    }
+    @media(max-width:680px){
+      .shell{width:min(100% - 30px,1420px)}main{padding-top:110px}.kitchen-btn,.download-btn{min-width:0;min-height:0;font-size:10px;padding:10px 9px}.kitchen-btn:after{right:8px;bottom:6px;height:6px}.download-btn .material-symbols-outlined{font-size:15px}
+      .hero{padding:38px 0 70px}h1{font-size:58px;line-height:.91}
+      .live-line{flex-wrap:wrap;align-items:flex-start}.live-line span{width:100%;margin-left:19px}
+      .newsroom{grid-template-columns:1fr}.stream,.stream:first-child,.stream:last-child,.stream:nth-child(2){grid-column:auto;padding:26px 0;border-left:0}.stream+.stream{border-top:1px solid #111}.instagram-grid{grid-template-columns:1fr 1fr;grid-template-rows:360px 220px 190px}.social-post:first-child{grid-column:1/-1;grid-row:auto}.social-post:nth-child(2){grid-column:1/-1}.site-footer{padding:58px 22px 24px}.footer-inner{grid-template-columns:1fr;gap:40px;padding-bottom:46px}.footer-bottom{flex-direction:column;gap:8px}
+    }
+  </style>
+</head>
+<body>
+  <nav class="country-switcher" aria-label="Seleziona il paese">
+    <a href="/it" data-country-choice="it" aria-current="page">Italia</a>
+    <span aria-hidden="true">|</span>
+    <a href="/uk" data-country-choice="uk">UK</a>
+  </nav>
+  <header class="shared-site-header">
+    <div class="top-pill">
+      <a href="/it" aria-label="Torna alla homepage ZeepUp"><img src="/assets/images/embedded/header-logo-black.png" alt="ZeepUp"></a>
+      <span class="top-divider"></span>
+      <a class="kitchen-btn" href="/business-italia"><span class="material-symbols-outlined kitchen-icon" aria-hidden="true">north_east</span>APRI LA TUA CUCINA</a>
+      <a class="download-btn" href="/scarica-app">SCARICA L’APP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div class="hero-top">
+        <div><h1>ZeepUp, adesso<span class="pink-stop">.</span></h1></div>
+      </div>
+      <div class="live-line"><i class="fa-solid fa-circle" aria-hidden="true"></i><strong>Contenuti dai canali ufficiali</strong><span>Ultimo controllo: 20 agosto 2026</span></div>
+      <div class="newsroom" id="newsroom">
+        <section class="stream" data-stream="instagram" aria-labelledby="instagramTitle">
+          <div class="stream-head"><h2 class="stream-title" id="instagramTitle"><i class="fa-brands fa-instagram" aria-hidden="true"></i>Instagram</h2><a class="stream-link" href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Vedi tutto <i class="fa-solid fa-arrow-right"></i></a></div>
+          <div class="instagram-grid">
+            <a class="social-post" href="https://www.instagram.com/zeepupitalia/reel/DV8IRkOse3d/" target="_blank" rel="noopener"><span class="live-badge">REEL</span><img src="/assets/images/social/instagram-reel-dv8irkose3d.jpg" alt="Grafica del primo evento ZeepUp del 3 marzo 2026"><div class="post-copy"><div class="post-account"><i class="fa-brands fa-instagram"></i> @zeepupitalia</div><p>Il primo evento ZeepUp. E siamo solo all’inizio.</p><div class="post-meta"><span>Evento ZeepUp</span><span>Apri il post</span></div></div></a>
+            <a class="social-post" href="https://www.instagram.com/zeepupitalia/reel/DcN9swyj7td/" target="_blank" rel="noopener"><span class="live-badge">REEL</span><img src="/assets/images/social/instagram-reel-dcn9swyj7td.jpg" alt="Cartellone ZeepUp con il messaggio Il tuo talento merita più di una cucina"><div class="post-copy"><div class="post-account"><i class="fa-brands fa-instagram"></i> @zeepupitalia</div><p>Il tuo talento merita più di una cucina.</p><div class="post-meta"><span>Per gli artigiani del cibo</span><span>Apri il post</span></div></div></a>
+            <a class="social-post" href="https://www.instagram.com/zeepupitalia/p/DWEN4LQCCyG/" target="_blank" rel="noopener"><img src="/assets/images/social/instagram-post-dwen4lqccyg.jpg" alt="Messaggio ZeepUp sulla passione condivisa per il buon cibo"><div class="post-copy"><div class="post-account"><i class="fa-brands fa-instagram"></i> @zeepupitalia</div><p>Uno spazio per ritrovare e condividere la passione per il buon cibo.</p><div class="post-meta"><span>ZeepUp</span><span>Apri il post</span></div></div></a>
+            <a class="social-post" href="https://www.instagram.com/zeepupitalia/p/DWENWbTiImd/" target="_blank" rel="noopener"><img src="/assets/images/social/instagram-post-dwenwbtiimd.jpg" alt="Due persone condividono un piatto di pasta"><div class="post-copy"><div class="post-account"><i class="fa-brands fa-instagram"></i> @zeepupitalia</div><p>People loving food.</p><div class="post-meta"><span>Community</span><span>Apri il post</span></div></div></a>
+          </div>
+          <a class="stream-footer" href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Vedi altri post Instagram <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+
+        <section class="stream" id="news" data-stream="news" aria-labelledby="newsTitle">
+          <div class="stream-head"><h2 class="stream-title" id="newsTitle"><i class="fa-regular fa-newspaper" aria-hidden="true"></i>News</h2></div>
+          <div class="news-list">
+            <a class="news-item" href="https://www.economymagazine.it/zeepup-startup-food-discovery-ristorazione-digitale/" target="_blank" rel="noopener"><img src="/assets/images/business/chef-clean.png" alt="Chef ZeepUp"><div class="news-copy"><h3>ZeepUp, la startup che vuole cambiare il modo di scoprire il cibo</h3><p>L’intervista di Economy Magazine a Elisa Bianchi, Founder &amp; CEO di ZeepUp.</p><span class="date">Economy Magazine</span></div></a>
+            <a class="news-item" href="https://www.linkedin.com/feed/update/urn:li:activity:7487800540811411459/" target="_blank" rel="noopener"><img src="/assets/images/social/instagram-post-dwenwbtiimd.jpg" alt="Due persone a tavola"><div class="news-copy"><h3>Ogni giorno migliaia di persone cercano un posto dove mangiare</h3><p>Ma la vera domanda è: come scelgono?</p><span class="date">LinkedIn ZeepUp</span></div></a>
+            <a class="news-item" href="https://www.linkedin.com/feed/update/urn:li:activity:7485634973975330816/" target="_blank" rel="noopener"><img src="/assets/images/social/instagram-reel-dcn9swyj7td.jpg" alt="Campagna ZeepUp dedicata al talento food"><div class="news-copy"><h3>Essere bravi non basta. Bisogna essere scelti.</h3><p>ZeepUp racconta la visibilità che meritano chef, ristoranti e artigiani.</p><span class="date">LinkedIn ZeepUp</span></div></a>
+          </div>
+          <a class="stream-footer" href="https://www.economymagazine.it/zeepup-startup-food-discovery-ristorazione-digitale/" target="_blank" rel="noopener">Leggi l’articolo completo <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+
+        <section class="stream" data-stream="linkedin" aria-labelledby="linkedinTitle">
+          <div class="stream-head"><h2 class="stream-title" id="linkedinTitle"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</h2></div>
+          <div class="linkedin-list">
+            <article class="linkedin-item"><div class="linkedin-icon"><i class="fa-brands fa-linkedin-in"></i></div><div class="linkedin-copy"><strong>ZeepUp Startup Innovativa</strong><small>1 settimana fa</small><p>Siamo felici di condividere la nuova intervista a Elisa Bianchi, Founder &amp; CEO di ZeepUp, sul percorso, la visione e l’obiettivo del progetto.</p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7492867529556606978/" target="_blank" rel="noopener">Leggi su LinkedIn <i class="fa-solid fa-arrow-right"></i></a></div></article>
+            <article class="linkedin-item"><div class="linkedin-icon"><i class="fa-brands fa-linkedin-in"></i></div><div class="linkedin-copy"><strong>ZeepUp Startup Innovativa</strong><small>3 settimane fa</small><p>Ogni giorno migliaia di persone cercano un posto dove mangiare. Ma la vera domanda è: come scelgono?</p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7487800540811411459/" target="_blank" rel="noopener">Leggi su LinkedIn <i class="fa-solid fa-arrow-right"></i></a></div></article>
+            <article class="linkedin-item"><div class="linkedin-icon"><i class="fa-brands fa-linkedin-in"></i></div><div class="linkedin-copy"><strong>ZeepUp Startup Innovativa</strong><small>4 settimane fa</small><p>Essere bravi non basta. Bisogna essere scelti. Nel mondo del food esistono migliaia di ristoranti, chef, produttori e artigiani.</p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7485634973975330816/" target="_blank" rel="noopener">Leggi su LinkedIn <i class="fa-solid fa-arrow-right"></i></a></div></article>
+          </div>
+          <a class="stream-footer" href="https://it.linkedin.com/company/zeepupsrl" target="_blank" rel="noopener">Vedi tutti gli aggiornamenti <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/it" aria-label="ZeepUp"><img src="/assets/images/brand/zeepup-logo.png" alt="ZeepUp"></a>
+        <p>Scopri chi cucina vicino a te, guarda cosa prepara oggi e scegli tra Eat-In e To-Go.</p>
+        <div class="footer-social" aria-label="ZeepUp sui social media">
+          <a href="https://www.instagram.com/zeepupitalia/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/people/ZeepUp-Italia/100093111542954/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://it.linkedin.com/company/zeepupsrl" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.youtube.com/@ZeepUp" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+      <nav class="footer-column" aria-label="Informazioni legali">
+        <h2>Legale</h2>
+        <a href="/termini-e-condizioni">Termini &amp; Condizioni</a>
+        <a href="/privacy-policy-italia">Privacy Policy</a>
+      </nav>
+      <nav class="footer-column" aria-label="Informazioni utili">
+        <h2>Info Utili</h2>
+        <a href="mailto:info@zeepup.com">Contattaci</a>
+        <a href="/faq-italia">FAQ</a>
+      </nav>
+      <nav class="footer-column" aria-label="Community ZeepUp">
+        <h2>Community</h2>
+        <a href="/referral-italia">Referral</a>
+        <a href="/novita-italia">News</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ZeepUp S.r.l.</span>
+      <span>P. IVA 12859150968</span>
+      <span>Made for people who love good food.</span>
+    </div>
+  </footer>
+
+  <script src="/assets/js/country-selector.js?v=1"></script>
+</body>
+</html>
