@@ -152,7 +152,9 @@
     .submit-copy p{font-size:13px;line-height:1.4;color:#d7d7d7;margin:0;max-width:610px}
     .submit-btn{background:var(--pink);color:#fff;border:2px solid #fff;min-height:58px;padding:0 24px;font-weight:750;box-shadow:6px 6px 0 #fff;white-space:nowrap;transition:.15s ease}
     .submit-btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 #fff}
+    .submit-btn:disabled{cursor:wait;opacity:.72;transform:none;box-shadow:4px 4px 0 #fff}
     .success{display:none;margin-top:20px;background:var(--butter);color:#111;border:2px solid #fff;padding:14px;font-weight:700;line-height:1.35}
+    .form-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
     .error-summary{display:none;margin:0 30px 20px;border:2px solid var(--danger);padding:13px 14px;color:var(--danger);font-size:13px;font-weight:650;background:#fff8f8}
 
     .site-footer{max-width:none;width:100%;margin:0;background:#0b0b0b;color:#fff;padding:76px 5.4vw 28px;border-top:1px solid #272727}
@@ -259,6 +261,10 @@
       </div>
 
       <form id="partnerForm" novalidate enctype="multipart/form-data">
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="companyFax">Leave this field empty</label>
+          <input id="companyFax" name="company_fax" type="text" tabindex="-1" autocomplete="off">
+        </div>
         <div class="mode-wrap">
           <span class="label-mono">First: choose your setup <span class="req">*</span></span>
           <div class="mode-grid">
@@ -417,7 +423,7 @@
             <div class="submit-copy"><h3>Ready for a first look?</h3><p>We’ll review your setup and contact you about the next onboarding step. Submitting interest does not itself activate a seller account or authorise trading.</p></div>
             <button class="submit-btn" type="submit">SEND MY INTEREST →</button>
           </div>
-          <div class="success" id="successBox">Thanks — your partner interest has been captured. In this standalone preview, no data is sent anywhere. Connect <code>FORM_ENDPOINT</code> in the script to your production endpoint.</div>
+          <div class="success" id="successBox">Thanks — your application is safely with ZeepUp UK. Check your inbox for confirmation.</div>
         </div>
       </form>
     </section>
@@ -475,17 +481,22 @@
     /*
       DEVELOPER HANDOFF
       -----------------
-      1) Set FORM_ENDPOINT to your production POST endpoint, or expose window.ZEEPUP_UK_PARTNER_ENDPOINT before this script.
-      2) Submission uses multipart FormData so document uploads are preserved.
+      1) Submission posts to the uk-partner-registration Supabase Edge Function.
+      2) Multipart FormData preserves optional document uploads.
       3) UK legal links use the published /uk/terms-and-conditions and /uk/privacy-policy routes.
       4) The form is an onboarding-readiness / interest form; it does not replace local-authority food-business registration.
     */
-    const FORM_ENDPOINT = window.ZEEPUP_UK_PARTNER_ENDPOINT || "";
+    const FORM_ENDPOINT = 'https://cyppsyjknrivohgqihpg.supabase.co/functions/v1/uk-partner-registration';
+    const MAX_FILE_BYTES = 5 * 1024 * 1024;
+    const MAX_TOTAL_FILE_BYTES = 20 * 1024 * 1024;
     const form = document.getElementById('partnerForm');
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     const errorSummary = document.getElementById('errorSummary');
     const successBox = document.getElementById('successBox');
+    const submitButton = form.querySelector('.submit-btn');
+    const defaultSubmitLabel = submitButton.textContent;
+    let activeSubmissionId = null;
 
     const modeHome = document.getElementById('modeHome');
     const modeVenue = document.getElementById('modeVenue');
@@ -632,31 +643,45 @@
       }
 
       const data = new FormData(form);
+      const selectedFiles = [...data.values()].filter(value => value instanceof File && value.size > 0);
+      const oversizedFile = selectedFiles.find(file => file.size > MAX_FILE_BYTES);
+      const totalFileBytes = selectedFiles.reduce((total,file) => total + file.size, 0);
+      if(oversizedFile || totalFileBytes > MAX_TOTAL_FILE_BYTES){
+        errorSummary.textContent = oversizedFile
+          ? `${oversizedFile.name} is larger than 5 MB. Please choose a smaller PDF or image.`
+          : 'Your selected files are larger than 20 MB in total. Please remove or reduce some files.';
+        errorSummary.style.display='block';
+        errorSummary.scrollIntoView({behavior:'smooth',block:'center'});
+        return;
+      }
+
+      if(!activeSubmissionId) activeSubmissionId = crypto.randomUUID();
+      data.append('submission_id',activeSubmissionId);
       data.append('country_scope','England');
       data.append('source','zeepup_uk_partner_interest');
       data.append('submitted_at', new Date().toISOString());
 
+      submitButton.disabled=true;
+      submitButton.textContent='SENDING…';
       try{
-        if(FORM_ENDPOINT){
-          const res = await fetch(FORM_ENDPOINT,{method:'POST',body:data});
-          if(!res.ok) throw new Error('Submission failed');
-          successBox.textContent='Thanks — we have your details. ZeepUp UK will review your setup and contact you about the next onboarding step.';
-        }else{
-          // Standalone preview: developer can inspect the payload in the browser console.
-          const preview = {};
-          for(const [k,v] of data.entries()){
-            if(v instanceof File){ preview[k] = v.name || '(no file)'; continue; }
-            if(Object.prototype.hasOwnProperty.call(preview,k)) preview[k] = [].concat(preview[k],v);
-            else preview[k] = v;
-          }
-          console.log('ZeepUp UK partner-interest payload preview:', preview);
-        }
+        const res = await fetch(FORM_ENDPOINT,{method:'POST',body:data});
+        const result = await res.json().catch(()=>({}));
+        if(!res.ok || !result.ok) throw new Error(result.error || 'submission_failed');
+        successBox.textContent='Thanks — your application is safely with ZeepUp UK. Check your inbox for confirmation. We’ll review your setup and contact you about the next step.';
         successBox.style.display='block';
         successBox.scrollIntoView({behavior:'smooth',block:'center'});
+        form.reset();
+        activeSubmissionId=null;
+        updateMode(); updateCompany(); updateRegistration(); updateAlcohol(); updatePPDS(); updateHomeDining(); updateProgress();
       }catch(err){
-        errorSummary.textContent='We could not send the form. Please try again or contact ZeepUp UK.';
+        errorSummary.textContent=err.message === 'email_failed'
+          ? 'Your details were saved, but we could not finish the email confirmation. Please press send again to retry safely.'
+          : 'We could not send the form. Please try again or contact ZeepUp UK at info@zeepup.com.';
         errorSummary.style.display='block';
         errorSummary.scrollIntoView({behavior:'smooth',block:'center'});
+      }finally{
+        submitButton.disabled=false;
+        submitButton.textContent=defaultSubmitLabel;
       }
     });
 

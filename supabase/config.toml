@@ -9,3 +9,9 @@ verify_jwt = false
 # uses Supabase's current publishable keys; the function validates the user's
 # access token and checks row ownership before sending.
 verify_jwt = false
+
+[functions.uk-partner-registration]
+# Public UK partner-interest submissions are accepted without a Supabase user
+# session. The function enforces origin, field, file, size and honeypot checks,
+# while all database and storage access remains server-side.
+verify_jwt = false
