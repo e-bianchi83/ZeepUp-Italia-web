@@ -863,8 +863,28 @@ body.modal-open{overflow:hidden}
           </div>
 
           <div class="field">
-            <label>Indirizzo <span class="required">*</span></label>
-            <input type="text" name="address" required>
+            <label for="chef-address">Indirizzo <span class="required">*</span></label>
+            <input
+              type="text"
+              id="chef-address"
+              name="address"
+              autocomplete="street-address"
+              placeholder="Via o piazza"
+              maxlength="180"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="chef-street-number">Numero civico <span class="required">*</span></label>
+            <input
+              type="text"
+              id="chef-street-number"
+              name="street_number"
+              placeholder="Es. 24/A"
+              maxlength="20"
+              required
+            >
           </div>
 
           <div class="field">
@@ -1837,6 +1857,9 @@ body.modal-open{overflow:hidden}
 
         address:
           formData.get("address")?.trim(),
+
+        street_number:
+          formData.get("street_number")?.trim(),
 
         city:
           formData.get("city")?.trim(),
