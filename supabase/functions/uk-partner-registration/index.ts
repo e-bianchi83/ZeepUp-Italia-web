@@ -47,14 +47,20 @@ const textFields = [
   "website_social",
   "target_start_date",
   "local_authority",
-  "home_kitchen_address",
+  "home_address_line_1",
+  "home_address_line_2",
+  "home_address_town_city",
+  "home_address_county",
   "home_kitchen_postcode",
   "property_status",
   "home_business_permissions",
   "hmrc_status",
   "customers_enter_home",
   "venue_type",
-  "venue_address",
+  "venue_address_line_1",
+  "venue_address_line_2",
+  "venue_address_town_city",
+  "venue_address_county",
   "venue_postcode",
   "staff_count",
   "food_hygiene_rating",
@@ -158,7 +164,9 @@ const pdfSections = [
   {
     title: "Home kitchen",
     fields: [
-      ["home_kitchen_address", "Home kitchen address"], ["home_kitchen_postcode", "Postcode"],
+      ["home_address_line_1", "Address line 1"], ["home_address_line_2", "Address line 2"],
+      ["home_address_town_city", "Town / city"], ["home_address_county", "County"],
+      ["home_kitchen_postcode", "Postcode"],
       ["property_status", "Property status"], ["home_business_permissions", "Home-business permissions"],
       ["hmrc_status", "Tax / HMRC setup"], ["customers_enter_home", "Customers enter home"],
     ],
@@ -166,8 +174,10 @@ const pdfSections = [
   {
     title: "Chef / venue",
     fields: [
-      ["venue_type", "Premises type"], ["venue_address", "Premises address"],
-      ["venue_postcode", "Postcode"], ["staff_count", "Employees / workers"],
+      ["venue_type", "Premises type"], ["venue_address_line_1", "Address line 1"],
+      ["venue_address_line_2", "Address line 2"], ["venue_address_town_city", "Town / city"],
+      ["venue_address_county", "County"], ["venue_postcode", "Postcode"],
+      ["staff_count", "Employees / workers"],
       ["food_hygiene_rating", "Food Hygiene Rating"], ["fhrs_url", "FSA rating link"],
     ],
   },
@@ -345,7 +355,10 @@ function buildInternalEmail(application: ApplicationRecord): string {
   const offers = Array.isArray(data.offer_types)
     ? data.offer_types.join(", ")
     : "Not supplied";
-  const location = [application.town_city, data.venue_postcode ?? data.home_kitchen_postcode]
+  const location = [
+    data.venue_address_town_city ?? data.home_address_town_city ?? application.town_city,
+    data.venue_postcode ?? data.home_kitchen_postcode,
+  ]
     .filter(Boolean).join(", ");
   const row = (label: string, value: unknown, shade = "#ffffff") =>
     `<tr><td style="padding:10px 14px;background:${shade};border-bottom:1px solid #d8d8d2;color:#666666;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;width:34%;">${escapeHtml(label)}</td><td style="padding:10px 14px;background:${shade};border-bottom:1px solid #d8d8d2;font-size:14px;line-height:1.45;font-weight:700;word-break:break-word;">${escapeHtml(value || "Not supplied")}</td></tr>`;
@@ -592,6 +605,11 @@ function value(formData: FormData, field: string): string {
   return typeof entry === "string" ? entry.trim() : "";
 }
 
+function isValidUkMobile(input: string): boolean {
+  const phone = input.replace(/[\s().-]/g, "");
+  return /^07\d{9}$/.test(phone) || /^\+447\d{9}$/.test(phone) || /^00447\d{9}$/.test(phone);
+}
+
 function validateApplication(
   formData: FormData,
 ): { ok: true; data: Record<string, unknown> } | { ok: false; field: string } {
@@ -615,6 +633,9 @@ function validateApplication(
   if (email.length > 254 || !EMAIL_PATTERN.test(email)) {
     return { ok: false, field: "email" };
   }
+  if (!isValidUkMobile(value(formData, "phone"))) {
+    return { ok: false, field: "phone" };
+  }
 
   const partnerType = value(formData, "partner_type");
   if (!new Set(["home_chef", "chef_venue"]).has(partnerType)) {
@@ -624,11 +645,13 @@ function validateApplication(
   const conditionalRequired: string[] = [];
   if (partnerType === "home_chef") {
     conditionalRequired.push(
-      "home_kitchen_address", "home_kitchen_postcode", "property_status",
+      "home_address_line_1", "home_address_town_city", "home_kitchen_postcode", "property_status",
       "home_business_permissions", "hmrc_status", "customers_enter_home",
     );
   } else {
-    conditionalRequired.push("venue_type", "venue_address", "venue_postcode");
+    conditionalRequired.push(
+      "venue_type", "venue_address_line_1", "venue_address_town_city", "venue_postcode",
+    );
   }
   if (["limited_company", "llp"].includes(value(formData, "business_structure"))) {
     conditionalRequired.push("company_number");

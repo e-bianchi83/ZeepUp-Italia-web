@@ -113,6 +113,7 @@
     input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],input[type=url],select,textarea{
       width:100%;border:1.7px solid #111;border-radius:0;background:#fff;min-height:50px;padding:11px 12px;outline:none;font-size:15px
     }
+    input[type=date]{cursor:pointer}
     textarea{min-height:112px;resize:vertical;line-height:1.4}
     input:focus,select:focus,textarea:focus{box-shadow:inset 0 0 0 3px var(--butter)}
     .help{font-size:11.5px;line-height:1.35;color:var(--muted)}
@@ -323,8 +324,11 @@
 
           <div class="grid conditional home-only" style="margin-top:18px">
             <div class="field full"><div class="label-mono">HOME KITCHEN DETAILS</div></div>
-            <div class="field"><label for="homeAddress">Home kitchen address <span class="req">*</span></label><input id="homeAddress" name="home_kitchen_address" type="text" autocomplete="street-address"></div>
-            <div class="field"><label for="homePostcode">Postcode <span class="req">*</span></label><input id="homePostcode" name="home_kitchen_postcode" type="text" autocomplete="postal-code"></div>
+            <div class="field full"><label for="homeAddressLine1">Address line 1 <span class="req">*</span></label><input id="homeAddressLine1" name="home_address_line_1" type="text" autocomplete="section-home address-line1" placeholder="Building number and street"></div>
+            <div class="field full"><label for="homeAddressLine2">Address line 2</label><input id="homeAddressLine2" name="home_address_line_2" type="text" autocomplete="section-home address-line2" placeholder="Apartment, building or locality (optional)"></div>
+            <div class="field"><label for="homeAddressTown">Town / city <span class="req">*</span></label><input id="homeAddressTown" name="home_address_town_city" type="text" autocomplete="section-home address-level2"></div>
+            <div class="field"><label for="homeAddressCounty">County</label><input id="homeAddressCounty" name="home_address_county" type="text" autocomplete="section-home address-level1" placeholder="Optional"></div>
+            <div class="field"><label for="homePostcode">Postcode <span class="req">*</span></label><input id="homePostcode" name="home_kitchen_postcode" type="text" autocomplete="section-home postal-code" inputmode="text"></div>
             <div class="field"><label for="tenure">Property status <span class="req">*</span></label><select id="tenure" name="property_status"><option value="">Select</option><option>Owner — no mortgage</option><option>Owner — mortgaged</option><option>Private tenant</option><option>Social / council tenant</option><option>Other</option></select></div>
             <div class="field"><label for="homePermission">Home-business permissions <span class="req">*</span></label><select id="homePermission" name="home_business_permissions"><option value="">Select</option><option>Confirmed / not required for my setup</option><option>Landlord / mortgage provider confirmed</option><option>Checking with landlord / mortgage provider / council</option><option>Not yet checked</option></select><div class="help">Permission requirements can depend on your tenancy/mortgage, insurance and local planning position.</div></div>
             <div class="field"><label for="hmrcStatus">Tax / HMRC setup <span class="req">*</span></label><select id="hmrcStatus" name="hmrc_status"><option value="">Select</option><option>Registered self-employed</option><option>Trading through a company / partnership</option><option>Registration in progress</option><option>Not yet set up</option></select></div>
@@ -334,8 +338,11 @@
           <div class="grid conditional venue-only" style="margin-top:18px">
             <div class="field full"><div class="label-mono">PROFESSIONAL PREMISES DETAILS</div></div>
             <div class="field"><label for="venueType">Premises type <span class="req">*</span></label><select id="venueType" name="venue_type"><option value="">Select</option><option>Restaurant</option><option>Café / bar</option><option>Commercial kitchen</option><option>Independent chef using a hired kitchen</option><option>Market / mobile / pop-up</option><option>Farm shop / producer</option><option>Other food venue</option></select></div>
-            <div class="field"><label for="venueAddress">Premises address <span class="req">*</span></label><input id="venueAddress" name="venue_address" type="text" autocomplete="street-address"></div>
-            <div class="field"><label for="venuePostcode">Postcode <span class="req">*</span></label><input id="venuePostcode" name="venue_postcode" type="text" autocomplete="postal-code"></div>
+            <div class="field full"><label for="venueAddressLine1">Address line 1 <span class="req">*</span></label><input id="venueAddressLine1" name="venue_address_line_1" type="text" autocomplete="section-venue address-line1" placeholder="Building number and street"></div>
+            <div class="field full"><label for="venueAddressLine2">Address line 2</label><input id="venueAddressLine2" name="venue_address_line_2" type="text" autocomplete="section-venue address-line2" placeholder="Unit, building or locality (optional)"></div>
+            <div class="field"><label for="venueAddressTown">Town / city <span class="req">*</span></label><input id="venueAddressTown" name="venue_address_town_city" type="text" autocomplete="section-venue address-level2"></div>
+            <div class="field"><label for="venueAddressCounty">County</label><input id="venueAddressCounty" name="venue_address_county" type="text" autocomplete="section-venue address-level1" placeholder="Optional"></div>
+            <div class="field"><label for="venuePostcode">Postcode <span class="req">*</span></label><input id="venuePostcode" name="venue_postcode" type="text" autocomplete="section-venue postal-code" inputmode="text"></div>
             <div class="field"><label for="staffCount">Employees / workers at this site</label><input id="staffCount" name="staff_count" type="number" min="0" step="1" value="0"></div>
             <div class="field"><label for="fhrs">Current Food Hygiene Rating</label><select id="fhrs" name="food_hygiene_rating"><option value="">Select if applicable</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option><option>0</option><option>Awaiting first inspection / not yet rated</option><option>Not applicable / unsure</option></select></div>
             <div class="field"><label for="fhrsUrl">FSA rating link</label><input id="fhrsUrl" name="fhrs_url" type="url" placeholder="https://ratings.food.gov.uk/…"></div>
@@ -500,6 +507,7 @@
     </div>
   </footer>
 
+  <script src="/assets/js/uk-partner-validation.js"></script>
   <script>
     /*
       DEVELOPER HANDOFF
@@ -518,6 +526,9 @@
     const errorSummary = document.getElementById('errorSummary');
     const successDialog = document.getElementById('successDialog');
     const successClose = document.getElementById('successClose');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const dateInputs = [...form.querySelectorAll('input[type="date"]')];
     const submitButton = form.querySelector('.submit-btn');
     const defaultSubmitLabel = submitButton.textContent;
     let activeSubmissionId = null;
@@ -556,7 +567,8 @@
       setRequiredWithin('.home-only input, .home-only select, .home-only textarea', home);
       setRequiredWithin('.venue-only input, .venue-only select, .venue-only textarea', venue);
       // Keep these optional in venue block even when shown.
-      ['staffCount','fhrs','fhrsUrl'].forEach(id=>{const el=document.getElementById(id); if(el) el.required=false;});
+      ['homeAddressLine2','homeAddressCounty','venueAddressLine2','venueAddressCounty','staffCount','fhrs','fhrsUrl']
+        .forEach(id=>{const el=document.getElementById(id); if(el) el.required=false;});
       updateEmployerInsurance();
       updateProgress();
     }
@@ -605,6 +617,19 @@
     }
 
     function offerValid(){ return offerInputs.some(i=>i.checked); }
+
+    function validateContactFields(){
+      emailInput.setCustomValidity(
+        emailInput.value && !ZeepUpPartnerValidation.isValidEmail(emailInput.value)
+          ? 'Enter a valid email address.'
+          : ''
+      );
+      phoneInput.setCustomValidity(
+        phoneInput.value && !ZeepUpPartnerValidation.isValidUkMobile(phoneInput.value)
+          ? 'Enter a UK mobile number beginning 07, +447 or 00447.'
+          : ''
+      );
+    }
 
     function clearValidationErrors(){
       form.querySelectorAll('.field-error').forEach(el=>el.classList.remove('field-error'));
@@ -676,6 +701,13 @@
     ppds.addEventListener('change', updatePPDS);
     if(staffCount) staffCount.addEventListener('input', updateEmployerInsurance);
     offerInputs.forEach(i=>i.addEventListener('change', ()=>{updateHomeDining(); updateProgress();}));
+    emailInput.addEventListener('input',validateContactFields);
+    phoneInput.addEventListener('input',validateContactFields);
+    dateInputs.forEach(input=>input.addEventListener('click',()=>{
+      if(typeof input.showPicker === 'function'){
+        try{input.showPicker();}catch(_error){/* Native picker already handled by the browser. */}
+      }
+    }));
     form.addEventListener('input', (event)=>{
       updateProgress();
       const field = event.target;
@@ -709,6 +741,7 @@
       errorSummary.style.display='none';
       errorSummary.textContent='Please complete the required field highlighted in red.';
       clearValidationErrors();
+      validateContactFields();
 
       const missingOffers = !offerValid();
       const invalidFields = visibleRequiredFields().filter(el=>!el.checkValidity());
