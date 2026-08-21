@@ -55,6 +55,7 @@ Top-level HTML files intentionally remain at the repository root. Vercel uses `c
 - `/store-registration` — store registration
 - `/business-registration` — legacy alias for store registration
 - `/home-chef-registration` — HomeChef registration
+- `/zeep-builder-home-chef` — responsive Zeep media builder for chefs and HomeChefs
 - `/homechef-registration` — legacy alias for HomeChef registration
 - `/corporate-dinner` — corporate dining and events
 - `/faq-italia` — Italian FAQ

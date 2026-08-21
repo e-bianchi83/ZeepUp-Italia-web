@@ -41,6 +41,7 @@ const routes = {
   '/chef-playbook': 'chef-playbook.html',
   '/chef-playbook/': 'chef-playbook.html',
   '/post-builder': 'post-builder.html',
+  '/zeep-builder-home-chef': 'zeep-builder-home-chef.html',
   '/scarica-app': 'scarica-app.html',
   '/slowfood': 'slowfood.html',
   '/referral-italia': 'referral-italia.html',
