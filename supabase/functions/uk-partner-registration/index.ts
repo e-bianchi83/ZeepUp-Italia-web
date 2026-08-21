@@ -1,4 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { PDFDocument, StandardFonts, rgb } from "npm:pdf-lib@1.17.1";
 
 // Deploy with:
 //   supabase functions deploy uk-partner-registration --no-verify-jwt
@@ -129,6 +130,86 @@ type DocumentRecord = {
   content_type: string;
   size: number;
 };
+
+type EmailAttachment = {
+  filename: string;
+  content: string;
+  content_type: string;
+};
+
+const pdfSections = [
+  {
+    title: "Partner and contact",
+    fields: [
+      ["partner_type", "Partner type"], ["first_name", "First name"],
+      ["last_name", "Last name"], ["email", "Email"], ["phone", "Mobile"],
+      ["role", "Role"], ["town_city", "Town / city"], ["age_18_plus", "Age 18+ confirmed"],
+    ],
+  },
+  {
+    title: "Business details",
+    fields: [
+      ["trading_name", "Trading name"], ["legal_operator_name", "Legal operator name"],
+      ["business_structure", "Business structure"], ["company_number", "Companies House number"],
+      ["vat_number", "VAT number"], ["website_social", "Website / Instagram"],
+      ["target_start_date", "Target start date"], ["local_authority", "Local authority"],
+    ],
+  },
+  {
+    title: "Home kitchen",
+    fields: [
+      ["home_kitchen_address", "Home kitchen address"], ["home_kitchen_postcode", "Postcode"],
+      ["property_status", "Property status"], ["home_business_permissions", "Home-business permissions"],
+      ["hmrc_status", "Tax / HMRC setup"], ["customers_enter_home", "Customers enter home"],
+    ],
+  },
+  {
+    title: "Chef / venue",
+    fields: [
+      ["venue_type", "Premises type"], ["venue_address", "Premises address"],
+      ["venue_postcode", "Postcode"], ["staff_count", "Employees / workers"],
+      ["food_hygiene_rating", "Food Hygiene Rating"], ["fhrs_url", "FSA rating link"],
+    ],
+  },
+  {
+    title: "Registration and offer",
+    fields: [
+      ["food_business_registration_status", "Registration status"],
+      ["food_business_registration_date", "Registration / submission date"],
+      ["food_business_registration_reference", "Registration reference"],
+      ["inspection_status", "Inspection status"], ["offer_types", "ZeepUp offer"],
+      ["food_description", "Food description"], ["typical_price", "Typical price"],
+      ["capacity", "Daily capacity / covers"], ["alcohol_offered", "Alcohol offered"],
+      ["alcohol_licensing_status", "Alcohol licensing status"],
+      ["max_home_dining_guests", "Maximum home-dining guests"],
+      ["home_dining_safety_status", "Premises safety review"],
+      ["pets_at_property", "Pets at property"],
+      ["accessibility_premises_notes", "Access / premises notes"],
+    ],
+  },
+  {
+    title: "Food safety and insurance",
+    fields: [
+      ["food_safety_management_system", "Food Safety Management System"],
+      ["food_hygiene_training", "Food hygiene training"], ["allergen_process", "Allergen records"],
+      ["ppds_status", "PPDS food"], ["allergen_information_confirmation", "Allergen confirmation"],
+      ["ppds_labelling_confirmation", "PPDS labelling confirmation"],
+      ["public_liability_status", "Public liability insurance"],
+      ["product_liability_status", "Product liability insurance"],
+      ["employers_liability_status", "Employers' liability insurance"],
+      ["other_licences", "Other licences / permits"],
+    ],
+  },
+  {
+    title: "Declarations",
+    fields: [
+      ["lawful_operation_confirmation", "Lawful operation confirmed"],
+      ["marketplace_confirmation", "Marketplace status confirmed"],
+      ["accuracy_confirmation", "Accuracy confirmed"], ["terms_acceptance", "Terms accepted"],
+      ["marketing_opt_in", "Marketing opt-in"],
+    ],
+  },
+] as const;
 
 function isLocalOrigin(origin: string): boolean {
   try {
@@ -275,7 +356,7 @@ function buildInternalEmail(application: ApplicationRecord): string {
       <td style="padding:4px 34px 26px;">
         <p style="margin:0 0 12px;color:#ff0066;font-size:12px;line-height:1.4;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;">New UK partner</p>
         <h1 style="margin:0;font-size:36px;line-height:1.05;font-weight:900;">A new cook joined the table<span style="color:#ff0066;">.</span></h1>
-        <p style="margin:16px 0 0;color:#444444;font-size:16px;line-height:1.55;">Review the application summary below. The full response and private documents are stored in Supabase.</p>
+        <p style="margin:16px 0 0;color:#444444;font-size:16px;line-height:1.55;">Review the application summary below. The completed form PDF and all documents supplied by the applicant are attached.</p>
       </td>
     </tr>
     <tr>
@@ -296,6 +377,193 @@ function buildInternalEmail(application: ApplicationRecord): string {
     </tr>`,
     "Automated UK partner-registration alert. Reply directly to contact the applicant.",
   );
+}
+
+function pdfText(value: unknown): string {
+  return String(value ?? "")
+    .replaceAll("£", "GBP ")
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[–—]/g, "-")
+    .replace(/[^\x20-\x7E\n\r\t]/g, "?");
+}
+
+function displayValue(value: unknown): string {
+  if (Array.isArray(value)) return value.length ? value.map(displayValue).join(", ") : "Not entered";
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  const text = String(value ?? "").trim();
+  if (!text) return "Not entered";
+  const labels: Record<string, string> = {
+    home_chef: "Home chef",
+    chef_venue: "Chef / venue",
+    collection_to_go: "To-go / collection",
+    home_dining: "Home dining",
+    venue_dine_in: "Dine-in",
+    classes_tastings: "Classes / tastings",
+    other_experience: "Other experience",
+    sole_trader: "Sole trader",
+    limited_company: "Limited company",
+    not_set_up: "Not set up yet",
+    registered: "Registered with local authority",
+    submitted: "Submitted / waiting for confirmation",
+    not_yet: "Not yet",
+    yes: "Yes",
+    no: "No",
+    maybe: "Possibly later",
+    unsure: "Unsure",
+  };
+  return labels[text] ?? text;
+}
+
+function wrapPdfText(text: string, font: { widthOfTextAtSize: (text: string, size: number) => number }, size: number, maxWidth: number): string[] {
+  const lines: string[] = [];
+  for (const paragraph of pdfText(text).split(/\r?\n/)) {
+    const words = paragraph.split(/\s+/).filter(Boolean);
+    if (!words.length) {
+      lines.push("");
+      continue;
+    }
+    let line = "";
+    for (const word of words) {
+      const candidate = line ? `${line} ${word}` : word;
+      if (font.widthOfTextAtSize(candidate, size) <= maxWidth) {
+        line = candidate;
+        continue;
+      }
+      if (line) lines.push(line);
+      if (font.widthOfTextAtSize(word, size) <= maxWidth) {
+        line = word;
+        continue;
+      }
+      let fragment = "";
+      for (const character of word) {
+        if (font.widthOfTextAtSize(fragment + character, size) > maxWidth && fragment) {
+          lines.push(fragment);
+          fragment = character;
+        } else {
+          fragment += character;
+        }
+      }
+      line = fragment;
+    }
+    if (line) lines.push(line);
+  }
+  return lines;
+}
+
+async function buildApplicationPdf(application: ApplicationRecord): Promise<Uint8Array> {
+  const document = await PDFDocument.create();
+  const regular = await document.embedFont(StandardFonts.Helvetica);
+  const bold = await document.embedFont(StandardFonts.HelveticaBold);
+  const pageWidth = 595.28;
+  const pageHeight = 841.89;
+  const margin = 46;
+  const contentWidth = pageWidth - (margin * 2);
+  const pink = rgb(1, 0, 0.4);
+  const butter = rgb(1, 0.957, 0.576);
+  const ink = rgb(0.067, 0.067, 0.067);
+  const muted = rgb(0.42, 0.4, 0.37);
+  let page = document.addPage([pageWidth, pageHeight]);
+  let y = pageHeight - 66;
+
+  const addPage = () => {
+    page = document.addPage([pageWidth, pageHeight]);
+    page.drawRectangle({ x: 0, y: pageHeight - 12, width: pageWidth, height: 12, color: pink });
+    page.drawText("ZEEPUP UK", { x: margin, y: pageHeight - 44, size: 12, font: bold, color: ink });
+    y = pageHeight - 66;
+  };
+
+  page.drawRectangle({ x: 0, y: pageHeight - 12, width: pageWidth, height: 12, color: pink });
+  page.drawText("ZEEPUP UK", { x: margin, y: y, size: 15, font: bold, color: ink });
+  y -= 38;
+  page.drawText("UK PARTNER REGISTRATION", { x: margin, y, size: 24, font: bold, color: ink });
+  y -= 24;
+  page.drawText(pdfText(application.trading_name), { x: margin, y, size: 14, font: bold, color: pink });
+  y -= 20;
+  page.drawText(`Submitted ${pdfText(formatSubmittedAt(application.submitted_at))}`, { x: margin, y, size: 9, font: regular, color: muted });
+  y -= 30;
+
+  for (const section of pdfSections) {
+    if (y < 92) addPage();
+    page.drawRectangle({ x: margin, y: y - 5, width: contentWidth, height: 24, color: butter });
+    page.drawText(section.title.toUpperCase(), { x: margin + 9, y: y + 2, size: 9, font: bold, color: ink });
+    y -= 28;
+
+    for (const [field, label] of section.fields) {
+      const lines = wrapPdfText(displayValue(application.application_data[field]), regular, 9.5, contentWidth - 18);
+      const rowHeight = 17 + Math.max(lines.length, 1) * 12;
+      if (y - rowHeight < 48) addPage();
+      page.drawText(pdfText(label).toUpperCase(), { x: margin + 3, y, size: 7.5, font: bold, color: muted });
+      y -= 13;
+      for (const line of lines) {
+        page.drawText(line || " ", { x: margin + 3, y, size: 9.5, font: regular, color: ink });
+        y -= 12;
+      }
+      page.drawLine({ start: { x: margin + 3, y: y + 4 }, end: { x: pageWidth - margin - 3, y: y + 4 }, thickness: 0.5, color: rgb(0.86, 0.86, 0.83) });
+      y -= 8;
+    }
+  }
+
+  if (y < 110) addPage();
+  page.drawRectangle({ x: margin, y: y - 5, width: contentWidth, height: 24, color: butter });
+  page.drawText("UPLOADED DOCUMENTS", { x: margin + 9, y: y + 2, size: 9, font: bold, color: ink });
+  y -= 29;
+  const uploadedDocuments = Object.values(application.documents ?? {});
+  const documentNames = uploadedDocuments.length
+    ? uploadedDocuments.map((item) => item.original_name)
+    : ["No documents uploaded"];
+  for (const name of documentNames) {
+    for (const line of wrapPdfText(name, regular, 9.5, contentWidth - 18)) {
+      page.drawText(line, { x: margin + 3, y, size: 9.5, font: regular, color: ink });
+      y -= 13;
+    }
+  }
+
+  for (const currentPage of document.getPages()) {
+    currentPage.drawText(`Application ${pdfText(application.id)}`, { x: margin, y: 24, size: 7.5, font: regular, color: muted });
+  }
+  return await document.save();
+}
+
+function encodeBase64(bytes: Uint8Array): string {
+  const chunks: string[] = [];
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    chunks.push(String.fromCharCode(...bytes.subarray(index, index + 0x8000)));
+  }
+  return btoa(chunks.join(""));
+}
+
+function safeAttachmentName(value: string): string {
+  return value.replace(/[\r\n"\\/]/g, "_").slice(0, 180) || "attachment";
+}
+
+async function buildInternalAttachments(
+  application: ApplicationRecord,
+  supabase: {
+    storage: {
+      from: (bucket: string) => {
+        download: (path: string) => Promise<{ data: Blob | null; error: unknown }>;
+      };
+    };
+  },
+): Promise<EmailAttachment[]> {
+  const pdf = await buildApplicationPdf(application);
+  const attachments: EmailAttachment[] = [{
+    filename: `ZeepUp-UK-partner-${application.id}.pdf`,
+    content: encodeBase64(pdf),
+    content_type: "application/pdf",
+  }];
+
+  for (const record of Object.values(application.documents ?? {})) {
+    const { data, error } = await supabase.storage.from(BUCKET).download(record.path);
+    if (error || !data) throw new Error(`document_download_failed:${record.path}`);
+    attachments.push({
+      filename: safeAttachmentName(record.original_name),
+      content: encodeBase64(new Uint8Array(await data.arrayBuffer())),
+      content_type: record.content_type,
+    });
+  }
+  return attachments;
 }
 
 async function sendEmail(
@@ -563,16 +831,27 @@ Deno.serve(async (request) => {
   }
 
   if (!internalEmailSent) {
-    const result = await sendEmail(resendApiKey, `uk-partner-internal-${application.id}`, {
-      from: emailFrom,
-      to: [internalEmail],
-      reply_to: application.email,
-      subject: `New ZeepUp UK partner - ${application.trading_name}`,
-      text: `New ZeepUp UK partner application\n\nTrading name: ${application.trading_name}\nApplicant: ${application.first_name} ${application.last_name}\nEmail: ${application.email}\nPhone: ${application.phone}\nTown / city: ${application.town_city}\nLocal authority: ${application.local_authority}\nReference: ${application.id}\nSubmitted: ${formatSubmittedAt(application.submitted_at)}\n\nThe full application and private documents are stored in Supabase.`,
-      html: buildInternalEmail(application),
-    });
-    internalEmailSent = result.ok;
-    if (!result.ok) emailErrors.push(`internal:${result.status}`);
+    try {
+      const attachments = await buildInternalAttachments(application, supabase);
+      const partnerLabel = application.partner_type === "home_chef" ? "home chef" : "chef/venue";
+      const result = await sendEmail(resendApiKey, `uk-partner-internal-${application.id}`, {
+        from: emailFrom,
+        to: [internalEmail],
+        reply_to: application.email,
+        subject: `NEW UK partner registration - ${partnerLabel}`,
+        text: `New ZeepUp UK partner application\n\nTrading name: ${application.trading_name}\nApplicant: ${application.first_name} ${application.last_name}\nEmail: ${application.email}\nPhone: ${application.phone}\nTown / city: ${application.town_city}\nLocal authority: ${application.local_authority}\nReference: ${application.id}\nSubmitted: ${formatSubmittedAt(application.submitted_at)}\n\nThe completed form PDF and all uploaded documents are attached.`,
+        html: buildInternalEmail(application),
+        attachments,
+      });
+      internalEmailSent = result.ok;
+      if (!result.ok) emailErrors.push(`internal:${result.status}`);
+    } catch (error) {
+      console.error("UK partner email attachment preparation failed.", {
+        applicationId: application.id,
+        message: error instanceof Error ? error.message : "unknown_error",
+      });
+      emailErrors.push("internal:attachment_failed");
+    }
   }
 
   const { error: emailStatusError } = await supabase
