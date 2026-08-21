@@ -794,6 +794,16 @@ Deno.serve(async (request) => {
         trading_name: validation.data.trading_name,
         town_city: validation.data.town_city,
         local_authority: validation.data.local_authority,
+        home_address_line_1: validation.data.home_address_line_1 || null,
+        home_address_line_2: validation.data.home_address_line_2 || null,
+        home_address_town_city: validation.data.home_address_town_city || null,
+        home_address_county: validation.data.home_address_county || null,
+        home_address_postcode: validation.data.home_kitchen_postcode || null,
+        venue_address_line_1: validation.data.venue_address_line_1 || null,
+        venue_address_line_2: validation.data.venue_address_line_2 || null,
+        venue_address_town_city: validation.data.venue_address_town_city || null,
+        venue_address_county: validation.data.venue_address_county || null,
+        venue_address_postcode: validation.data.venue_postcode || null,
         application_data: validation.data,
       })
       .select(selectFields)
