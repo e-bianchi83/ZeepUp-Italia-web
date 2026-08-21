@@ -78,7 +78,7 @@ input:focus,textarea:focus,select:focus{box-shadow:4px 4px 0 var(--butter)}
 }
 .status.ok{border-color:#8eae99;background:#f2f8f3}
 .status.warn{border-color:#e0a279;background:#fff7ef}
-.status.bad{border-color:#d66;background:#fff0f0}
+.status.bad{border-color:#b0003a;background:#fff0f4;color:#b0003a}
 .sizeBar{height:9px;border:1px solid var(--ink);background:#fff;margin-top:7px;overflow:hidden}
 .sizeBar i{display:block;height:100%;width:0;background:var(--green);transition:.2s}
 .sizeBar.over i{background:var(--tomato)}
@@ -195,10 +195,6 @@ canvas{
       </div>
       <div id="mediaStatus" class="status">Camera e microfono vengono richiesti solo quando tocchi <b>APRI CAMERA</b>. Su web servono HTTPS (o localhost) e il consenso del browser.</div>
       <div class="sizeBar" id="sizeBar"><i id="sizeFill"></i></div>
-      <div class="switchline">
-        <span><b>Compressione automatica</b><br><span class="small">solo se il file supera 40 MB</span></span>
-        <div id="compressSwitch" class="switch" role="switch" aria-checked="true"></div>
-      </div>
     </div>
 
     <div id="textModeArea" style="display:none;margin-top:11px">
@@ -638,24 +634,14 @@ el('mediaInput').addEventListener('change',async e=>{const f=e.target.files[0];i
 async function setMediaFile(file,type){
   invalidatePrepared(false);
   if(isMediaOverLimit(file.size)){
+    mediaFile=null;mediaType=null;preparedBlob=null;preparedName='';
+    el('mediaInput').value='';
     updateSize(file);
-    if(!switchOn('compressSwitch')){
-      setStatus('mediaStatus',`<b>${fmtBytes(file.size)}</b> · supera il limite di 40 MB. Attiva la compressione automatica oppure scegli un file più piccolo.`,'bad');
-      el('mediaInput').value='';
-      return false;
-    }
-    setStatus('mediaStatus',`<b>${fmtBytes(file.size)}</b> · comprimo automaticamente prima di continuare…`,'warn');
-    try{
-      file=type==='image'?await compressImage(file):await compressVideo(file);
-      if(file.size>MAX_BYTES)throw new Error('il file compresso supera ancora 40 MB');
-      setStatus('mediaStatus',`Compressione completata · <b>${fmtBytes(file.size)}</b>.`,'ok');
-    }catch(e){
-      mediaFile=null;mediaType=null;preparedBlob=null;preparedName='';
-      el('mediaInput').value='';
-      updateSize(null);
-      setStatus('mediaStatus','File non caricato. Compressione non riuscita: '+e.message,'bad');
-      return false;
-    }
+    const message=type==='video'
+      ? '<b>VIDEO NON CARICATO.</b> Il video deve essere inferiore a 40 MB.'
+      : '<b>FILE NON CARICATO.</b> Il file deve essere inferiore a 40 MB.';
+    setStatus('mediaStatus',message,'bad');
+    return false;
   }
   mediaFile=file;mediaType=type;updateSize(file);revokeMediaUrl();mediaUrl=URL.createObjectURL(file);
   if(type==='image'){
@@ -684,7 +670,7 @@ async function getVideoMeta(blob){
 async function getFFmpeg(){
   if(!window.FFmpeg)await loadScript('https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js');
   if(!ffmpegInstance){
-    const {createFFmpeg,fetchFile}=FFmpeg;ffmpegInstance=createFFmpeg({log:false});await ffmpegInstance.load();ffmpegInstance._fetchFile=fetchFile;
+    const {createFFmpeg}=FFmpeg;ffmpegInstance=createFFmpeg({log:false});await ffmpegInstance.load();
   }
   return ffmpegInstance;
 }
@@ -692,7 +678,7 @@ async function compressVideo(blob){
   const meta=await getVideoMeta(blob);if(!meta.duration)throw new Error('durata video non disponibile');
   setStatus('mediaStatus','<b>COMPRESSIONE VIDEO</b> · il primo caricamento del motore può richiedere qualche secondo.','warn');
   const ff=await getFFmpeg(),stamp=Date.now(),input=`in_${stamp}.${blob.type.includes('webm')?'webm':'mp4'}`,output=`out_${stamp}.mp4`;
-  ff.FS('writeFile',input,await ff._fetchFile(blob));
+  ff.FS('writeFile',input,new Uint8Array(await blob.arrayBuffer()));
   const totalBps=(TARGET_BYTES*8/meta.duration)*.88,audio=96000;let video=Math.max(280000,Math.min(5000000,totalBps-audio));
   const args=['-i',input];
   if(meta.width>1080)args.push('-vf','scale=1080:-2');
@@ -714,7 +700,6 @@ document.querySelectorAll('input[name=filter]').forEach(r=>r.addEventListener('c
 ['headline','textPosition','textSize','textBackground','subtitleText','productText'].forEach(id=>el(id).addEventListener('input',()=>{invalidatePrepared();draw()}));
 document.querySelectorAll('input[name=headlineFont],input[name=headlineColor],input[name=productFormat]').forEach(r=>r.addEventListener('change',()=>{invalidatePrepared();document.fonts.ready.then(draw)}));
 
-el('compressSwitch').addEventListener('click',()=>setSwitch('compressSwitch',!switchOn('compressSwitch')));
 el('subtitleSwitch').addEventListener('click',()=>{const on=!switchOn('subtitleSwitch');setSwitch('subtitleSwitch',on);el('subtitlePanel').style.display=on?'block':'none';invalidatePrepared();draw()});
 el('productSwitch').addEventListener('click',()=>{const on=!switchOn('productSwitch');setSwitch('productSwitch',on);el('productBox').style.display=on?'block':'none';invalidatePrepared();draw()});
 

@@ -29,7 +29,11 @@ test("Zeep Builder rejects an actual 45 MB video at the 40 MB boundary", (t) => 
   assert.equal(size, 45 * 1024 * 1024);
   assert.equal(isMediaOverLimit(size), true);
   assert.match(page, /if\(isMediaOverLimit\(file\.size\)\)/);
-  assert.match(page, /File non caricato\. Compressione non riuscita:/);
+  assert.match(page, /Il video deve essere inferiore a 40 MB\./);
+  assert.match(page, /setStatus\('mediaStatus',message,'bad'\)/);
+  assert.match(page, /\.status\.bad\{[^}]*color:#b0003a/);
+  assert.doesNotMatch(page, /ff\._fetchFile/);
+  assert.match(page, /new Uint8Array\(await blob\.arrayBuffer\(\)\)/);
   assert.match(page, /return false/);
 });
 
