@@ -297,17 +297,19 @@ function emailShell(preheader: string, content: string, footer: string): string 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light only">
   </head>
-  <body style="margin:0;padding:0;background:#f2f2ee;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;">
+  <body bgcolor="#ffffff" style="margin:0;padding:0;background:#ffffff;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;color-scheme:light only;">
     <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(preheader)}</div>
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#f2f2ee;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="width:100%;background:#ffffff;">
       <tr>
-        <td align="center" style="padding:36px 14px 48px;">
+        <td align="center" bgcolor="#ffffff" style="padding:36px 14px 48px;background:#ffffff;">
           <table role="presentation" width="620" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:620px;background:#ffffff;border:2px solid #111111;box-shadow:10px 10px 0 #111111;">
             <tr><td style="height:12px;background:#ff0066;font-size:0;line-height:0;">&nbsp;</td></tr>
             <tr>
-              <td style="padding:28px 34px 18px;">
-                <img src="https://www.zeepup.com/assets/images/brand/zeepup-logo.png" width="138" alt="ZeepUp" style="display:block;width:138px;max-width:100%;height:auto;border:0;">
+              <td bgcolor="#ffffff" style="padding:28px 34px 18px;background:#ffffff;">
+                <img src="https://www.zeepup.com/assets/images/brand/zeepup-header-new.png?v=20260820-3" width="138" alt="ZeepUp" style="display:block;width:138px;max-width:100%;height:auto;border:0;background:#ffffff;">
               </td>
             </tr>
             ${content}

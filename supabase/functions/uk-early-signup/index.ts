@@ -103,22 +103,24 @@ function buildSignupNotificationHtml(
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light only">
     <title>New ZeepUp UK early access signup</title>
   </head>
-  <body style="margin:0;padding:0;background:#f4f4f0;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;">
+  <body bgcolor="#ffffff" style="margin:0;padding:0;background:#ffffff;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;color-scheme:light only;">
     <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
       A new person has joined the ZeepUp UK early access list.
     </div>
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#f4f4f0;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="width:100%;background:#ffffff;">
       <tr>
-        <td align="center" style="padding:32px 16px;">
+        <td align="center" bgcolor="#ffffff" style="padding:32px 16px;background:#ffffff;">
           <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border:2px solid #111111;box-shadow:10px 10px 0 #111111;">
             <tr>
               <td style="height:10px;background:#ff0066;font-size:0;line-height:0;">&nbsp;</td>
             </tr>
             <tr>
-              <td style="padding:28px 32px 20px;">
-                <img src="https://www.zeepup.com/assets/images/brand/zeepup-logo.png" width="132" alt="ZeepUp" style="display:block;width:132px;max-width:100%;height:auto;border:0;">
+              <td bgcolor="#ffffff" style="padding:28px 32px 20px;background:#ffffff;">
+                <img src="https://www.zeepup.com/assets/images/brand/zeepup-header-new.png?v=20260820-3" width="132" alt="ZeepUp" style="display:block;width:132px;max-width:100%;height:auto;border:0;background:#ffffff;">
               </td>
             </tr>
             <tr>

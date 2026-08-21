@@ -113,13 +113,15 @@ function buildNotificationHtml(registration: Registration): string {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light only">
     <title>New Chef registration</title>
   </head>
-  <body style="margin:0;padding:0;background:#f0ede7;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;">
+  <body bgcolor="#ffffff" style="margin:0;padding:0;background:#ffffff;color:#111111;font-family:Arial,'Helvetica Neue',sans-serif;color-scheme:light only;">
     <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">A new chef has applied to join ZeepUp. Open for the key details.</div>
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#f0ede7;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="width:100%;background:#ffffff;">
       <tr>
-        <td align="center" style="padding:40px 16px;">
+        <td align="center" bgcolor="#ffffff" style="padding:40px 16px;background:#ffffff;">
           <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border:2px solid #111111;box-shadow:12px 12px 0 #ff0066;">
             <tr>
               <td style="height:12px;background:#ff0066;font-size:0;line-height:0;">&nbsp;</td>
@@ -128,8 +130,8 @@ function buildNotificationHtml(registration: Registration): string {
               <td style="padding:28px 32px 18px;">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                   <tr>
-                    <td valign="middle">
-                      <img src="https://www.zeepup.com/assets/images/brand/zeepup-logo.png" width="132" alt="ZeepUp" style="display:block;width:132px;max-width:100%;height:auto;border:0;">
+                    <td valign="middle" bgcolor="#ffffff" style="background:#ffffff;">
+                      <img src="https://www.zeepup.com/assets/images/brand/zeepup-header-new.png?v=20260820-3" width="132" alt="ZeepUp" style="display:block;width:132px;max-width:100%;height:auto;border:0;background:#ffffff;">
                     </td>
                     <td align="right" valign="middle">
                       <span style="display:inline-block;padding:8px 12px;background:#fff493;border:2px solid #111111;font-size:11px;line-height:1;font-weight:800;letter-spacing:1px;text-transform:uppercase;">New application</span>
